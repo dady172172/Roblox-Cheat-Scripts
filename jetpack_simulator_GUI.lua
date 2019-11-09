@@ -3,6 +3,7 @@
 --Updated = 11-8-19
 --Creator = dady172172
 --https://github.com/dady172172/Roblox-Cheats
+
 local VirtualUser=game:service'VirtualUser'
 game:service'Players'.LocalPlayer.Idled:connect(function()
     VirtualUser:CaptureController()
@@ -24,6 +25,7 @@ lightningorb = false
 prestige = false
 jetpackupgrade = false
 fuelupgrade = false
+autofarm = false
 
 game:GetService("Players").keathunsar.PlayerGui.MainGUI.FullFuelFrame.Visible = false
 game:GetService("Players").keathunsar.PlayerGui.MainGUI.NotEnoughMoneyFrame.Visible = false
@@ -60,16 +62,11 @@ local LightningOrbBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,F
 local PrestigeBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Prestige',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.0248362496, 0, 0.798271954, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 89, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='PrestigeBtn',Parent = JPSFrame})
 local FuelUpgradeBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Fuel Upgrade',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.348554194, 0, 0.798271954, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 89, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='FuelUpgradeBtn',Parent = JPSFrame})
 local JetpackUpgradeBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Jetpack Upgrade',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.672272265, 0, 0.798271954, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 89, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='JetpackUpgradeBtn',Parent = JPSFrame})
-local CloseBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.876005709, 0, 0.00893018581, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 34, 0, 22),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='CloseBtn',Parent = JPSFrame})
+local AutoFarmBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Auto Farm',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.342924863, 0, 0.0890337229, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 83, 0, 22),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='AutoFarmBtn',Parent = JPSFrame})
 local TextLabel = CreateInstance('TextLabel',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='These only work while above is active and one time on activation.',TextColor3=Color3.new(1, 1, 1),TextScaled=true,TextSize=14,TextStrokeColor3=Color3.new(1, 1, 1),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=true,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,Active=false,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(1, 1, 1),BackgroundTransparency=1,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.0346699283, 0, 0.709321856, 0),Rotation=0,Selectable=false,Size=UDim2.new(0, 273, 0, 31),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='TextLabel',Parent = JPSFrame})
-local ImageLabel = CreateInstance('ImageLabel',{Image='rbxassetid://38727848',ImageColor3=Color3.new(1, 1, 1),ImageRectOffset=Vector2.new(0, 0),ImageRectSize=Vector2.new(0, 0),ImageTransparency=0,ScaleType=Enum.ScaleType.Crop,SliceCenter=Rect.new(0, 0, 0, 0),Active=false,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(1, 1, 1),BackgroundTransparency=1,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.189269423, 0, 0.241655797, 0),Rotation=90,Selectable=false,Size=UDim2.new(0, 183, 0, 303),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='ImageLabel',Parent = JPSFrame})
-local ImageLabel = CreateInstance('ImageLabel',{Image='rbxassetid://38727848',ImageColor3=Color3.new(1, 1, 1),ImageRectOffset=Vector2.new(0, 0),ImageRectSize=Vector2.new(0, 0),ImageTransparency=0,ScaleType=Enum.ScaleType.Crop,SliceCenter=Rect.new(0, 0, 0, 0),Active=false,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(1, 1, 1),BackgroundTransparency=1,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.189178661, 0, -0.255233288, 0),Rotation=90,Selectable=false,Size=UDim2.new(0, 183, 0, 303),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='ImageLabel',Parent = JPSFrame})
+local ImageLabel = CreateInstance('ImageLabel',{Image='rbxassetid://38727848',ImageColor3=Color3.new(1, 1, 1),ImageRectOffset=Vector2.new(0, 0),ImageRectSize=Vector2.new(0, 0),ImageTransparency=0,ScaleType=Enum.ScaleType.Crop,SliceCenter=Rect.new(0, 0, 0, 0),Active=false,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(1, 1, 1),BackgroundTransparency=1,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.176358148, 0, -0.249885708, 0),Rotation=90,Selectable=false,Size=UDim2.new(0, 183, 0, 303),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=0,Name='ImageLabel',Parent = JPSFrame})
+local ImageLabel = CreateInstance('ImageLabel',{Image='rbxassetid://38727848',ImageColor3=Color3.new(1, 1, 1),ImageRectOffset=Vector2.new(0, 0),ImageRectSize=Vector2.new(0, 0),ImageTransparency=0,ScaleType=Enum.ScaleType.Crop,SliceCenter=Rect.new(0, 0, 0, 0),Active=false,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(1, 1, 1),BackgroundTransparency=1,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.189269423, 0, 0.241655797, 0),Rotation=90,Selectable=false,Size=UDim2.new(0, 183, 0, 303),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=0,Name='ImageLabel',Parent = JPSFrame})
 local OpenBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Open',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(1.36609697, 0, -0.609625518, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 73, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='OpenBtn',Parent = Frame})
-
-CloseBtn.MouseButton1Click:connect(function()
-    OpenBtn.Text = "Open"
-    JPSFrame.Visible = false
-end)
 
 OpenBtn.MouseButton1Click:connect(function()
     if JPSFrame.Visible == true then
@@ -78,6 +75,16 @@ OpenBtn.MouseButton1Click:connect(function()
     else
         OpenBtn.Text = "Close"
         JPSFrame.Visible = true
+    end
+end)
+
+AutoFarmBtn.MouseButton1Click:connect(function()
+    if autofarm == true then autofarm = false print("Disabled")
+        AutoFarmBtn.BackgroundColor3 = Color3.new(0, 0, 0)
+    elseif
+        autofarm == false then autofarm = true print("Enabled")
+        AutoFarmBtn.BackgroundColor3 = Color3.new(0, 170, 0)
+        AutoFarmFunc()
     end
 end)
 
@@ -242,7 +249,7 @@ function sell()
     if game.Players.LocalPlayer.PlayerGui.MainGUI.FuelDisplay.TextLabel.Text == _G.MaxSize then 
        wait(.1)
        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(141.2047, 3.32, -3.3)
-       wait(.1)
+       wait(.8)
        if prestige == true then game:GetService("ReplicatedStorage").ServerToClient.RequestPrestige:FireServer() end
     end
 end
@@ -405,5 +412,124 @@ function LightningOrb()
         end
         sell()
         Upgrade()
+    end
+end
+
+
+function AutoFarmFunc()
+    while autofarm == true do
+        local a = game:GetService("ReplicatedStorage").DataFolder.keathunsar.JetpackData.EnergyLevel.Value
+        if a == 1 then
+            update()
+            wait()
+            local coalarea = game.workspace.Areas.Area1:FindFirstChild("Coal")
+            if coalarea then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = coalarea.Coal.HitPart.CFrame
+            end
+            sell()
+            Upgrade()
+        elseif  a == 2 then 
+            update()
+            wait()
+            local batteryarea = game.workspace.Areas.Area2:FindFirstChild("Battery")
+            if batteryarea then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = batteryarea.Battery.HitPart.CFrame
+            end
+            sell()
+            Upgrade()
+        elseif  a == 3 then
+            update()
+            wait()
+            local v = game.workspace.Areas.Area2:FindFirstChild("Solar")
+            if v then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Solar.HitPart.CFrame
+            end
+            sell()
+            Upgrade()
+        elseif a == 4 then
+            update()
+            wait()
+            local v = game.workspace.Areas.Area4:FindFirstChild("Wind")
+            if v then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Wind.HitPart.CFrame
+            end
+            sell()
+            Upgrade()
+        elseif a == 5 then
+            update()
+            wait()
+            local v = game.workspace.Areas.Area7:FindFirstChild("Nuclear")
+            if v then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Nuclear.HitPart.CFrame
+            end
+            sell()
+            Upgrade()
+        elseif a == 6 then
+            update()
+            wait()
+            local v = game.workspace.Areas.Area7:FindFirstChild("Plasma")
+            if v then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Plasma.HitPart.CFrame
+            end
+            sell()
+            Upgrade()
+        elseif a == 7 then
+            update()
+            wait()
+            local v = game.workspace.Areas.Area11:FindFirstChild("Aetherium")
+            if v then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Aetherium.HitPart.CFrame
+            end
+            sell()
+            Upgrade()
+        elseif a == 8 then
+            update()
+            wait()
+            local v = game.workspace.Areas.Area13:FindFirstChild("Corrodium")
+            if v then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Corrodium.HitPart.CFrame
+            end
+            sell()
+            Upgrade()
+        elseif a == 9 then
+            update()
+            wait()
+            local v = game.workspace.Areas.Area13:FindFirstChild("Element 99")
+            if v then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v["Element 99"].HitPart.CFrame
+            end
+            sell()
+            Upgrade()
+        elseif a == 10 then
+            update()
+            wait()
+            local v = game.workspace.Areas.Area15:FindFirstChild("Galacticium")
+            if v then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Galacticium.HitPart.CFrame
+            end
+            sell()
+            Upgrade()
+        elseif a == 11 then
+            update()
+            wait()
+            local v = game.workspace.Areas.Area17:FindFirstChild("Magmatium")
+            if v then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Magmatium.HitPart.CFrame
+            end
+            sell()
+            Upgrade()
+        elseif a == 12 then
+            update()
+            wait()
+            local v = game.workspace.Areas.Area19:FindFirstChild("Lightning Orb")
+            if v then
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v["Lightning Orb"].HitPart.CFrame
+            end
+            sell()
+            Upgrade()
+        else
+            print("error in jetpack level")
+            return
+        end
     end
 end
