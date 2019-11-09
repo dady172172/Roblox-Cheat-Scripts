@@ -10,7 +10,7 @@ local enabled = {
     RemoteEvent = true,
     RemoteFunction = true,
     CharacterSoundEvent = false,
-    GetSetting = false
+    GetSetting = false,
     wear = false
     
 }
