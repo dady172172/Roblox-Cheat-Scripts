@@ -27,9 +27,10 @@ jetpackupgrade = false
 fuelupgrade = false
 autofarm = false
 
-game:GetService("Players").keathunsar.PlayerGui.MainGUI.FullFuelFrame.Visible = false
-game:GetService("Players").keathunsar.PlayerGui.MainGUI.NotEnoughMoneyFrame.Visible = false
-game:GetService("Players").keathunsar.PlayerGui.MainGUI.PrestigeFrame.Visible = false
+local plr = game.Players.LocalPlayer.Name
+game:GetService("Players")[plr].PlayerGui.MainGUI.FullFuelFrame.Visible = false
+game:GetService("Players")[plr].PlayerGui.MainGUI.NotEnoughMoneyFrame.Visible = false
+game:GetService("Players")[plr].PlayerGui.MainGUI.PrestigeFrame.Visible = false
 
 local jpData = game.ReplicatedStorage.DataFolder:WaitForChild(game.Players.LocalPlayer.Name):WaitForChild("JetpackData")
 local mf = jpData.MaxFuel
@@ -246,12 +247,14 @@ function update()
 end
 
 function sell()
-    if game.Players.LocalPlayer.PlayerGui.MainGUI.FuelDisplay.TextLabel.Text == _G.MaxSize then 
-       wait(.1)
-       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(141.2047, 3.32, -3.3)
-       wait(.8)
-       if prestige == true then game:GetService("ReplicatedStorage").ServerToClient.RequestPrestige:FireServer() end
+    while game.Players.LocalPlayer.PlayerGui.MainGUI.FuelDisplay.TextLabel.Text == _G.MaxSize do
+        local plr = game.Players.LocalPlayer.Name
+        local a = game:GetService("ReplicatedStorage").DataFolder[plr].JetpackData.EnergyLevel.Value
+        wait()       
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(92.0046844, 12631.6514, -12.5105247)        
+        wait()       
     end
+    if prestige == true then game:GetService("ReplicatedStorage").ServerToClient.RequestPrestige:FireServer() end   
 end
 
 function Upgrade()
@@ -276,7 +279,7 @@ function Battery()
     while battery == true do
         update()
         wait()
-        local batteryarea = game.workspace.Areas.Area2:FindFirstChild("Battery")
+        local batteryarea = game.workspace.Areas.Area1:FindFirstChild("Battery")
         if batteryarea then
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = batteryarea.Battery.HitPart.CFrame
         end
@@ -289,7 +292,7 @@ function Solar()
     while solar == true do
         update()
         wait()
-        local v = game.workspace.Areas.Area2:FindFirstChild("Solar")
+        local v = game.workspace.Areas.Area3:FindFirstChild("Solar")
         if v then
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Solar.HitPart.CFrame
         end
@@ -418,7 +421,8 @@ end
 
 function AutoFarmFunc()
     while autofarm == true do
-        local a = game:GetService("ReplicatedStorage").DataFolder.keathunsar.JetpackData.EnergyLevel.Value
+        local plr = game.Players.LocalPlayer.Name
+        local a = game:GetService("ReplicatedStorage").DataFolder[plr].JetpackData.EnergyLevel.Value
         if a == 1 then
             update()
             wait()
@@ -428,6 +432,7 @@ function AutoFarmFunc()
             end
             sell()
             Upgrade()
+            wait()
         elseif  a == 2 then 
             update()
             wait()
@@ -526,7 +531,7 @@ function AutoFarmFunc()
                 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v["Lightning Orb"].HitPart.CFrame
             end
             sell()
-            Upgrade()
+            Upgrade() 
         else
             print("error in jetpack level")
             return
