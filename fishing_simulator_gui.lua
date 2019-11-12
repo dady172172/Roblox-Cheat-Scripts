@@ -1,6 +1,6 @@
 --https://www.roblox.com/games/3329474278/FISHING-SIMULATOR
 --https://github.com/dady172172/Roblox-Cheats
-
+--image https://prnt.sc/pvx4iy
 local function CreateInstance(cls,props)
 local inst = Instance.new(cls)
 for i,v in pairs(props) do
