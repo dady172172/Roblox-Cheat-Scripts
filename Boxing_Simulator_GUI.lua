@@ -40,10 +40,6 @@ local InfHealthBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,Font
 local FarmBossBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Farm Boss',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.486374795, 0, 0.372502059, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 89, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=2,Name='FarmBossBtn',Parent = JPSFrame})
 local OpenBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Close',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(1.36609697, 0, -0.609625518, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 73, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='OpenBtn',Parent = Frame})
 
----to add -----------
---InfHealthBtn
---FarmBossBtn
-
 OpenBtn.MouseButton1Click:connect(function()
     if OpenBtn.Text == "Close" then
         OpenBtn.Text = "Open"
@@ -142,8 +138,9 @@ function infHealth()
     while infhealth == true do
         wait()
         local plr = game.Players.LocalPlayer.Name
-        local a = game:GetService("Workspace").keathunsar.Humanoid.MaxHealth
-        game:GetService("Workspace")[plr].Humanoid.Health = a
+        game.Players[plr].Character.Humanoid.MaxHealth = math.huge
+        game.Players[plr].Character.Humanoid.Health = math.huge
+        
     end
 end
 
@@ -170,14 +167,3 @@ function TP(location)
     
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = location
 end
-
-
-
-
-
-
-
-
-
-
-
