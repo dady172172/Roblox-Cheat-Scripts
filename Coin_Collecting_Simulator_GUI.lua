@@ -14,6 +14,12 @@ multpos = game:GetService("Workspace")["Multiplier Button"].Head.CFrame
 gempos = game:GetService("Workspace")["Gems  Button"].Head.CFrame
 rebirthpos = game:GetService("Workspace")["Rebirth  Button"].Head.CFrame
 
+local VirtualUser=game:service'VirtualUser'
+game:service'Players'.LocalPlayer.Idled:connect(function()
+    VirtualUser:CaptureController()
+    VirtualUser:ClickButton2(Vector2.new())
+end)
+
 local function CreateInstance(cls,props)
 local inst = Instance.new(cls)
 for i,v in pairs(props) do
