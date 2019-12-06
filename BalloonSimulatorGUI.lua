@@ -1,12 +1,20 @@
 --[[
-https://www.roblox.com/games/2756231960/UPDATE-Balloon-Simulator
-https://github.com/dady172172/Roblox-Cheats
+Game https://www.roblox.com/games/2756231960/UPDATE-Balloon-Simulator
+contact https://github.com/dady172172/Roblox-Cheats
 Image https://prnt.sc/q75vfj
 ]]--
 farm = false
 coins = false
 gems = false
 buybest = false
+rebirth = false
+plr = game.Players.LocalPlayer.Name
+
+local VirtualUser=game:service'VirtualUser'
+game:service'Players'.LocalPlayer.Idled:connect(function()
+VirtualUser:CaptureController()
+VirtualUser:ClickButton2(Vector2.new())
+end)
 
 local function CreateInstance(cls,props)
 local inst = Instance.new(cls)
@@ -58,46 +66,48 @@ OpenBtn.MouseButton1Click:connect(function()
 end)
 
 FarmCoinsBtn.MouseButton1Click:connect(function()
-    if coins == true then coins = false print("Disabled")
+    if coins == true then coins = false 
         FarmCoinsBtn.BackgroundColor3 = Color3.new(0, 0, 0)
-    elseif coins == false then coins = true print("Enabled")
+    elseif coins == false then coins = true 
         FarmCoinsBtn.BackgroundColor3 = Color3.new(0, 170, 0)
     end
     CoinsFunc()
 end)
 
 FarmGemsBtn.MouseButton1Click:connect(function()
-    if gems == true then gems = false print("Disabled")
+    if gems == true then gems = false 
         FarmGemsBtn.BackgroundColor3 = Color3.new(0, 0, 0)
-    elseif gems == false then gems = true print("Enabled")
+    elseif gems == false then gems = true 
         FarmGemsBtn.BackgroundColor3 = Color3.new(0, 170, 0)
     end
     GemsFunc()
 end)
 
 FarmBalloonsBtn.MouseButton1Click:connect(function()
-    if farm == true then farm = false print("Disabled")
+    if farm == true then farm = false 
         FarmBalloonsBtn.BackgroundColor3 = Color3.new(0, 0, 0)
-    elseif farm == false then farm = true print("Enabled")
+    elseif farm == false then farm = true 
         FarmBalloonsBtn.BackgroundColor3 = Color3.new(0, 170, 0)
     end
     BalloonFunc()
 end)
 
 BuyBestBtn.MouseButton1Click:connect(function()
-    if buybest == true then buybest = false print("Disabled")
+    if buybest == true then buybest = false 
         BuyBestBtn.BackgroundColor3 = Color3.new(0, 0, 0)
-    elseif buybest == false then buybest = true print("Enabled")
+    elseif buybest == false then buybest = true 
         BuyBestBtn.BackgroundColor3 = Color3.new(0, 170, 0)
     end
     BuyBestFunc()
 end)
 
 RebirthBtn.MouseButton1Click:connect(function()
-    local v = CFrame.new(238.250473, 63362.6172, 1982.33765, -0.971987963, -9.69758247e-08, 0.235030681, -9.92992568e-08, 1, 1.94930538e-09, -0.235030681, -2.144367e-08, -0.971987963)
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v
-    wait(.00001)
-    game:GetService("ReplicatedStorage").Rebirth:InvokeServer()
+    if rebirth == true then rebirth = false 
+        RebirthBtn.BackgroundColor3 = Color3.new(0, 0, 0)
+    elseif rebirth == false then rebirth = true 
+        RebirthBtn.BackgroundColor3 = Color3.new(0, 170, 0)
+    end
+    RebirthFunc()
 end)
 
 TpChestsBtn.MouseButton1Click:connect(function()
@@ -166,12 +176,16 @@ function CoinsFunc()
     while coins == true do
         for _,v in pairs(game:GetService("Workspace").Coins:GetChildren()) do	
             if coins == false then return end
-            if v.Transparency == 0 then
+            if v.Transparency == 0 then               
                 local LSave = v.CFrame
-                v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-                wait(.1)
-                v.CFrame = LSave
-                v.Transparency = 1
+                if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                    v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                    wait(.1)
+                    v.CFrame = LSave
+                    v.Transparency = 1
+                else
+                    wait(.5)
+                end               
             else
             end
         end
@@ -185,10 +199,14 @@ function GemsFunc()
             if gems == false then return end
             if v.Transparency == 0 then
                 local LSave = v.CFrame
-                v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-                wait(.1)
-                v.CFrame = LSave
-                v.Transparency = 1
+                if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                    v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                    wait(.1)
+                    v.CFrame = LSave
+                    v.Transparency = 1
+                else
+                    wait(.5)
+                end
             else
             end
         end
@@ -208,7 +226,7 @@ function BalloonFunc()
 end
 
 function BuyBestFunc()
-    local plr = game.Players.LocalPlayer.Name
+    
     while buybest == true do
         
         local found = game:GetService("Players")[plr].OwnedBalloons:FindFirstChild("Gumball")
@@ -232,6 +250,16 @@ function tpDestination(name)
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v[name].CFrame
             return
         end
+    end
+end
+
+function RebirthFunc()
+    while rebirth == true do
+        local v = CFrame.new(238.250473, 63362.6172, 1982.33765, -0.971987963, -9.69758247e-08, 0.235030681, -9.92992568e-08, 1, 1.94930538e-09, -0.235030681, -2.144367e-08, -0.971987963)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v
+        wait(.7)
+        game:GetService("ReplicatedStorage").Rebirth:InvokeServer()       
+        wait(1)
     end
 end
 
