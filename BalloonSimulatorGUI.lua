@@ -8,7 +8,12 @@ coins = false
 gems = false
 buybest = false
 rebirth = false
-plr = game.Players.LocalPlayer.Name
+Players = game:GetService("Players")
+plr = Players.LocalPlayer.Name
+Player = Players[plr]
+Replicated = game:GetService("ReplicatedStorage")
+Balloons = {"Red", "Blue", "Pink", "Yellow", "Green", "Black", "White", "PinkPolkaDots", "Black and White", "Rainbow", "Birthday", "Venom", "Aquatic", "Radioactive", "Alien", "Lava", "Galaxy", "Ruby", "Sapphire", "Emerald", "MLG", "Angelic", "Demonic", "Gumball", "Teddy Bear", "Toy", "Plasma", "Star", "X-Ray", "VOID"}
+Hel = {"Normal", "Stretchy", "Very Stretchy", "Quiet", "Loud", "Cool", "Epic", "Super", "Super Duper", "Unreal", "Legendary", "Mythical", "Heroic", "Godly", "Out of This World", "Extraterrestrial", "Experimental", "Radioactive", "Nuclear", "Futuristic", "Quantum", "Bubblegum", "Toy", "Formal", "Almighty", "XTREME", "Olympian", "Hades", "Poseidon", "Zeus"}
 
 local VirtualUser=game:service'VirtualUser'
 game:service'Players'.LocalPlayer.Idled:connect(function()
@@ -111,65 +116,65 @@ RebirthBtn.MouseButton1Click:connect(function()
 end)
 
 TpChestsBtn.MouseButton1Click:connect(function()
-    local PlrLocation = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+    local PlrLocation = Player.Character.HumanoidRootPart.CFrame
     for _,v in pairs(game:GetService("Workspace").Chests:GetChildren()) do
         wait(.1)
-       game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+       Player.Character.HumanoidRootPart.CFrame = v.CFrame
     end
     wait(.1)
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+    Player:WaitForChild("Character").HumanoidRootPart.CFrame = v.CFrame
 end)
 
 TpTropicalParadiseBtn.MouseButton1Click:connect(function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Tropical Paradise"].CFrame
+    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Tropical Paradise"].CFrame
 end)
 
 TpCandylandBtn.MouseButton1Click:connect(function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Candyland"].CFrame
+    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Candyland"].CFrame
 end)
 
 TpArchervilleBtn.MouseButton1Click:connect(function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Archerville"].CFrame
+    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Archerville"].CFrame
 end)
 
 TpAncientGreeceBtn.MouseButton1Click:connect(function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Ancient Greece"].CFrame
+    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Ancient Greece"].CFrame
 end)
 
 TpSkylandBtn.MouseButton1Click:connect(function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Skyland"].CFrame
+    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Skyland"].CFrame
 end)
 
 TpToyLandBtn.MouseButton1Click:connect(function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Toyland"].CFrame
+    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Toyland"].CFrame
 end)
 
 TpAlienlandBtn.MouseButton1Click:connect(function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Alienland"].CFrame
+    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Alienland"].CFrame
 end)
 
 TpDinolandBtn.MouseButton1Click:connect(function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Dinoland"].CFrame
+    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Dinoland"].CFrame
 end)
 
 TpRobolandBtn.MouseButton1Click:connect(function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Roboland"].CFrame
+    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Roboland"].CFrame
 end)
 
 TpDragonworldBtn.MouseButton1Click:connect(function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations.Dragoworld.CFrame
+    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations.Dragoworld.CFrame
 end)
 
 TpDragonlandBtn.MouseButton1Click:connect(function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations.Dragoland.CFrame
+    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations.Dragoland.CFrame
 end)
 
 TpAquaWorldBtn.MouseButton1Click:connect(function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Aquaworld"].CFrame
+    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Aquaworld"].CFrame
 end)
 
 TpAqualandBtn.MouseButton1Click:connect(function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Aqualand"].CFrame
+    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Aqualand"].CFrame
 end)
 
 function CoinsFunc()
@@ -178,8 +183,8 @@ function CoinsFunc()
             if coins == false then return end
             if v.Transparency == 0 then               
                 local LSave = v.CFrame
-                if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-                    v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                if Player.Character:FindFirstChild("HumanoidRootPart") then
+                    v.CFrame = Player.Character.HumanoidRootPart.CFrame
                     wait(.1)
                     v.CFrame = LSave
                     v.Transparency = 1
@@ -199,8 +204,8 @@ function GemsFunc()
             if gems == false then return end
             if v.Transparency == 0 then
                 local LSave = v.CFrame
-                if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-                    v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+                if Player.Character:FindFirstChild("HumanoidRootPart") then
+                    v.CFrame = Player.Character.HumanoidRootPart.CFrame
                     wait(.1)
                     v.CFrame = LSave
                     v.Transparency = 1
@@ -216,12 +221,12 @@ end
 function BalloonFunc()
     while farm == true do
         wait()
-        game.ReplicatedStorage.FillBalloon:FireServer()
-        game.ReplicatedStorage.FillBalloon:FireServer()
-        game.ReplicatedStorage.FillBalloon:FireServer()
-        game.ReplicatedStorage.FillBalloon:FireServer()
-        local v = Workspace.UITriggers.Sell
-        game.ReplicatedStorage.Sell:FireServer(v)
+        Replicated.FillBalloon:FireServer()
+        Replicated.FillBalloon:FireServer()
+        Replicated.FillBalloon:FireServer()
+        Replicated.FillBalloon:FireServer()
+        local v = Workspace.UITriggers.Sell2
+        Replicated.Sell:FireServer(v)
     end
 end
 
@@ -229,17 +234,37 @@ function BuyBestFunc()
     
     while buybest == true do
         
-        local found = game:GetService("Players")[plr].OwnedBalloons:FindFirstChild("Gumball")
-        local found1 = game:GetService("Players")[plr].OwnedHelium:FindFirstChild("Bubblegum")
-        if not found then
-            game.ReplicatedStorage.BuyHelium:InvokeServer("Bubblegum")
-            game.ReplicatedStorage.EquipHelium:FireServer("Bubblegum")
-        end
-        if not found1 then
-            game.ReplicatedStorage.BuyBalloon:InvokeServer("Gumball")
-            game.ReplicatedStorage.EquipBalloon:FireServer("Gumball")
+        --balloon
+        local currentBalloonName = Player:FindFirstChild("CurrentBalloon").Value
+        local balloonNext = 0
+        if currentBalloonName == nil then wait(1) end
+        if currentBalloonName ~= "VOID" then
+            for index,value in ipairs(Balloons) do
+                if value == currentBalloonName then
+                    balloonNext = index + 1
+                end
+            end
+            Replicated.BuyBalloon:InvokeServer(Balloons[balloonNext])
+            Replicated.EquipBalloon:FireServer(Balloons[balloonNext])
+        else
         end
         wait(.1)
+        --helium  
+        local currentHelName = Player:FindFirstChild("CurrentHelium").Value
+        local HeliumNext = 0
+        if currentHelName == nil then wait(1) end
+        if currentHelName ~= "Zeus" then
+            for index,value in ipairs(Hel) do
+                if value == currentHelName then
+                    HeliumNext = index + 1
+                end
+            end
+            Replicated.BuyHelium:InvokeServer(Hel[HeliumNext])
+            Replicated.EquipHelium:FireServer(Hel[HeliumNext])
+        else
+        end
+        wait(1)
+
     end
 end
 
@@ -247,7 +272,7 @@ end
 function tpDestination(name)
     for _,v in pairs(game:GetService("Workspace").Destinations:GetChildren()) do
         if v.Name == name then
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v[name].CFrame
+            Player.Character.HumanoidRootPart.CFrame = v[name].CFrame
             return
         end
     end
@@ -256,7 +281,7 @@ end
 function RebirthFunc()
     while rebirth == true do
         local v = CFrame.new(238.250473, 63362.6172, 1982.33765, -0.971987963, -9.69758247e-08, 0.235030681, -9.92992568e-08, 1, 1.94930538e-09, -0.235030681, -2.144367e-08, -0.971987963)
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v
+        Player.Character.HumanoidRootPart.CFrame = v
         wait(.7)
         game:GetService("ReplicatedStorage").Rebirth:InvokeServer()       
         wait(1)
