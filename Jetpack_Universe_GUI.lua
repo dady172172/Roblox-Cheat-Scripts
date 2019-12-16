@@ -384,7 +384,7 @@ function AutoFarmFunc()
             if bound then
                 HRP.CFrame = bound.CFrame + Vector3.new(0, 3, 0)
             end            
-        elseif a == 7 then --corrodium           
+        elseif a >= 7 then --corrodium           
             bound = ARS.Corrodius["Corrodium"]["Corrodium"]:FindFirstChild("BOUNDS")
             wait()
             if bound then
