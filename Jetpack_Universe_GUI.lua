@@ -396,6 +396,7 @@ function AutoFarmFunc()
             UpgradeBtn.BackgroundColor3 = Color3.new(0, 0, 0)                    
             sell = false
             SellBtn.BackgroundColor3 = Color3.new(0, 0, 0)
+            wait()
         end
         upgradejetpack:FireServer()
         upgradefueltank:FireServer()
