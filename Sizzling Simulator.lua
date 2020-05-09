@@ -4,7 +4,7 @@ contact https://github.com/dady172172/Roblox-Cheats
 ]]--
 
 -------
-drop off meat and collect goins "loop"
+--drop off meat and collect goins "loop"
 -------
 _G.dropCollect = true
 while _G.dropCollect == true do
