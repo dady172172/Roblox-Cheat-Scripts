@@ -20,6 +20,8 @@ local a = page:addSection("Collect")
 local aa = page:addSection("Rebirth")
 local page2 = venyx:addPage("Menus", 5012544693)
 local b = page2:addSection("Menus")
+local ba = page2:addSection("Crafting")
+local bb = page2:addSection("Rebirth")
 local page3 = venyx:addPage("Buy", 5012544693)
 local c = page3:addSection("Weapon")
 local ca = page3:addSection("Fork")
@@ -139,8 +141,12 @@ forkArray[26] = {forkId = 27, cost = 200000000}
 forkArray[27] = {forkId = 28, cost = 300000000}
 forkArray[28] = {forkId = 29, cost = 500000000}
 
+-- list of animals names
+local animalNamesList = {"Closest", "Chicken", "Cornish Chicken", "Duck", "Blue Duck", "Cow", "Brown Cow", "Turkey", "Red Turkey", "Pig", "Fat Pig", "Bison", "Dark Bison", "Doe", "Buck", "Black Bear", "Grizzly Bear", "Moose", "Angry Moose", "Dinosaur", "Angry Dinosaur", "Fiery Dinosaur", "Wolf", "Brown Wolf", "Big Bad Wolf", "Arctic Fox", "Yeti"}
+
 ---------------------------------------- Main ---------------------------------------------------
 ---- Auto Attack ----
+local autoAttackAnimalName = "Closest"
 local meat = false
 local coin = false
 local last = math.huge
@@ -148,22 +154,33 @@ local nearest = nil
 local id = nil
 local autoAttackBool = false
 local currentTarget = 8
+a:addDropdown(autoAttackAnimalName,animalNamesList,function(num)
+	autoAttackAnimalName = num
+end)
 a:addToggle("Auto Attack", false, function(bool)
 	autoAttackBool = bool
 	if bool == false then
 		RemoteEvent:FireServer("Animal Deselected", currentTarget)
 	end
 end)
+
+
+
 spawn(function()
     while wait() do
         for i,v in pairs(game.workspace:GetChildren()) do	
-            if v:FindFirstChild('CharId') and autoAttackBool then
-                local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v:FindFirstChildWhichIsA('Part').Position).magnitude
-                if distance < last then
-                    last = distance
-                    nearest = v:FindFirstChildWhichIsA('Part') 
-                    id = v.CharId.Value
-                end
+            if v:FindFirstChild('CharId') and autoAttackBool and v.HealthGui.Health.Amount.Text:sub(1,1) ~= "0" then
+				if v.Name ~= autoAttackAnimalName and autoAttackAnimalName == "Closest" then 	
+					local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v:FindFirstChildWhichIsA('Part').Position).magnitude
+					if distance < last then
+						last = distance
+						nearest = v:FindFirstChildWhichIsA('Part') 
+						id = v.CharId.Value
+					end
+				elseif v.Name == autoAttackAnimalName then
+					nearest = v:FindFirstChildWhichIsA('Part') 
+					id = v.CharId.Value					
+				end
             end
         end
     end
@@ -178,7 +195,7 @@ spawn(function()
                 repeat
                     RemoteEvent:FireServer("Animal Hit", v.CharId.Value)
                 wait()
-                until not v or not v:FindFirstChild('CharId') or not v:FindFirstChildWhichIsA('Part') or not nearest or not nearest.Parent or not autoAttackBool
+                until not v or not v:FindFirstChild('CharId') or not v:FindFirstChildWhichIsA('Part') or not nearest or not nearest.Parent or not autoAttackBool or v.HealthGui.Health.Amount.Text:sub(1,1) == "0"
                 last,nearest,id = math.huge, nil, nil
             end
         end
@@ -268,25 +285,81 @@ aa:addButton("Rebirth",function()
 end)
 
 ----------------------------------------------------------- Menus -----------------------------------------------------------
-
 ---- Grills Upgrade Menu ----
 b:addButton("Grills Upgrade",function()
 	game:GetService("Players").LocalPlayer.PlayerGui.MainGui.GrillMenuFrame:TweenPosition(UDim2.new(0.5, 0, 0.5, 0), nil, nil, 0.3, true)
 end)
 
----- Rebirth Shop Menu ----
+---- Rebirth Shop ----
 b:addButton("Rebirth Shop",function()
-	game:GetService("Players").LocalPlayer.PlayerGui.MainGui.RebirthShopFrame:TweenPosition(UDim2.new(0.5, 0, 0.5, 0), nil, nil, 0.3, true)
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace")["Rebirth Overlord Touch"].TouchPart, 0)
+	wait(.5)
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace")["Rebirth Overlord Touch"].TouchPart, 1)
+end)
+---- Hats Upgrade ----
+b:addButton("Hats Upgrade",function()
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace")["Caleb Touch"].TouchPart, 0)
+	wait(.5)
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace")["Caleb Touch"].TouchPart, 1)
+end)
+---- Potions Shop ----
+b:addButton("Potions Shop",function()
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace")["Pet Scientist Touch"].TouchPart, 0)
+	wait(.5)
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace")["Pet Scientist Touch"].TouchPart, 1)
 end)
 
----- Hats Upgrade Menu ----
-b:addButton("Hats Upgrade",function()	
-	game:GetService("Players").LocalPlayer.PlayerGui.MainGui.UpgradeFrame:TweenPosition(UDim2.new(0.5, 0, 0.5, 0), nil, nil, 0.3, true)
+
+-------- Crafting Menus --------
+---- Julia [Zone 6 ----
+ba:addButton("Julia [Zone 6", function()
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace")["Julia Touch"].TouchPart, 0)
+	wait(.5)
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace")["Julia Touch"].TouchPart, 1)
+end)
+---- Ancient Dragon [Zone 10] ----
+ba:addButton("Ancient Dragon [Zone 10]", function()
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace")["Ancient Dragon Touch"].TouchPart, 0)
+	wait(.5)
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace")["Ancient Dragon Touch"].TouchPart, 1)
+end)
+---- Henry [Black Forest] ----
+ba:addButton("Henry [Black Forest]", function()
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace")["Henry Touch"].TouchPart, 0)
+	wait(.5)
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace")["Henry Touch"].TouchPart, 1)
+end)
+---- Trevor [Winter Forest] ----
+ba:addButton("Trevor [Winter Forest]", function()
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace")["Trevor Touch"].TouchPart, 0)
+	wait(.5)
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace")["Trevor Touch"].TouchPart, 1)
+end)
+---- Steven [VIP] ----
+ba:addButton("Steven [VIP]", function()
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace")["Steven Touch"].TouchPart, 0)
+	wait(.5)
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace")["Steven Touch"].TouchPart, 1)
 end)
 
----- Potions Menu ----
-b:addButton("Potions Menu",function()
-	game:GetService("Players").keathunsar.PlayerGui.MainGui.CraftingFrame:TweenPosition(UDim2.new(0.5, 0, 0.5, 0), nil, nil, 0.3, true)
+-------- Respawn Menus --------
+---- x1 ----
+bb:addButton("x1", function()
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace").RebirthButton.TouchPart, 0)
+	wait(.5)
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace").RebirthButton.TouchPart, 1)
+end)
+---- x3 ----
+bb:addButton("x3", function()
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace").Rebirth3Button.TouchPart, 0)
+	wait(.5)
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace").Rebirth3Button.TouchPart, 1)
+end)
+---- x5 ----
+bb:addButton("x5", function()
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace").Rebirth5Button.TouchPart, 0)
+	wait(.5)
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace").Rebirth5Button.TouchPart, 1)
 end)
 
 ----------------------------------------------------------- BUY -----------------------------------------------------------
