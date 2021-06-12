@@ -38,10 +38,6 @@ venyx:setTheme(theme, color3)
 end)
 end
 ---- end theme ----
-local page6 = venyx:addPage("Credits", 5012544693)
-local f = page6:addSection("Credits")
-
-
 
 ---------------------------------------- Vars ---------------------------------------------------
 local dropOff = false
@@ -211,7 +207,7 @@ end
 
 ---- Rebirth Dropdown ----
 local rebirthNum = 1
-aa:addDropdown("Select Multiplyer",{"x1","x3","x5"},true,function(num)
+aa:addDropdown("Select Multiplier",{"x1","x3","x5"},function(num)
 	if num == "x1" then rebirthNum = 1 end
 	if num == "x3" then rebirthNum = 3 end
 	if num == "x5" then rebirthNum = 5 end
