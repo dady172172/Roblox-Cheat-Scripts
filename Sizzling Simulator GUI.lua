@@ -154,19 +154,33 @@ local nearest = nil
 local id = nil
 local autoAttackBool = false
 local currentTarget = 8
+local startLocation = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+local gravity = workspace.Gravity
 a:addDropdown(autoAttackAnimalName,animalNamesList,function(num)
 	autoAttackAnimalName = num
 end)
 a:addToggle("Auto Attack", false, function(bool)
 	autoAttackBool = bool
 	if bool == false then
+		for i,v in pairs(game.workspace:getChildren()) do
+			if v.Name == 'Part' and v:FindFirstChild('Texture') then
+				v.CanCollide = true
+			end
+		end
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = startLocation
 		RemoteEvent:FireServer("Animal Deselected", currentTarget)
+		game.workspace.Gravity = gravity
+	else
+		game.workspace.Gravity = 0
+		startLocation = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+		for i,v in pairs(game.workspace:getChildren()) do
+			if v.Name == 'Part' and v:FindFirstChild('Texture') then
+				v.CanCollide = false
+			end
+		end
 	end
 end)
-
-
-
-spawn(function()
+local autoAttackAnimalCoro = coroutine.create(function()
     while wait() do
         for i,v in pairs(game.workspace:GetChildren()) do	
             if v:FindFirstChild('CharId') and autoAttackBool and v.HealthGui.Health.Amount.Text:sub(1,1) ~= "0" then
@@ -185,29 +199,33 @@ spawn(function()
         end
     end
 end)
-spawn(function()
+coroutine.resume(autoAttackAnimalCoro)
+local autoAttackAnimalCoro2 = coroutine.create(function()
     while wait() do
         for i,v in pairs(game.workspace:GetChildren()) do	
             if nearest ~= nil and id ~= nil and v:FindFirstChild('CharId') and autoAttackBool and v.CharId.Value == id then
                 currentTarget = v.CharId.Value
 				RemoteEvent:FireServer("Animal Selected", v.CharId.Value)
-				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = nearest.CFrame
+				local nearestCFrame = nearest.CFrame
+				local nx, ny, nz, r00, r01, r02, r10, r11, r12, r20, r21, r22 = nearestCFrame:components()
                 repeat
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(nx,ny-22,nz)
                     RemoteEvent:FireServer("Animal Hit", v.CharId.Value)
                 wait()
                 until not v or not v:FindFirstChild('CharId') or not v:FindFirstChildWhichIsA('Part') or not nearest or not nearest.Parent or not autoAttackBool or v.HealthGui.Health.Amount.Text:sub(1,1) == "0"
-                last,nearest,id = math.huge, nil, nil
+                last,nearest,id = math.huge, nil, nil	
             end
         end
     end
 end)
+coroutine.resume(autoAttackAnimalCoro2)
 
 ---- Magnet meat/items ----
 local magnetMeatItemsBool = false
 a:addToggle("Magnet Meat/Items", false, function(bool)
 	magnetMeatItemsBool = bool  
 end)
-spawn(function()
+local meatMagCoro = coroutine.create(function()
 	while wait() do
 		if magnetMeatItemsBool == true then
 			for i,v in pairs(game.workspace:GetChildren()) do			
@@ -222,39 +240,39 @@ spawn(function()
 		end
 	end
 end)
-
+coroutine.resume(meatMagCoro)
 ---- Drop Off Meat ----
 local dropOffMeatBool = false
 a:addToggle("Drop Off Meat", false, function(bool)
 	dropOffMeatBool = bool
 end)
-spawn(function()
+local meatDropCoro = coroutine.create(function()
 	while wait() do
 		if dropOffMeatBool == true then
 			RemoteEvent:FireServer('Drop Off Meat')
 		end
 	end
 end)
-
+coroutine.resume(meatDropCoro)
 ---- Collect Grill Coins ----
 local collectGrillCoinsBool = false
 a:addToggle("Collect Grill Coins", false, function(bool)
 	collectGrillCoinsBool = bool
 end)
-spawn(function()
+local collectGrillCoro = coroutine.create(function()
 	while wait() do
 		if collectGrillCoinsBool == true then
 			RemoteEvent:FireServer('Collect Grill Coins')
 		end
 	end
 end)
-
+coroutine.resume(collectGrillCoro)
 ---- Collect Coins ----
 local collectCoinsBool = false
 a:addToggle("Collect Coins", false, function(bool)
 	collectCoinsBool = bool
 end)
-spawn(function()
+local collectCoinsCoro = coroutine.create(function()
 	while wait() do
 		if collectCoinsBool == true then
 			wait()
@@ -266,7 +284,7 @@ spawn(function()
 		end
 	end
 end)
-
+coroutine.resume(collectCoinsCoro)
 
 
 ---- Rebirth Dropdown ----
@@ -532,14 +550,14 @@ local openEggBool = false
 cb:addToggle("Toggle", false, function(bool)
 	openEggBool = bool
 end)
-spawn(function()
+local openEggCoro = coroutine.create(function()
 	while wait() do
 		if openEggBool == true then
 			game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase One Egg",eggNum)
 		end
 	end
 end)
-
+coroutine.resume(openEggCoro)
 ---- Hats ----
 local hatNum = 1
 cc:addDropdown("Select Hat",{"250", "2K", "15K", "200K", "1M", "5M", "15M", "50M", "150T", "750Gems"},function(num)
@@ -558,31 +576,32 @@ local openHatBool = false
 cc:addToggle("Toggle", false, function(bool)
 	openHatBool = bool
 end)
-spawn(function()
+local openHatsCoro = coroutine.create(function()
 	while wait() do
 		if openHatBool == true then
 			game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase One Egg",hatNum)
 		end
 	end
 end)
-
+coroutine.resume(openHatsCoro)
 ----------------------------------------------------------- Teleports -----------------------------------------------------------
 for k,v in ipairs(Locations) do
 	d:addButton(tostring(v.name),function()
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Locations[k].cf		
 	end)
-end
+end 
 
 ----------------------------------------------------------- Misc -----------------------------------------------------------
 ---- walkspeed -----
 e:addSlider("Speed",game.Players.LocalPlayer.Character.Humanoid.WalkSpeed,1,300,function(value)
     WalkSpeed = value
 end)
-spawn(function()
+local walkspeedCoro = coroutine.create(function()
 	while wait() do
 		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WalkSpeed
 	end
 end)
+coroutine.resume(walkspeedCoro)
 ----------------------------------------------------------- KeyBinds -----------------------------------------------------------
 ---- open close menu ----
 ea:addKeybind("Open/Close Menu", Enum.KeyCode.Backquote, function()
