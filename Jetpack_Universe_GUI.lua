@@ -76,7 +76,7 @@ spawn(function()
 		if jetpackBool then
 			repeat
 				Wait()
-				local jPL = game:GetService("Players").keathunsar.Stats.JetpackLevel.Value
+				local jPL = game:GetService("Players").LocalPlayer.Stats.JetpackLevel.Value
 				if jPL == 1 then
 					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").AreaResourseSpawns.Earth.Coal:FindFirstChild('Coal').BOUNDS.CFrame + Vector3.new(0, 3, 0)
 				elseif jPL == 2 then
