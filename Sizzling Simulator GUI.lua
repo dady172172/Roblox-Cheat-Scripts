@@ -1,6 +1,9 @@
+--[[
+Game : https://www.roblox.com/games/2662100821/Jetpack-Simulator
+Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
+Made by : https://v3rmillion.net/member.php?action=profile&uid=244024
+]]--
 
---Made by : https://v3rmillion.net/member.php?action=profile&uid=244024
--- init
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/zxciaz/VenyxUI/main/Reuploaded"),true)() --someone reuploaded it so I put it in place of the original back up so guy can get free credit.
 local venyx = library.new("Sizzling Simulator GUI By Keathunsar", 5013109572)
 
