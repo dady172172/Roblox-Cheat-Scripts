@@ -3,6 +3,11 @@ Game : https://www.roblox.com/games/4572547530/Sizzling-Simulator?
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 Made by : https://v3rmillion.net/member.php?action=profile&uid=244024
 ]]--
+local VirtualUser=game:service'VirtualUser'
+game:service'Players'.LocalPlayer.Idled:connect(function()
+    VirtualUser:CaptureController()
+    VirtualUser:ClickButton2(Vector2.new())
+end)
 
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/zxciaz/VenyxUI/main/Reuploaded"))() --someone reuploaded it so I put it in place of the original back up so guy can get free credit.
 local venyx = library.new("Sizzling Simulator GUI By Keathunsar", 5013109572)
@@ -185,7 +190,7 @@ a:addToggle("Auto Attack", shared.autoAttackBool, function(bool)
 		end
 	end
 end)
-local autoAttackAnimalCoro = coroutine.create(function()
+spawn(function()
     while wait() do
         for i,v in pairs(game.workspace:GetChildren()) do	
             if v:FindFirstChild('CharId') and shared.autoAttackBool and v.HealthGui.Health.Amount.Text:sub(1,1) ~= "0" then
@@ -204,8 +209,8 @@ local autoAttackAnimalCoro = coroutine.create(function()
         end
     end
 end)
-coroutine.resume(autoAttackAnimalCoro)
-local autoAttackAnimalCoro2 = coroutine.create(function()
+
+spawn(function()
     while wait() do
         for i,v in pairs(game.workspace:GetChildren()) do	
             if nearest ~= nil and id ~= nil and v:FindFirstChild('CharId') and shared.autoAttackBool and v.CharId.Value == id then
@@ -223,13 +228,13 @@ local autoAttackAnimalCoro2 = coroutine.create(function()
         end
     end
 end)
-coroutine.resume(autoAttackAnimalCoro2)
+
 
 ---- Magnet meat/items ----
 a:addToggle("Magnet Meat/Items", shared.magnetMeatItemsBool, function(bool)
 	shared.magnetMeatItemsBool = bool  
 end)
-local meatMagCoro = coroutine.create(function()
+spawn(function()
 	while wait() do
 		if shared.magnetMeatItemsBool == true then
 			for i,v in pairs(game.workspace:GetChildren()) do			
@@ -244,36 +249,36 @@ local meatMagCoro = coroutine.create(function()
 		end
 	end
 end)
-coroutine.resume(meatMagCoro)
+
 ---- Drop Off Meat ----
 a:addToggle("Drop Off Meat", false, function(bool)
 	shared.dropOffMeatBool = bool
 end)
-local meatDropCoro = coroutine.create(function()
+spawn(function()
 	while wait() do
 		if shared.dropOffMeatBool == true then
 			RemoteEvent:FireServer('Drop Off Meat')
 		end
 	end
 end)
-coroutine.resume(meatDropCoro)
+
 ---- Collect Grill Coins ----
 a:addToggle("Collect Grill Coins", shared.collectGrillCoinsBool, function(bool)
 	shared.collectGrillCoinsBool = bool
 end)
-local collectGrillCoro = coroutine.create(function()
+spawn(function()
 	while wait() do
 		if shared.collectGrillCoinsBool == true then
 			RemoteEvent:FireServer('Collect Grill Coins')
 		end
 	end
 end)
-coroutine.resume(collectGrillCoro)
+
 ---- Collect Coins ----
 a:addToggle("Collect Coins", shared.collectCoinsBool, function(bool)
 	shared.collectCoinsBool = bool
 end)
-local collectCoinsCoro = coroutine.create(function()
+spawn(function()
 	while wait() do
 		if shared.collectCoinsBool == true then
 			wait()
@@ -285,8 +290,18 @@ local collectCoinsCoro = coroutine.create(function()
 		end
 	end
 end)
-coroutine.resume(collectCoinsCoro)
 
+
+
+a:addButton("Chests",function()
+	for i, v in pairs(game:GetService("Workspace").Chests:getChildren()) do
+		if v.Bottom:FindFirstChild('Emitter') then
+			firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, v.Bottom.Emitter, 0)
+			wait(.5)
+			firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, v.Bottom.Emitter, 1)
+		end
+	end
+end)
 
 ---- Rebirth Dropdown ----
 local rebirthNum = 1
@@ -551,14 +566,14 @@ end)
 cb:addToggle("Toggle", shared.openEggBool, function(bool)
 	shared.openEggBool = bool
 end)
-local openEggCoro = coroutine.create(function()
+spawn(function()
 	while wait() do
-		if openEggBool == true then
+		if shared.openEggBool == true then
 			game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase One Egg",eggNum)
 		end
 	end
 end)
-coroutine.resume(openEggCoro)
+
 ---- Hats ----
 local hatNum = 1
 cc:addDropdown("Select Hat",{"250", "2K", "15K", "200K", "1M", "5M", "15M", "50M", "150T", "750Gems"},function(num)
@@ -577,14 +592,14 @@ end)
 cc:addToggle("Toggle", shared.openHatBool, function(bool)
 	shared.openHatBool = bool
 end)
-local openHatsCoro = coroutine.create(function()
+spawn(function()
 	while wait() do
-		if openHatBool == true then
+		if shared.openHatBool == true then
 			game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase One Egg",hatNum)
 		end
 	end
 end)
-coroutine.resume(openHatsCoro)
+
 ----------------------------------------------------------- Teleports -----------------------------------------------------------
 for k,v in ipairs(Locations) do
 	d:addButton(tostring(v.name),function()
@@ -597,12 +612,53 @@ end
 e:addSlider("Speed",game.Players.LocalPlayer.Character.Humanoid.WalkSpeed,1,300,function(value)
     WalkSpeed = value
 end)
-local walkspeedCoro = coroutine.create(function()
+spawn(function()
 	while wait() do
 		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WalkSpeed
 	end
 end)
-coroutine.resume(walkspeedCoro)
+
+
+e:addToggle("Light", shared.flashLightBool, function(bool)
+	shared.flashLightBool = bool
+	flashLightBool(bool)
+end)
+
+
+
+shared.fogStart = game.Lighting.FogStart
+shared.fogStartBool = true
+e:addToggle("Fog", shared.fogStartBool, function(bool)
+	if bool then
+		game.Lighting.FogStart = shared.fogStart
+	else
+		game.Lighting.FogStart = 100000000
+	end
+end)
+shared.sunRaysBool = true
+e:addToggle("Sun Rays", shared.sunRaysBool, function(bool)
+	game:GetService("Lighting").SunRays.Enabled = bool
+end)
+shared.BlurBool = true
+e:addToggle("Blur", shared.BlurBool, function(bool)
+	shared.BlurBool = bool
+	game:GetService("Lighting").Blur.Enabled = bool
+end)
+shared.bloom = true
+e:addToggle("Bloom", shared.bloom , function(bool)
+	game:GetService("Lighting").Bloom.Enabled = bool
+end)
+local reloadBarOrigPos = game:GetService("Players").keathunsar.PlayerGui.MainGui.Reload.Position
+shared.reloadBarBool = true
+e:addToggle("Reload Bar", shared.reloadBarBool, function(bool)
+	if bool then
+		shared.reloadBarBool = bool
+		game:GetService("Players").keathunsar.PlayerGui.MainGui.Reload.Position = reloadBarOrigPos
+	else
+		shared.reloadBarBool = bool
+		game:GetService("Players").keathunsar.PlayerGui.MainGui.Reload.Position = UDim2.new{8,0,8,0}
+		
+end)
 ----------------------------------------------------------- KeyBinds -----------------------------------------------------------
 ---- open close menu ----
 ea:addKeybind("Open/Close Menu", Enum.KeyCode.Backquote, function()
@@ -653,11 +709,23 @@ end)
 
 ---- shared.collectCoinsBool ----
 ea:addKeybind("Collect Coins", Enum.KeyCode.Five, function()
+
 	if shared.collectCoinsBool == false then
 		shared.collectCoinsBool = true
 	else
 		shared.collectCoinsBool = false
 	end
+end, function()
+end)
+---- flashlight bind ----
+ea:addKeybind("Light", Enum.KeyCode.F, function()
+	
+	if shared.flashLightBool == false then
+		shared.flashLightBool = true
+	else
+		shared.flashLightBool = false
+	end
+	flashLightToggle(shared.flashLightBool)
 end, function()
 end)
 
@@ -722,6 +790,29 @@ ea:addKeybind("Buy Best Fork", Enum.KeyCode.Equals, function()
 	end
 end, function()
 end)
+
+---- Flash Light Function ----
+function flashLightToggle(bool)
+	shared.flashLightBool = bool
+	if not game.Players.LocalPlayer.Character.Head:FindFirstChild('SpotLightFront') then
+		local FlashLightNames = {"SpotLightFront", "SpotLightBack", "SpotLightRight", "SpotLightLeft"}
+		local FlashLightP = {"Front","Back","Right","Left"}
+		for i,v in pairs(FlashLightNames) do
+			local light = Instance.new("SpotLight" )
+			light.Name = (v)
+			light.Enabled = false
+			light.Brightness = 2
+			light.Range = 60
+			light.Angle = 180
+			light.Face = FlashLightP[i]
+			light.Parent = game.Players.LocalPlayer.Character.Head
+		end
+	end	
+	game.Players.LocalPlayer.Character.Head.SpotLightFront.Enabled = bool
+	game.Players.LocalPlayer.Character.Head.SpotLightBack.Enabled = bool
+	game.Players.LocalPlayer.Character.Head.SpotLightRight.Enabled = bool
+	game.Players.LocalPlayer.Character.Head.SpotLightLeft.Enabled = bool
+end
 
 
 ---- Set Main Page on load ----
