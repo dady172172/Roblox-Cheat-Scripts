@@ -1,10 +1,10 @@
 --[[
-Game : https://www.roblox.com/games/2662100821/Jetpack-Simulator
+Game : https://www.roblox.com/games/4572547530/Sizzling-Simulator?
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 Made by : https://v3rmillion.net/member.php?action=profile&uid=244024
 ]]--
 
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/zxciaz/VenyxUI/main/Reuploaded"),true)() --someone reuploaded it so I put it in place of the original back up so guy can get free credit.
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/zxciaz/VenyxUI/main/Reuploaded"))() --someone reuploaded it so I put it in place of the original back up so guy can get free credit.
 local venyx = library.new("Sizzling Simulator GUI By Keathunsar", 5013109572)
 
 -- themes
@@ -46,6 +46,7 @@ end
 ---- end theme ----
 
 ---------------------------------------- Vars ---------------------------------------------------
+local shared = {}
 local dropOff = false
 local pickUp = false
 local coinCollect = false
@@ -148,22 +149,23 @@ forkArray[28] = {forkId = 29, cost = 500000000}
 local animalNamesList = {"Closest", "Chicken", "Cornish Chicken", "Duck", "Blue Duck", "Cow", "Brown Cow", "Turkey", "Red Turkey", "Pig", "Fat Pig", "Bison", "Dark Bison", "Doe", "Buck", "Black Bear", "Grizzly Bear", "Moose", "Angry Moose", "Dinosaur", "Angry Dinosaur", "Fiery Dinosaur", "Wolf", "Brown Wolf", "Big Bad Wolf", "Arctic Fox", "Yeti"}
 
 ---------------------------------------- Main ---------------------------------------------------
----- Auto Attack ----
+
 local autoAttackAnimalName = "Closest"
 local meat = false
 local coin = false
 local last = math.huge
 local nearest = nil
 local id = nil
-local autoAttackBool = false
 local currentTarget = 8
 local startLocation = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 local gravity = workspace.Gravity
+
+---- Auto Attack ----
 a:addDropdown(autoAttackAnimalName,animalNamesList,function(num)
 	autoAttackAnimalName = num
 end)
-a:addToggle("Auto Attack", false, function(bool)
-	autoAttackBool = bool
+a:addToggle("Auto Attack", shared.autoAttackBool, function(bool)
+	shared.autoAttackBool = bool
 	if bool == false then
 		for i,v in pairs(game.workspace:getChildren()) do
 			if v.Name == 'Part' and v:FindFirstChild('Texture') then
@@ -186,7 +188,7 @@ end)
 local autoAttackAnimalCoro = coroutine.create(function()
     while wait() do
         for i,v in pairs(game.workspace:GetChildren()) do	
-            if v:FindFirstChild('CharId') and autoAttackBool and v.HealthGui.Health.Amount.Text:sub(1,1) ~= "0" then
+            if v:FindFirstChild('CharId') and shared.autoAttackBool and v.HealthGui.Health.Amount.Text:sub(1,1) ~= "0" then
 				if v.Name ~= autoAttackAnimalName and autoAttackAnimalName == "Closest" then 	
 					local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v:FindFirstChildWhichIsA('Part').Position).magnitude
 					if distance < last then
@@ -206,7 +208,7 @@ coroutine.resume(autoAttackAnimalCoro)
 local autoAttackAnimalCoro2 = coroutine.create(function()
     while wait() do
         for i,v in pairs(game.workspace:GetChildren()) do	
-            if nearest ~= nil and id ~= nil and v:FindFirstChild('CharId') and autoAttackBool and v.CharId.Value == id then
+            if nearest ~= nil and id ~= nil and v:FindFirstChild('CharId') and shared.autoAttackBool and v.CharId.Value == id then
                 currentTarget = v.CharId.Value
 				RemoteEvent:FireServer("Animal Selected", v.CharId.Value)
 				local nearestCFrame = nearest.CFrame
@@ -215,7 +217,7 @@ local autoAttackAnimalCoro2 = coroutine.create(function()
 					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(nx,ny-22,nz)
                     RemoteEvent:FireServer("Animal Hit", v.CharId.Value)
                 wait()
-                until not v or not v:FindFirstChild('CharId') or not v:FindFirstChildWhichIsA('Part') or not nearest or not nearest.Parent or not autoAttackBool or v.HealthGui.Health.Amount.Text:sub(1,1) == "0"
+                until not v or not v:FindFirstChild('CharId') or not v:FindFirstChildWhichIsA('Part') or not nearest or not nearest.Parent or not shared.autoAttackBool or v.HealthGui.Health.Amount.Text:sub(1,1) == "0"
                 last,nearest,id = math.huge, nil, nil	
             end
         end
@@ -224,13 +226,12 @@ end)
 coroutine.resume(autoAttackAnimalCoro2)
 
 ---- Magnet meat/items ----
-local magnetMeatItemsBool = false
-a:addToggle("Magnet Meat/Items", false, function(bool)
-	magnetMeatItemsBool = bool  
+a:addToggle("Magnet Meat/Items", shared.magnetMeatItemsBool, function(bool)
+	shared.magnetMeatItemsBool = bool  
 end)
 local meatMagCoro = coroutine.create(function()
 	while wait() do
-		if magnetMeatItemsBool == true then
+		if shared.magnetMeatItemsBool == true then
 			for i,v in pairs(game.workspace:GetChildren()) do			
 				if string.find(v.Name:lower(), "meat") or string.find(v.Name:lower(), "item") and v.Name ~= "DropOffMeat" and v.Name ~= "ItemCapsules" then
 					for x,z in pairs(v:GetChildren()) do
@@ -245,39 +246,36 @@ local meatMagCoro = coroutine.create(function()
 end)
 coroutine.resume(meatMagCoro)
 ---- Drop Off Meat ----
-local dropOffMeatBool = false
 a:addToggle("Drop Off Meat", false, function(bool)
-	dropOffMeatBool = bool
+	shared.dropOffMeatBool = bool
 end)
 local meatDropCoro = coroutine.create(function()
 	while wait() do
-		if dropOffMeatBool == true then
+		if shared.dropOffMeatBool == true then
 			RemoteEvent:FireServer('Drop Off Meat')
 		end
 	end
 end)
 coroutine.resume(meatDropCoro)
 ---- Collect Grill Coins ----
-local collectGrillCoinsBool = false
-a:addToggle("Collect Grill Coins", false, function(bool)
-	collectGrillCoinsBool = bool
+a:addToggle("Collect Grill Coins", shared.collectGrillCoinsBool, function(bool)
+	shared.collectGrillCoinsBool = bool
 end)
 local collectGrillCoro = coroutine.create(function()
 	while wait() do
-		if collectGrillCoinsBool == true then
+		if shared.collectGrillCoinsBool == true then
 			RemoteEvent:FireServer('Collect Grill Coins')
 		end
 	end
 end)
 coroutine.resume(collectGrillCoro)
 ---- Collect Coins ----
-local collectCoinsBool = false
-a:addToggle("Collect Coins", false, function(bool)
-	collectCoinsBool = bool
+a:addToggle("Collect Coins", shared.collectCoinsBool, function(bool)
+	shared.collectCoinsBool = bool
 end)
 local collectCoinsCoro = coroutine.create(function()
 	while wait() do
-		if collectCoinsBool == true then
+		if shared.collectCoinsBool == true then
 			wait()
 			for i,v in pairs(game:GetService("Workspace").Currency:GetChildren()) do
 				if v then
@@ -549,9 +547,9 @@ cb:addDropdown("Select Egg",{"100", "1500", "10K", "50K", "150K", "750K", "2M", 
 	if num == "100T" then eggNum = 19 end
 	if num == "10Qa" then eggNum = 21 end
 end)
-local openEggBool = false
-cb:addToggle("Toggle", false, function(bool)
-	openEggBool = bool
+
+cb:addToggle("Toggle", shared.openEggBool, function(bool)
+	shared.openEggBool = bool
 end)
 local openEggCoro = coroutine.create(function()
 	while wait() do
@@ -575,9 +573,9 @@ cc:addDropdown("Select Hat",{"250", "2K", "15K", "200K", "1M", "5M", "15M", "50M
 	if num == "150T" then hatNum = 20 end
 	if num == "750Gems" then hatNum = 22 end
 end)
-local openHatBool = false
-cc:addToggle("Toggle", false, function(bool)
-	openHatBool = bool
+
+cc:addToggle("Toggle", shared.openHatBool, function(bool)
+	shared.openHatBool = bool
 end)
 local openHatsCoro = coroutine.create(function()
 	while wait() do
@@ -614,10 +612,10 @@ end)
 
 ---- Auto Attack ----
 ea:addKeybind("Auto Attack", Enum.KeyCode.One, function()
-	if autoAttackBool == false then
-		autoAttackBool = true
+	if shared.autoAttackBool == false then
+		shared.autoAttackBool = true
 	else
-		autoAttackBool = false
+		shared.autoAttackBool = false
 		RemoteEvent:FireServer("Animal Deselected", currentTarget)
 	end
 end, function()
@@ -625,40 +623,40 @@ end)
 
 ---- magnet meat items ----
 ea:addKeybind("Magnet Meat/Items", Enum.KeyCode.Two, function()
-	if magnetMeatItemsBool == false then
-		magnetMeatItemsBool = true
+	if shared.magnetMeatItemsBool == false then
+		shared.magnetMeatItemsBool = true
 	else
-		magnetMeatItemsBool = false
+		shared.magnetMeatItemsBool = false
 	end
 end, function()
 end)
 
 ---- Drop Off Meat ----
 ea:addKeybind("Drop Off Meat", Enum.KeyCode.Three, function()
-	if dropOffMeatBool == false then
-		dropOffMeatBool = true
+	if shared.dropOffMeatBool == false then
+		shared.dropOffMeatBool = true
 	else
-		dropOffMeatBool = false
+		shared.dropOffMeatBool = false
 	end
 end, function()
 end)
 
 ---- Collect Grill Coins ----
 ea:addKeybind("Collect Grill Coins", Enum.KeyCode.Four, function()
-	if collectGrillCoinsBool == false then
-		collectGrillCoinsBool = true
+	if shared.collectGrillCoinsBool == false then
+		shared.collectGrillCoinsBool = true
 	else
-		collectGrillCoinsBool = false
+		shared.collectGrillCoinsBool = false
 	end
 end, function()
 end)
 
----- collectCoinsBool ----
+---- shared.collectCoinsBool ----
 ea:addKeybind("Collect Coins", Enum.KeyCode.Five, function()
-	if collectCoinsBool == false then
-		collectCoinsBool = true
+	if shared.collectCoinsBool == false then
+		shared.collectCoinsBool = true
 	else
-		collectCoinsBool = false
+		shared.collectCoinsBool = false
 	end
 end, function()
 end)

@@ -1,36 +1,97 @@
 --[[
 Game : https://www.roblox.com/games/4934958405/SALE-Fruit-Collecting-Simulator
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
+Images : https://prnt.sc/15pgduu , https://prnt.sc/15pggwv
+
 Gui made by : https://v3rmillion.net/member.php?action=profile&uid=507120
 Go vouch release thread : https://v3rmillion.net/showthread.php?tid=1040650
 ]]--
+local VirtualUser=game:service'VirtualUser'
+game:service'Players'.LocalPlayer.Idled:connect(function()
+    VirtualUser:CaptureController()
+    VirtualUser:ClickButton2(Vector2.new())
+end)
+
 local library = loadstring(game:HttpGet('https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wall%20v3'))()
 
 local w = library:CreateWindow("Fruit Collecting Simulator") -- Creates the window
 
 local b = w:CreateFolder("Farm") -- Creates the folder(U will put here your buttons,etc)
+local eh = w:CreateFolder("Eggs/Hats")
+local misc = w:CreateFolder("Misc")
+
+---- vars ----
 local localPlayer = game:GetService("Players").LocalPlayer
+local rsEvents = game:GetService("ReplicatedStorage").Events
+local origGravity = game.workspace.Gravity
+
+local afkSpotBool = false
+b:Toggle("AFK Spot", function(bool)
+	afkSpotBool = bool
+	if bool then
+		game.workspace.Gravity = 0
+	else
+		game.workspace.Gravity = origGravity
+	end
+end)
+spawn(function()
+	while wait() do
+		if afkSpotBool and localPlayer.Character:FindFirstChild('HumanoidRootPart') then
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-124, -58, -26)
+			wait()
+		end
+	end
+end)
 
 local farmFoodBool = false
-b:Toggle("Food", function(bool)
+b:Toggle("Fruit", function(bool)
 	farmFoodBool = bool
 end)
 
-local sellBackpack = false
+local sellBackpackBool = false
 b:Toggle("Sell", function(bool)
-	sellBackpack = bool
+	sellBackpackBool = bool
+	if bool then
+		localPlayer.PlayerGui.MainGui.ScreenFrame.BackpackFullFrame.Position = UDim2.new(2, 0, 2, 0)
+	else
+		localPlayer.PlayerGui.MainGui.ScreenFrame.BackpackFullFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+	end
 end)
 
 local buyNextBackpackBool = false
-b:Toggle("Buy Next Backpack", function(bool)
+b:Toggle("Backpack", function(bool)
 	buyNextBackpackBool = bool
 end)
 
+local buyToolBool = false
+b:Toggle("Tool", function(bool)
+	buyToolBool = bool
+end)
+
+local buyTrailBool = false
+b:Toggle("Trail", function(bool)
+	buyTrailBool = bool
+end)
 
 
 local unlockNextAreaBool = false
-b:Toggle("Unlock Next Area", function(bool)
+b:Toggle("Next Area", function(bool)
 	unlockNextAreaBool = bool
+end)
+
+local upgradeGemBool = false
+b:Toggle("Upgrade Gem", function(bool)
+	upgradeGemBool = bool
+end)
+
+local upgradeXPBool = false
+b:Toggle("Upgrade XP", function(bool)
+	upgradeXPBool = bool
+end)
+
+local upgradeFoodBool = false
+b:Toggle("Upgrade Fruit", function(bool)
+	upgradeFoodBool = bool
 end)
 
 local rebirthBool = false
@@ -38,31 +99,171 @@ b:Toggle("Rebirth", function(bool)
 	rebirthBool = bool
 end)
 
+b:Button("Game Passes", function()
+	localPlayer['4PetsGamepass'].Value = true
+	localPlayer.SprintGamepass.Value = true
+	localPlayer.MultiEggGamepass.Value  = true
+	localPlayer["Faster Respawn"].Value  = true
+	localPlayer['2PetsGamepass'].Value  = true
+	localPlayer['2xGemsGamepass'].Value  = true
+	localPlayer['2xFruitGamepass'].Value  = true
+	localPlayer['2xPetExp'].Value  = true
+	localPlayer['100SlotsGamepass'].Value = true
+	localPlayer['2xDistanceGamepass'].Value = true
+	localPlayer['300SlotsGamepass'].Value = true
+	localPlayer.StormBreakerGamepass.Value = true
+	localPlayer['2xCoinsGamepass'].Value = true
+	localPlayer.InfiniteBackpackGamepass.Value = true
+	localPlayer.VIPGamepass.Value = true
+	localPlayer['2xHatExp'].Value = true
+end)
 
-local foodToCollect = "Apple"
+---------------------------------------- Eggs/Hats Section ----------------------------------------
+---- Eggs ----
+local eggsTable = {"CommonEgg", "UncommonEgg", "RareEgg", "IceEgg", "IdolEgg", "BallEgg", "IceCream", "FlameEgg", "RocketEgg", "GourmetEgg", "ZombieEgg", "ScoutEgg", "FabergeEgg"}
+local eggToOpen = "CommonEgg"
+eh:Label("Eggs",{
+    TextSize = 20; -- Self Explaining
+    TextColor = Color3.fromRGB(255,255,255); -- Self Explaining
+    BgColor = Color3.fromRGB(69,69,69); -- Self Explaining 
+}) 
 
-spawn(function()
-	while wait() do
-		local toolsList = game:GetService("Players").LocalPlayer.Tools:getChildren()
-		local toolName = toolsList[#toolsList]
-		if farmFoodBool then
-			game:GetService("ReplicatedStorage").Events.Collect:FireServer(foodToCollect, toolName)
-		end
-		if sellBackpack then
-			firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace").MapFolder.TouchParts.SellPart, 0)
-			wait(.1)
-			firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace").MapFolder.TouchParts.SellPart, 1)
-		end		
-		if rebirthBool then
-			game:GetService("ReplicatedStorage").Events.Rebirth:FireServer("Rebirth", game:GetService("Players").LocalPlayer)
-		end
+eh:Dropdown("CommonEgg", eggsTable, true, function(value)
+	eggToOpen = value
+end)
+
+local eggOpenBool = false
+eh:Toggle("Open Egg", function(bool)
+	eggOpenBool = bool
+end)
+---- Crates ----
+local crateTable = {"CommonCrate", "uncommonCrate", "RareCrate", "IceCrate", "IdolCrate", "BeachCrate", "IceCreamCrate", "FlameCrate", "RocketCrate", "GourmetCrate", "ToyCrate", "ScoutCrate", "FabergeCrate"}
+local crateToOpen = "CommonCrate"
+eh:Label("Crates",{
+    TextSize = 20; -- Self Explaining
+    TextColor = Color3.fromRGB(255,255,255); -- Self Explaining
+    BgColor = Color3.fromRGB(69,69,69); -- Self Explaining 
+}) 
+
+eh:Dropdown("CommonCrate", crateTable, true, function(value)
+	crateToOpen = value
+end)
+local crateOpenBool = false
+eh:Toggle("Open Crate", function(bool)
+	crateOpenBool = bool
+end)
+-------- Pet Delete --------
+local petTable = {}
+table.insert(petTable, "1none1")
+for i,v in pairs(game:GetService("ReplicatedStorage").Pets:getChildren()) do
+	table.insert(petTable, v.Name)
+end
+table.sort(petTable)
+eh:Label("Delete Pet *Carefull*",{
+    TextSize = 20; -- Self Explaining
+    TextColor = Color3.fromRGB(255,255,255); -- Self Explaining
+    BgColor = Color3.fromRGB(69,69,69); -- Self Explaining 
+})
+local petDelSelection1 = "1none1"
+eh:Dropdown("1none1", petTable, true, function(value)
+	petDelSelection1 = value
+end)
+local petDelSelection2 = "1none1"
+eh:Dropdown("1none1", petTable, true, function(value)
+	petDelSelection2 = value
+end)
+local petDelSelection3 = "1none1"
+eh:Dropdown("1none1", petTable, true, function(value)
+	petDelSelection3 = value
+end)
+local petDelSelection4 = "1none1"
+eh:Dropdown("1none1", petTable, true, function(value)
+	petDelSelection4 = value
+end)
+local petDelBool = false
+eh:Toggle("Delete", function(bool)
+	petDelBool = bool
+end)
+
+-------- Hat Delete --------
+local hatTable = {}
+table.insert(hatTable, "1none1")
+for i,v in pairs(game:GetService("ReplicatedStorage").Hats:getChildren()) do
+	table.insert(hatTable, v.Name)
+end
+table.sort(hatTable)
+eh:Label("Delete hat *Carefull*",{
+    TextSize = 20; -- Self Explaining
+    TextColor = Color3.fromRGB(255,255,255); -- Self Explaining
+    BgColor = Color3.fromRGB(69,69,69); -- Self Explaining 
+})
+local hatDelSelection1 = "1none1"
+eh:Dropdown("1none1", hatTable, true, function(value)
+	hatDelSelection1 = value
+end)
+local hatDelSelection2 = "1none1"
+eh:Dropdown("1none1", hatTable, true, function(value)
+	hatDelSelection2 = value
+end)
+local hatDelSelection3 = "1none1"
+eh:Dropdown("1none1", hatTable, true, function(value)
+	hatDelSelection3 = value
+end)
+local hatDelSelection4 = "1none1"
+eh:Dropdown("1none1", hatTable, true, function(value)
+	hatDelSelection4 = value
+end)
+local hatDelBool = false
+eh:Toggle("Delete", function(bool)
+	hatDelBool = bool
+end)
+
+
+---------------------------------------- Misc Section ----------------------------------------
+---- PopUpFrame ----
+local WalkSpeed = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
+misc:Slider("Speed",{
+    min = 20; -- min value of the slider
+    max = 200; -- max value of the slider
+    precise = true; -- max 2 decimals
+},function(value)
+    WalkSpeed = value
+end)
+misc:Toggle("Pop Up Frames", function(bool)
+	if bool then
+		game:GetService("Players").LocalPlayer.PlayerGui.MainGui.ScreenFrame.PopUpFrame.Visible = false
+		game:GetService("Players").LocalPlayer.PlayerGui.MainGui.ScreenFrame.LevelUp.Visible = false
+		game:GetService("Players").LocalPlayer.PlayerGui.MainGui.ScreenFrame.LeftButtonFrame.CoinsFrame.Visible = false
+	else
+		game:GetService("Players").LocalPlayer.PlayerGui.MainGui.ScreenFrame.PopUpFrame.Visible = true
+		game:GetService("Players").LocalPlayer.PlayerGui.MainGui.ScreenFrame.LevelUp.Visible = true
+		game:GetService("Players").LocalPlayer.PlayerGui.MainGui.ScreenFrame.LeftButtonFrame.CoinsFrame.Visible = true
 	end
 end)
 
+
+
+
+---------------------------------------- Main Loop ----------------------------------------
+local foodToCollect = "Apple"
+local backpackTable = {"Starter Backpack","Shoulder Backpack","Drawstring Backpack","Balloon Backpack","Phoenix Backpack","Unicorn Backpack","Dragon Hatchling Backpack","Playful Puppy Backpack","Robot Backpack","Red 8-Bit Backpack","Green 8-Bit Backpack","Black 8-Bit Backpack","Glowing Neon Backpack","Cookie Jar Backpack","Milk Carton Backpack","Upcycled Backpack","Beach Bucket Backpack","Lifeguard Backpack","Chocolate Backpack","Lollipop Backpack","Lava Drawstring Backpack","Lava 8-Bit Backpack","UFO Backpack","Spaceship Backpack","Red Sailor Duffel Bag","Medic Bag","Ninja Backpack","Ninja Shuriken","Apple Juice Box","XXL Fries To-Go","Jar O' Stars","Boombox"}
+local unlockNextArea = {"Dojo", "Camping", "Toy Paradise", "Food Heaven", "Moon", "Volcano", "Candyland", "Beach", "Desert", "Winter"}
+local trailTable = {"Default","Red","Blue","Pink","Green","Roblox Logo","Rainbow","Sand","Toy Brick","Water","Lava","Paint","Galaxy"}
+local toolTable = {"Trowel","Small Shovel","Shovel","Leaf Rake","Soade","Scissors","Pickaxe","Flat Shovel","Mallet","Crowbar","Pitchfork","Battle Axe","Saw","Small Sickle","Sickle","Reaper Scythe","Rake","Hammer","Bucket","Magnet","Chainsaw","CandyCane","Lava Shovel","Lava Crowbar","Lava Saw","Lava Pickaxe","Lava Chainsaw","Axe","Machete","Bamboo Katana","Katana"}
 spawn(function()
 	while wait() do
-		if farmFoodBool then
-			if localPlayer.Areas:FindFirstChild("Toy Paradise") then
+		local curentBackpack = localPlayer.CurrentBackpackEquipped.Value
+		local curTrail = localPlayer.TrailEquipped.Value
+		local trailExists = localPlayer.Trails:FindFirstChild("Default")
+		local curAreasTable = localPlayer.Areas:getChildren()
+		local curTool = localPlayer.CurrentToolEquipped.Value
+		---- Farm ---
+		if farmFoodBool and localPlayer.Tools:FindFirstChild("Trowel") and localPlayer.Character:FindFirstChild('HumanoidRootPart') then
+			if localPlayer.Areas:FindFirstChild("Dojo") then
+				foodToCollect = "Coconut"
+			elseif localPlayer.Areas:FindFirstChild("Camping") then
+				foodToCollect = "Grape"
+			elseif localPlayer.Areas:FindFirstChild("Toy Paradise") then
 				foodToCollect = "Cherry"
 			elseif localPlayer.Areas:FindFirstChild("Food Heaven") then
 				foodToCollect = "Lime"
@@ -81,44 +282,169 @@ spawn(function()
 			else
 				foodToCollect = "Apple"
 			end
-			
+			rsEvents.Collect:FireServer(foodToCollect, localPlayer.Backpack[curTool])
 		end
-	end
-
-
-end)
-
---- unlock next area
-local unlockNextArea = {"Winter", "Desert", "Beach", "Candyland", "Volcano", "Moon", "Food Heaven", "Toy Paradise"}
-spawn(function()
-	while wait() do
-		if unlockNextAreaBool and game.Players.LocalPlayer.Areas then
-			for i,v in pairs(unlockNextArea) do
-				wait(1)
-				game:GetService("ReplicatedStorage").Events.Server:InvokeServer("UnlockArea", v)
+		---- Sell ----
+		if sellBackpackBool and localPlayer.Tools:FindFirstChild("Trowel") and localPlayer.Character:FindFirstChild('HumanoidRootPart') then
+			firetouchinterest(localPlayer.Character.RightFoot, game:GetService("Workspace").MapFolder.TouchParts.SellPart, 0)
+			wait(.1)
+			firetouchinterest(localPlayer.Character.RightFoot, game:GetService("Workspace").MapFolder.TouchParts.SellPart, 1)
+		end
+		---- Buy Backpack ----
+		if buyNextBackpackBool and localPlayer.Tools:FindFirstChild("Trowel") and localPlayer.Character:FindFirstChild('HumanoidRootPart') then
+			if curentBackpack ~= backpackTable[#backpackTable] and table.find(backpackTable, curentBackpack) then
+				rsEvents.Server:InvokeServer("PurchaseBackpack", backpackTable[table.find(backpackTable, curentBackpack)+1])
 			end
-			
 		end
-	end
-end)
-
-
----- buy next backpack
-local backpackTable = {"Starter Backpack","Shoulder Backpack","Drawstring Backpack","Balloon Backpack","Phoenix Backpack","Unicorn Backpack","Dragon Hatchling Backpack","Playful Puppy Backpack","Robot Backpack","Red 8-Bit Backpack","Green 8-Bit Backpack","Black 8-Bit Backpack","Glowing Neon Backpack","Cookie Jar Backpack","Milk Carton Backpack","Upcycled Backpack","Beach Bucket Backpack","LifeGuard Backpack","Chocolate Backpack","Lollipop Backpack","Lava Drawstring Backpack","Lava 8-Bit Backpack","UFO Backpack","Spaceship Backpack","Red Sailor Duffel Bag","Medic Bag","Ninja Backpack","Ninja Shuriken","Apple Juice Box","XXL Fries To-Go","Jar O' Stars","Boombox"}
-spawn(function()
-	local nextBackpackToBuy = "Shoulder Backpack"
-	while wait() do
-		if buyNextBackpackBool then
-			local curentBackpack = game:GetService("Players").LocalPlayer.CurrentBackpackEquipped.Value
-			for i,v in pairs(backpackTable) do
-				if v == curentBackpack  and i ~= #backpackTable then
-					nextBackpackToBuy = backpackTable[i+1]
+		---- Buy Tool ----
+		if buyToolBool and localPlayer.Tools:FindFirstChild("Trowel") and localPlayer.Character:FindFirstChild('HumanoidRootPart') then
+			if curTool ~= toolTable[#toolTable] and table.find(toolTable, curTool) then
+				rsEvents.Server:InvokeServer("PurchaseTool", toolTable[table.find(toolTable, curTool)+1])
+			end
+		end
+		---- Buy Trail ----
+		if buyTrailBool and localPlayer.Tools:FindFirstChild("Trowel") and localPlayer.Character:FindFirstChild('HumanoidRootPart') then
+			local tI = table.find(trailTable, curTrail)
+			if trailTable[tI] ~= trailTable[#trailTable] then
+				rsEvents.TrailPurchase:FireServer(trailTable[tI+1], localPlayer)
+				rsEvents.TrailEquip:FireServer(trailTable[tI+1], localPlayer)
+			end
+		end
+		---- Unlock Next Area ----
+		if unlockNextAreaBool and localPlayer.Tools:FindFirstChild("Trowel") and localPlayer.Character:FindFirstChild('HumanoidRootPart') then
+			if localPlayer.Areas:FindFirstChild("Dojo") then
+			
+			elseif localPlayer.Areas:FindFirstChild("Camping") then
+				rsEvents.Server:InvokeServer("UnlockArea", "Dojo")
+			elseif localPlayer.Areas:FindFirstChild("Toy Paradise") then
+				rsEvents.Server:InvokeServer("UnlockArea", "Camping")
+			elseif localPlayer.Areas:FindFirstChild("Food Heaven") then
+				rsEvents.Server:InvokeServer("UnlockArea", "Toy Paradise")
+			elseif localPlayer.Areas:FindFirstChild("Moon") then
+				rsEvents.Server:InvokeServer("UnlockArea", "Food Heaven")
+			elseif localPlayer.Areas:FindFirstChild("Volcano") then
+				rsEvents.Server:InvokeServer("UnlockArea", "Moon")
+			elseif localPlayer.Areas:FindFirstChild("Candyland") then
+				rsEvents.Server:InvokeServer("UnlockArea", "Volcano")
+			elseif localPlayer.Areas:FindFirstChild("Beach") then
+				rsEvents.Server:InvokeServer("UnlockArea", "Candyland")
+			elseif localPlayer.Areas:FindFirstChild("Desert") then
+				rsEvents.Server:InvokeServer("UnlockArea", "Beach")
+			elseif localPlayer.Areas:FindFirstChild("Winter") then
+				rsEvents.Server:InvokeServer("UnlockArea", "Desert")
+			elseif not localPlayer.Areas:FindFirstChild("Winter") then
+				rsEvents.Server:InvokeServer("UnlockArea", "Winter")
+			end
+		end
+		---- upgrade gems ----
+		if upgradeGemBool and localPlayer.Tools:FindFirstChild("Trowel") and localPlayer.Character:FindFirstChild('HumanoidRootPart') then
+			rsEvents.Upgrade:FireServer("GemUpgrade", "Coins", localPlayer)
+		end
+		---- upgrade Xp ----
+		if upgradeXPBool and localPlayer.Tools:FindFirstChild("Trowel") and localPlayer.Character:FindFirstChild('HumanoidRootPart') then
+			rsEvents.Upgrade:FireServer("ExpUpgrade", "Gems", localPlayer)
+		end
+		---- upgrade Food ----
+		if upgradeFoodBool and localPlayer.Tools:FindFirstChild("Trowel") and localPlayer.Character:FindFirstChild('HumanoidRootPart') then
+			rsEvents.Upgrade:FireServer("FruitUpgrade", "Gems", localPlayer)
+		end	
+		---- Rebirth ----
+		if rebirthBool and localPlayer.Tools:FindFirstChild("Trowel") and localPlayer.Character:FindFirstChild('HumanoidRootPart') then
+			rsEvents.Rebirth:FireServer("Rebirth", localPlayer)
+		end	
+		---- Walk Speed ----
+		if WalkSpeed and localPlayer.Tools:FindFirstChild("Trowel") and localPlayer.Character:FindFirstChild('HumanoidRootPart') then
+			game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WalkSpeed
+		end
+		---- Egg ----
+		if eggOpenBool and localPlayer.Tools:FindFirstChild("Trowel") and localPlayer.Character:FindFirstChild('HumanoidRootPart') then
+			rsEvents.Egg:FireServer("OpenEgg",{eggToOpen})
+		end
+		---- Crate ----
+		if crateOpenBool and localPlayer.Tools:FindFirstChild("Trowel") and localPlayer.Character:FindFirstChild('HumanoidRootPart') then
+			rsEvents.Crate:FireServer("OpenCrate",{crateToOpen})
+		end
+		---- Delete Pets
+		if petDelBool and localPlayer.Tools:FindFirstChild("Trowel") and localPlayer.Character:FindFirstChild('HumanoidRootPart') then
+			if petDelSelection1 ~= "1none1" then
+				local del = nil
+				for i,v in pairs(game:GetService('Players').LocalPlayer.Pets:getChildren()) do
+					if v.PetName.Value == petDelSelection1 then
+						del = tostring(v)
+						game:GetService("ReplicatedStorage").Events.PetInventory:FireServer("DeletePet", {game:GetService("Players").LocalPlayer.Pets:FindFirstChild(del)})
+					end
+				end				
+			end
+			if petDelSelection2 ~= "1none1" then
+				local del = nil
+				for i,v in pairs(game:GetService('Players').LocalPlayer.Pets:getChildren()) do
+					if v.PetName.Value == petDelSelection2 then
+						del = tostring(v)
+						game:GetService("ReplicatedStorage").Events.PetInventory:FireServer("DeletePet", {game:GetService("Players").LocalPlayer.Pets:FindFirstChild(del)})
+					end
+				end	
+			end
+			if petDelSelection3 ~= "1none1" then
+				local del = nil
+				for i,v in pairs(game:GetService('Players').LocalPlayer.Pets:getChildren()) do
+					if v.PetName.Value == petDelSelection3 then
+						del = tostring(v)
+						game:GetService("ReplicatedStorage").Events.PetInventory:FireServer("DeletePet", {game:GetService("Players").LocalPlayer.Pets:FindFirstChild(del)})
+					end
+				end	
+			end
+			if petDelSelection4 ~= "1none1" then
+				local del = nil
+				for i,v in pairs(game:GetService('Players').LocalPlayer.Pets:getChildren()) do
+					if v.PetName.Value == petDelSelection4 then
+						del = tostring(v)
+						game:GetService("ReplicatedStorage").Events.PetInventory:FireServer("DeletePet", {game:GetService("Players").LocalPlayer.Pets:FindFirstChild(del)})
+					end
+				end	
+			end
+		end
+		---- Delete Hats ----
+		if hatDelBool and localPlayer.Tools:FindFirstChild("Trowel") and localPlayer.Character:FindFirstChild('HumanoidRootPart') then
+			if hatDelSelection1 ~= "1none1" then
+				local del = nil
+				for i,v in pairs(game:GetService('Players').LocalPlayer.Hats:getChildren()) do
+					if v.HatName.Value == hatDelSelection1 then
+						del = tostring(v)
+						game:GetService("ReplicatedStorage").Events.PetInventory:FireServer("DeleteHat", {game:GetService("Players").LocalPlayer.Pets:FindFirstChild(del)})
+					end
 				end
 			end
-			game:GetService("ReplicatedStorage").Events.Server:InvokeServer("PurchaseBackpack", nextBackpackToBuy)
+			if hatDelSelection2 ~= "1none1" then
+				local del = nil
+				for i,v in pairs(game:GetService('Players').LocalPlayer.Hats:getChildren()) do
+					if v.HatName.Value == hatDelSelection2 then
+						del = tostring(v)
+						game:GetService("ReplicatedStorage").Events.PetInventory:FireServer("DeleteHat", {game:GetService("Players").LocalPlayer.Pets:FindFirstChild(del)})
+					end
+				end
+			end
+			if hatDelSelection3 ~= "1none1" then
+				local del = nil
+				for i,v in pairs(game:GetService('Players').LocalPlayer.Hats:getChildren()) do
+					if v.HatName.Value == hatDelSelection3 then
+						del = tostring(v)
+						game:GetService("ReplicatedStorage").Events.PetInventory:FireServer("DeleteHat", {game:GetService("Players").LocalPlayer.Pets:FindFirstChild(del)})
+					end
+				end
+			end
+			if hatDelSelection4 ~= "1none1" then
+				local del = nil
+				for i,v in pairs(game:GetService('Players').LocalPlayer.Hats:getChildren()) do
+					if v.HatName.Value == hatDelSelection4 then
+						del = tostring(v)
+						game:GetService("ReplicatedStorage").Events.PetInventory:FireServer("DeleteHat", {game:GetService("Players").LocalPlayer.Pets:FindFirstChild(del)})
+					end
+				end
+			end
 		end
 	end
 end)
+
 
 --[[
 b:Label("Pretty Useless NGL",{
