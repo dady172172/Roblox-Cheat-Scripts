@@ -775,6 +775,9 @@ end
 ----------------------------------------------------------- Main Loop -----------------------------------------------------------
 spawn(function()
 	while wait() do
+		if not game:GetService('Players').LocalPlayer.Character:FindFirstChild('HumanoidRootPart') then
+			wait(1)
+		end
 		---- close Spawn if gui closed ----
 		if removeSizzling then
 			break
@@ -885,26 +888,26 @@ spawn(function()
 			local wantToBuy = 2
 			local wantToBuyIndex = 1
 			---- stops if you have the best weapon in game equiped
-			if curWeaponId == 42 then
-				return
-			end
-			---- set robux weapons ID equal to equivlent 
-			if curWeaponId == 40 then curWeaponId = 3 end
-			if curWeaponId == 5 then curWeaponId = 22 end
-			---- get want to buyitems
-			for i,v in ipairs(weaponArray) do	
-				if v.cost > pCoins and v.weaponId > curWeaponId then
-					wantToBuy = weaponArray[i-1]["weaponId"]
-					wantToBuyIndex = i-1
-					break
-				elseif i == #weaponArray then
-					wantToBuy = v.weaponId
-					wantToBuyIndex = 39
+			if curWeaponId ~= 42 then
+				---- set robux weapons ID equal to equivlent 
+				if curWeaponId == 40 then curWeaponId = 3 end
+				if curWeaponId == 5 then curWeaponId = 22 end
+				---- get want to buyitems
+				for i,v in ipairs(weaponArray) do	
+					if v.cost > pCoins and v.weaponId > curWeaponId then
+						wantToBuy = weaponArray[i-1]["weaponId"]
+						wantToBuyIndex = i-1
+						break
+					elseif i == #weaponArray then
+						wantToBuy = v.weaponId
+						wantToBuyIndex = 39
+					end
+				end	
+				if wantToBuy ~= curWeaponId and curWeaponId ~= 42 then
+					RemoteEvent:FireServer("Buy Weapon", weaponArray[wantToBuyIndex]["weaponId"])
 				end
-			end	
-			if wantToBuy ~= curWeaponId and curWeaponId ~= 42 then
-				RemoteEvent:FireServer("Buy Weapon", weaponArray[wantToBuyIndex]["weaponId"])
 			end
+			
 		end
 		---- buy best fork ----
 		if shared.buyBestForkBool then
@@ -912,27 +915,20 @@ spawn(function()
 			local forkInv, curForkId = RemoteFunc:InvokeServer("Get Fork Data")
 			local forkWantToBuy = 2
 			local forkWantToBuyIndex = 1
-			if curForkId == 29 then
-				print("You already have the best fork!!")
-				return
-			end
-			for i,v in ipairs(forkArray) do
-				if v.cost > pCoins and v.forkId > curForkId then
-					forkWantToBuy = forkArray[i-1]["forkId"]
-					forkWantToBuyIndex = i-1
-					break		
-				elseif i == #forkArray then
-					forkWantToBuy = v.forkId
-					forkWantToBuyIndex = 28
+			if curForkId ~= 29 then
+				for i,v in ipairs(forkArray) do
+					if v.cost > pCoins and v.forkId > curForkId then
+						forkWantToBuy = forkArray[i-1]["forkId"]
+						forkWantToBuyIndex = i-1
+						break		
+					elseif i == #forkArray then
+						forkWantToBuy = v.forkId
+						forkWantToBuyIndex = 28
+					end
 				end
-			end
-			
-			if forkWantToBuy ~= curforkId and curforkId ~= 29 then
-				RemoteEvent:FireServer("Buy Fork", forkArray[forkWantToBuyIndex]["forkId"])
-			elseif forkWantToBuy == 29 and curforkId == 29 then
-				print("You already have the best fork")
-			else
-				print("Not enough money")
+				if forkWantToBuy ~= curforkId and curforkId ~= 29 then
+					RemoteEvent:FireServer("Buy Fork", forkArray[forkWantToBuyIndex]["forkId"])
+				end
 			end
 		end
 		---- open egg ----
