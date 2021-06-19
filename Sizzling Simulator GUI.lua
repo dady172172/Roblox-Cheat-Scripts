@@ -3,6 +3,13 @@ Game : https://www.roblox.com/games/4572547530/Sizzling-Simulator?
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 Made by : https://v3rmillion.net/member.php?action=profile&uid=244024
 ]]--
+if game:GetService("CoreGui"):FindFirstChild("Sizzling Simulator GUI By Keathunsar") then
+	game:GetService("CoreGui")["Sizzling Simulator GUI By Keathunsar"]:Remove()
+	getgenv().removeSizzling = true
+	wait(.1)
+end
+getgenv().removeSizzling = false
+local this = script
 local VirtualUser=game:service'VirtualUser'
 game:service'Players'.LocalPlayer.Idled:connect(function()
     VirtualUser:CaptureController()
@@ -11,6 +18,7 @@ end)
 
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/zxciaz/VenyxUI/main/Reuploaded"))() --someone reuploaded it so I put it in place of the original back up so guy can get free credit.
 local venyx = library.new("Sizzling Simulator GUI By Keathunsar", 5013109572)
+---- delete want to buy with robux ----
 
 -- themes
 local themes = {
@@ -25,11 +33,12 @@ TextColor = Color3.fromRGB(255, 255, 255)
 -- pages
 local page = venyx:addPage("Farm", 5012544693)
 local a = page:addSection("Collect")
-local aa = page:addSection("Rebirth")
+local pageRebirth = venyx:addPage("Rebirth", 5012544693)
+local aRebirth = pageRebirth:addSection("Rebirth")
+local bRebirth = pageRebirth:addSection("Menu")
 local page2 = venyx:addPage("Menus", 5012544693)
 local b = page2:addSection("Menus")
 local ba = page2:addSection("Crafting")
-local bb = page2:addSection("Rebirth")
 local page3 = venyx:addPage("Buy", 5012544693)
 local c = page3:addSection("Weapon")
 local ca = page3:addSection("Fork")
@@ -37,9 +46,10 @@ local cb = page3:addSection("Egg")
 local cc = page3:addSection("Hat")
 local page4 = venyx:addPage("Teleport", 5012544693)
 local d = page4:addSection("Teleport")
+local pageKeyBinds = venyx:addPage("Keybinds", 5012544693)
+local aKeyBinds = pageKeyBinds:addSection("Keybinds")
 local page5 = venyx:addPage("Misc", 5012544693)
 local e = page5:addSection("Misc")
-local ea = page5:addSection("KeyBinds")
 ----- theme ----
 local theme = venyx:addPage("Theme", 5012544693)
 local colors = theme:addSection("Colors")
@@ -192,6 +202,9 @@ a:addToggle("Auto Attack", shared.autoAttackBool, function(bool)
 end)
 spawn(function()
     while wait() do
+		if removeSizzling then
+			break
+		end
         for i,v in pairs(game.workspace:GetChildren()) do	
             if v:FindFirstChild('CharId') and shared.autoAttackBool and v.HealthGui.Health.Amount.Text:sub(1,1) ~= "0" then
 				if v.Name ~= autoAttackAnimalName and autoAttackAnimalName == "Closest" then 	
@@ -210,89 +223,67 @@ spawn(function()
     end
 end)
 
-spawn(function()
-    while wait() do
-        for i,v in pairs(game.workspace:GetChildren()) do	
-            if nearest ~= nil and id ~= nil and v:FindFirstChild('CharId') and shared.autoAttackBool and v.CharId.Value == id then
-                currentTarget = v.CharId.Value
-				RemoteEvent:FireServer("Animal Selected", v.CharId.Value)
-				local nearestCFrame = nearest.CFrame
-				local nx, ny, nz, r00, r01, r02, r10, r11, r12, r20, r21, r22 = nearestCFrame:components()
-                repeat
-					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(nx,ny-22,nz)
-                    RemoteEvent:FireServer("Animal Hit", v.CharId.Value)
-                wait()
-                until not v or not v:FindFirstChild('CharId') or not v:FindFirstChildWhichIsA('Part') or not nearest or not nearest.Parent or not shared.autoAttackBool or v.HealthGui.Health.Amount.Text:sub(1,1) == "0"
-                last,nearest,id = math.huge, nil, nil	
-            end
-        end
-    end
-end)
-
-
 ---- Magnet meat/items ----
 a:addToggle("Magnet Meat/Items", shared.magnetMeatItemsBool, function(bool)
 	shared.magnetMeatItemsBool = bool  
-end)
-spawn(function()
-	while wait() do
-		if shared.magnetMeatItemsBool == true then
-			for i,v in pairs(game.workspace:GetChildren()) do			
-				if string.find(v.Name:lower(), "meat") or string.find(v.Name:lower(), "item") and v.Name ~= "DropOffMeat" and v.Name ~= "ItemCapsules" then
-					for x,z in pairs(v:GetChildren()) do
-						if z.Name == "Part" and z:FindFirstChild("TouchInterest") then
-							firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, z, 0)
-						end
-					end
-				end
-			end	
-		end
-	end
 end)
 
 ---- Drop Off Meat ----
 a:addToggle("Drop Off Meat", false, function(bool)
 	shared.dropOffMeatBool = bool
 end)
-spawn(function()
-	while wait() do
-		if shared.dropOffMeatBool == true then
-			RemoteEvent:FireServer('Drop Off Meat')
-		end
-	end
-end)
 
 ---- Collect Grill Coins ----
 a:addToggle("Collect Grill Coins", shared.collectGrillCoinsBool, function(bool)
 	shared.collectGrillCoinsBool = bool
-end)
-spawn(function()
-	while wait() do
-		if shared.collectGrillCoinsBool == true then
-			RemoteEvent:FireServer('Collect Grill Coins')
-		end
-	end
 end)
 
 ---- Collect Coins ----
 a:addToggle("Collect Coins", shared.collectCoinsBool, function(bool)
 	shared.collectCoinsBool = bool
 end)
-spawn(function()
-	while wait() do
-		if shared.collectCoinsBool == true then
-			wait()
-			for i,v in pairs(game:GetService("Workspace").Currency:GetChildren()) do
-				if v then
-				firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, v.Part, 0)
-				end
-			end
+
+---- Unlock Next Area ----
+
+local areaList = {}
+local areaListNames = {}
+for i,v in pairs(game:GetService("Workspace").AreaEntries:getChildren()) do
+	local isUnlocked = false
+	if v:FindFirstChild('MainWindow') then
+		if v.MainWindow.Transparency == 1 then
+			isUnlocked = true
 		end
 	end
+	table.insert(areaList, {name = string.match(tostring(v),"%d+"), unlocked = isUnlocked})
+	table.insert(areaListNames, tostring(v))
+end
+
+shared.unlockNextArea = false
+a:addToggle("Unlock Areas", shared.unlockNextArea, function(bool)
+	shared.unlockNextArea = bool
 end)
 
 
+---- upgrade grills ----
+shared.upgradGrills = false
+a:addToggle("Upgrade Grills", shared.upgradGrills, function(bool)
+	shared.upgradGrills = bool
+end)
 
+
+---- buy best weapon auto ----
+shared.buyBestWeaponBool = false
+a:addToggle("Buy Best Weapon", shared.buyBestWeaponBool, function(bool)
+	shared.buyBestWeaponBool = bool
+end)
+
+---- buy best fork auto ----
+shared.buyBestForkBool = false
+a:addToggle("Buy Best Fork", shared.buyBestForkBool, function(bool)
+	shared.buyBestForkBool = bool
+end)
+
+---- Chest Button ----
 a:addButton("Chests",function()
 	for i, v in pairs(game:GetService("Workspace").Chests:getChildren()) do
 		if v.Bottom:FindFirstChild('Emitter') then
@@ -303,19 +294,40 @@ a:addButton("Chests",function()
 	end
 end)
 
+----------------------------------------------------------- Rebirth Section -----------------------------------------------------------
 ---- Rebirth Dropdown ----
 local rebirthNum = 1
-aa:addDropdown("Select Multiplier",{"x1","x3","x5"},function(num)
+aRebirth:addDropdown("Select Multiplier",{"x1","x3","x5"},function(num)
 	if num == "x1" then rebirthNum = 1 end
 	if num == "x3" then rebirthNum = 3 end
 	if num == "x5" then rebirthNum = 5 end
 end)
 
 ---- Rebirth Button ----
-aa:addButton("Rebirth",function()
+aRebirth:addButton("Rebirth",function()
 	if rebirthNum == 1 then RemoteEvent:FireServer('Rebirth',1) end
 	if rebirthNum == 3 then RemoteEvent:FireServer('Rebirth',3) end
 	if rebirthNum == 5 then RemoteEvent:FireServer('Rebirth',5) end
+end)
+
+-------- Respawn Menus --------
+---- x1 ----
+bRebirth:addButton("x1", function()
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace").RebirthButton.TouchPart, 0)
+	wait(.5)
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace").RebirthButton.TouchPart, 1)
+end)
+---- x3 ----
+bRebirth:addButton("x3", function()
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace").Rebirth3Button.TouchPart, 0)
+	wait(.5)
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace").Rebirth3Button.TouchPart, 1)
+end)
+---- x5 ----
+bRebirth:addButton("x5", function()
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace").Rebirth5Button.TouchPart, 0)
+	wait(.5)
+	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace").Rebirth5Button.TouchPart, 1)
 end)
 
 ----------------------------------------------------------- Menus -----------------------------------------------------------
@@ -376,25 +388,7 @@ ba:addButton("Steven [VIP]", function()
 	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace")["Steven Touch"].TouchPart, 1)
 end)
 
--------- Respawn Menus --------
----- x1 ----
-bb:addButton("x1", function()
-	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace").RebirthButton.TouchPart, 0)
-	wait(.5)
-	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace").RebirthButton.TouchPart, 1)
-end)
----- x3 ----
-bb:addButton("x3", function()
-	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace").Rebirth3Button.TouchPart, 0)
-	wait(.5)
-	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace").Rebirth3Button.TouchPart, 1)
-end)
----- x5 ----
-bb:addButton("x5", function()
-	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace").Rebirth5Button.TouchPart, 0)
-	wait(.5)
-	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace").Rebirth5Button.TouchPart, 1)
-end)
+
 
 ----------------------------------------------------------- BUY -----------------------------------------------------------
 
@@ -449,15 +443,23 @@ end)
 
 ---- Weapon Buy Best ----
 c:addButton("Buy Best",function()
+	funcBuyBestWeapon()
+end)
+
+function funcBuyBestWeapon()
 	local pCoins, Gems = RemoteFunc:InvokeServer("Get Currency");
 	local WeaponInv, curWeaponId = RemoteFunc:InvokeServer("Get Weapon Data")
 	local wantToBuy = 2
 	local wantToBuyIndex = 1
+	---- stops if you have the best weapon in game equiped
 	if curWeaponId == 42 then
-		print("You already have the best weapon!!")
 		return
 	end
-	for i,v in ipairs(weaponArray) do
+	---- set robux weapons ID equal to equivlent 
+	if curWeaponId == 40 then curWeaponId = 3 end
+	if curWeaponId == 5 then curWeaponId = 22 end
+	---- get want to buyitems
+	for i,v in ipairs(weaponArray) do	
 		if v.cost > pCoins and v.weaponId > curWeaponId then
 			wantToBuy = weaponArray[i-1]["weaponId"]
 			wantToBuyIndex = i-1
@@ -466,15 +468,15 @@ c:addButton("Buy Best",function()
 			wantToBuy = v.weaponId
 			wantToBuyIndex = 39
 		end
-	end
+	end	
 	if wantToBuy ~= curWeaponId and curWeaponId ~= 42 then
 		RemoteEvent:FireServer("Buy Weapon", weaponArray[wantToBuyIndex]["weaponId"])
 	elseif wantToBuy == 42 and curWeaponId == 42 then
 		print("You already have the best weapon")
 	else
-		print("Not enough money to Buy Best Weapon!")
+		print("Not enough money to buy a better weapon!")
 	end
-end)
+end
 
 ---- Fork DropDown ----
 local ForkNum = 2
@@ -516,11 +518,13 @@ end)
 
 ---- Fork Buy Best ----e
 ca:addButton("Buy Best",function()
+	funcBuyBestFork()
+end)
+function funcBuyBestFork()
 	local pCoins, Gems = RemoteFunc:InvokeServer("Get Currency")
 	local forkInv, curForkId = RemoteFunc:InvokeServer("Get Fork Data")
 	local forkWantToBuy = 2
 	local forkWantToBuyIndex = 1
-	print(curForkId)
 	if curForkId == 29 then
 		print("You already have the best fork!!")
 		return
@@ -543,8 +547,7 @@ ca:addButton("Buy Best",function()
 	else
 		print("Not enough money")
 	end
-	
-end)
+end
 
 ---- Eggs ----
 local eggNum = 1
@@ -566,13 +569,6 @@ end)
 cb:addToggle("Toggle", shared.openEggBool, function(bool)
 	shared.openEggBool = bool
 end)
-spawn(function()
-	while wait() do
-		if shared.openEggBool == true then
-			game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase One Egg",eggNum)
-		end
-	end
-end)
 
 ---- Hats ----
 local hatNum = 1
@@ -592,13 +588,6 @@ end)
 cc:addToggle("Toggle", shared.openHatBool, function(bool)
 	shared.openHatBool = bool
 end)
-spawn(function()
-	while wait() do
-		if shared.openHatBool == true then
-			game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase One Egg",hatNum)
-		end
-	end
-end)
 
 ----------------------------------------------------------- Teleports -----------------------------------------------------------
 for k,v in ipairs(Locations) do
@@ -607,15 +596,92 @@ for k,v in ipairs(Locations) do
 	end)
 end 
 
+----------------------------------------------------------- KeyBinds -----------------------------------------------------------
+---- open close menu ----
+aKeyBinds:addKeybind("Open/Close Menu", Enum.KeyCode.Backquote, function()
+venyx:toggle()
+end, function()
+end)
+
+---- Auto Attack ----
+aKeyBinds:addKeybind("Auto Attack", nil, function()
+	if shared.autoAttackBool == false then
+		shared.autoAttackBool = true
+	else
+		shared.autoAttackBool = false
+		RemoteEvent:FireServer("Animal Deselected", currentTarget)
+	end
+end, function()
+end)
+
+---- magnet meat items ----
+aKeyBinds:addKeybind("Magnet Meat/Items", nil, function()
+	if shared.magnetMeatItemsBool == false then
+		shared.magnetMeatItemsBool = true
+	else
+		shared.magnetMeatItemsBool = false
+	end
+end, function()
+end)
+
+---- Drop Off Meat ----
+aKeyBinds:addKeybind("Drop Off Meat", nil, function()
+	if shared.dropOffMeatBool == false then
+		shared.dropOffMeatBool = true
+	else
+		shared.dropOffMeatBool = false
+	end
+end, function()
+end)
+
+---- Collect Grill Coins ----
+aKeyBinds:addKeybind("Collect Grill Coins", nil, function()
+	if shared.collectGrillCoinsBool == false then
+		shared.collectGrillCoinsBool = true
+	else
+		shared.collectGrillCoinsBool = false
+	end
+end, function()
+end)
+
+---- shared.collectCoinsBool ----
+aKeyBinds:addKeybind("Collect Coins", nil, function()
+
+	if shared.collectCoinsBool == false then
+		shared.collectCoinsBool = true
+	else
+		shared.collectCoinsBool = false
+	end
+end, function()
+end)
+---- flashlight bind ----
+aKeyBinds:addKeybind("Light", Enum.KeyCode.F, function()
+	
+	if shared.flashLightBool == false then
+		shared.flashLightBool = true
+	else
+		shared.flashLightBool = false
+	end
+	flashLightToggle(shared.flashLightBool)
+end, function()
+end)
+
+---- Buy Best Weapon ----
+aKeyBinds:addKeybind("Buy Best Weapon", Enum.KeyCode.Minus, function()
+	funcBuyBestWeapon()
+end, function()
+end)
+
+---- Buy Best Fork ----
+aKeyBinds:addKeybind("Buy Best Fork", Enum.KeyCode.Equals, function()
+	funcBuyBestFork()
+end, function()
+end)
+
 ----------------------------------------------------------- Misc -----------------------------------------------------------
 ---- walkspeed -----
 e:addSlider("Speed",game.Players.LocalPlayer.Character.Humanoid.WalkSpeed,1,300,function(value)
     WalkSpeed = value
-end)
-spawn(function()
-	while wait() do
-		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WalkSpeed
-	end
 end)
 
 
@@ -648,148 +714,40 @@ shared.bloom = true
 e:addToggle("Bloom", shared.bloom , function(bool)
 	game:GetService("Lighting").Bloom.Enabled = bool
 end)
-local reloadBarOrigPos = game:GetService("Players").keathunsar.PlayerGui.MainGui.Reload.Position
+---- buy robux frame ----
+shared.PP = true
+e:addToggle("Purchase Prompt", shared.PP, function(bool)
+	game:GetService("CoreGui").PurchasePromptApp.ProductPurchase.Visible = bool
+end)
+
+local reloadBarOrigPos = game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Reload.Position
 shared.reloadBarBool = true
 e:addToggle("Reload Bar", shared.reloadBarBool, function(bool)
 	if bool then
 		shared.reloadBarBool = bool
-		game:GetService("Players").keathunsar.PlayerGui.MainGui.Reload.Position = reloadBarOrigPos
+		game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Reload.Position = reloadBarOrigPos
 	else
 		shared.reloadBarBool = bool
-		game:GetService("Players").keathunsar.PlayerGui.MainGui.Reload.Position = UDim2.new{8,0,8,0}
-		
-end)
------------------------------------------------------------ KeyBinds -----------------------------------------------------------
----- open close menu ----
-ea:addKeybind("Open/Close Menu", Enum.KeyCode.Backquote, function()
-venyx:toggle()
-end, function()
+		game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Reload.Position:TweenPosition(UDim2.new(0.5, 0, 0.5, 0), nil, nil, 0.3, true)
+	end
 end)
 
----- Auto Attack ----
-ea:addKeybind("Auto Attack", Enum.KeyCode.One, function()
-	if shared.autoAttackBool == false then
-		shared.autoAttackBool = true
-	else
-		shared.autoAttackBool = false
-		RemoteEvent:FireServer("Animal Deselected", currentTarget)
+e:addButton("Distroy GUI", function()
+	game:GetService("CoreGui")["Sizzling Simulator GUI By Keathunsar"]:Remove()
+	getgenv().removeSizzling = true
+	game:GetService("CoreGui").PurchasePromptApp.ProductPurchase.Visible = true
+	if game.Players.LocalPlayer.Character.Head:FindFirstChild('SpotLightFront') then
+		game.Players.LocalPlayer.Character.Head.SpotLightFront.Enabled = false
+		game.Players.LocalPlayer.Character.Head.SpotLightBack.Enabled = false
+		game.Players.LocalPlayer.Character.Head.SpotLightRight.Enabled = false
+		game.Players.LocalPlayer.Character.Head.SpotLightLeft.Enabled = false
 	end
-end, function()
+	wait(.1)
+	getgenv().removeSizzling = false
+	Script:Remove()
 end)
 
----- magnet meat items ----
-ea:addKeybind("Magnet Meat/Items", Enum.KeyCode.Two, function()
-	if shared.magnetMeatItemsBool == false then
-		shared.magnetMeatItemsBool = true
-	else
-		shared.magnetMeatItemsBool = false
-	end
-end, function()
-end)
 
----- Drop Off Meat ----
-ea:addKeybind("Drop Off Meat", Enum.KeyCode.Three, function()
-	if shared.dropOffMeatBool == false then
-		shared.dropOffMeatBool = true
-	else
-		shared.dropOffMeatBool = false
-	end
-end, function()
-end)
-
----- Collect Grill Coins ----
-ea:addKeybind("Collect Grill Coins", Enum.KeyCode.Four, function()
-	if shared.collectGrillCoinsBool == false then
-		shared.collectGrillCoinsBool = true
-	else
-		shared.collectGrillCoinsBool = false
-	end
-end, function()
-end)
-
----- shared.collectCoinsBool ----
-ea:addKeybind("Collect Coins", Enum.KeyCode.Five, function()
-
-	if shared.collectCoinsBool == false then
-		shared.collectCoinsBool = true
-	else
-		shared.collectCoinsBool = false
-	end
-end, function()
-end)
----- flashlight bind ----
-ea:addKeybind("Light", Enum.KeyCode.F, function()
-	
-	if shared.flashLightBool == false then
-		shared.flashLightBool = true
-	else
-		shared.flashLightBool = false
-	end
-	flashLightToggle(shared.flashLightBool)
-end, function()
-end)
-
----- Buy Best Gun ----
-ea:addKeybind("Buy Best Gun", Enum.KeyCode.Minus, function()
-	local pCoins, Gems = RemoteFunc:InvokeServer("Get Currency");
-	local WeaponInv, curWeaponId = RemoteFunc:InvokeServer("Get Weapon Data")
-	local wantToBuy = 2
-	local wantToBuyIndex = 1
-	if curWeaponId == 42 then
-		print("You already have the best weapon!!")
-		return
-	end
-	for i,v in ipairs(weaponArray) do
-		if v.cost > pCoins and v.weaponId > curWeaponId then
-			wantToBuy = weaponArray[i-1]["weaponId"]
-			wantToBuyIndex = i-1
-			break
-		elseif i == #weaponArray then
-			wantToBuy = v.weaponId
-			wantToBuyIndex = 39
-		end
-	end
-	if wantToBuy ~= curWeaponId and curWeaponId ~= 42 then
-		RemoteEvent:FireServer("Buy Weapon", weaponArray[wantToBuyIndex]["weaponId"])
-	elseif wantToBuy == 42 and curWeaponId == 42 then
-		print("You already have the best weapon")
-	else
-		print("Not enough money to Buy Best Weapon!")
-	end
-end, function()
-end)
-
----- Buy Best Fork ----
-ea:addKeybind("Buy Best Fork", Enum.KeyCode.Equals, function()
-	local pCoins, Gems = RemoteFunc:InvokeServer("Get Currency")
-	local forkInv, curForkId = RemoteFunc:InvokeServer("Get Fork Data")
-	local forkWantToBuy = 2
-	local forkWantToBuyIndex = 1
-	print(curForkId)
-	if curForkId == 29 then
-		print("You already have the best fork!!")
-		return
-	end
-	for i,v in ipairs(forkArray) do
-		if v.cost > pCoins and v.forkId > curForkId then
-			forkWantToBuy = forkArray[i-1]["forkId"]
-			forkWantToBuyIndex = i-1
-			break		
-		elseif i == #forkArray then
-			forkWantToBuy = v.forkId
-			forkWantToBuyIndex = 28
-		end
-	end
-	
-	if forkWantToBuy ~= curforkId and curforkId ~= 29 then
-		RemoteEvent:FireServer("Buy Fork", forkArray[forkWantToBuyIndex]["forkId"])
-	elseif forkWantToBuy == 29 and curforkId == 29 then
-		print("You already have the best fork")
-	else
-		print("Not enough money")
-	end
-end, function()
-end)
 
 ---- Flash Light Function ----
 function flashLightToggle(bool)
@@ -813,6 +771,186 @@ function flashLightToggle(bool)
 	game.Players.LocalPlayer.Character.Head.SpotLightRight.Enabled = bool
 	game.Players.LocalPlayer.Character.Head.SpotLightLeft.Enabled = bool
 end
+
+----------------------------------------------------------- Main Loop -----------------------------------------------------------
+spawn(function()
+	while wait() do
+		---- close Spawn if gui closed ----
+		if removeSizzling then
+			break
+		end
+		---- Auto Attack ----
+		for i,v in pairs(game.workspace:GetChildren()) do	
+            if nearest ~= nil and id ~= nil and v:FindFirstChild('CharId') and shared.autoAttackBool and v.CharId.Value == id then
+                currentTarget = v.CharId.Value
+				RemoteEvent:FireServer("Animal Selected", v.CharId.Value)
+				local nearestCFrame = nearest.CFrame
+				local nx, ny, nz, r00, r01, r02, r10, r11, r12, r20, r21, r22 = nearestCFrame:components()
+                repeat
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(nx,ny-22,nz)
+                    RemoteEvent:FireServer("Animal Hit", v.CharId.Value)
+                wait()
+                until not v or not v:FindFirstChild('CharId') or not v:FindFirstChildWhichIsA('Part') or not nearest or not nearest.Parent or not shared.autoAttackBool or v.HealthGui.Health.Amount.Text:sub(1,1) == "0"
+                last,nearest,id = math.huge, nil, nil	
+            end
+        end
+		---- Meat/Item Magnet
+		if shared.magnetMeatItemsBool == true then
+			for i,v in pairs(game.workspace:GetChildren()) do			
+				if string.find(v.Name:lower(), "meat") or string.find(v.Name:lower(), "item") and v.Name ~= "DropOffMeat" and v.Name ~= "ItemCapsules" then
+					for x,z in pairs(v:GetChildren()) do
+						if z.Name == "Part" and z:FindFirstChild("TouchInterest") then
+							firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, z, 0)
+						end
+					end
+				end
+			end	
+		end
+		---- drop off meat ----
+		if shared.dropOffMeatBool == true then
+			RemoteEvent:FireServer('Drop Off Meat')
+		end
+		---- collect grill coins ----
+		if shared.collectGrillCoinsBool == true then
+			RemoteEvent:FireServer('Collect Grill Coins')
+		end
+		---- collect coins from the ground ----
+		if shared.collectCoinsBool == true then
+			wait()
+			for i,v in pairs(game:GetService("Workspace").Currency:GetChildren()) do
+				if v then
+				firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, v.Part, 0)
+				end
+			end
+		end
+		---- unlock areas
+		if shared.unlockNextArea then			
+			table.clear(areaList)
+			for i,v in pairs(game:GetService("Workspace").AreaEntries:getChildren()) do
+				local isUnlocked = false
+				if v:FindFirstChild('MainWindow') then
+					if v.MainWindow.Transparency == 1 then
+						isUnlocked = true
+					end
+				end
+				table.insert(areaList, {name = string.match(tostring(v),"%d+"), unlocked = isUnlocked})
+			end
+			if areaList[#areaList]['unlocked'] ~= true then
+				
+				local next_Area = 0
+				for i,v in pairs(areaList) do
+					if v['unlocked'] == false then
+						next_Area = tonumber(v['name'])
+						break
+					end
+				end	
+				if next_Area ~= 0 then
+					game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase Area", next_Area)
+				end
+			end
+		end
+		---- upgrade grills ----
+		if shared.upgradGrills then
+			local grillNum = 0
+			for i,v in pairs(game:GetService("Workspace").DropOffMeat:getChildren()) do
+				if string.find(v.Name, "Grill5-") then
+					break
+				elseif string.find(v.Name, "Grill4-") then
+					grillNum = 1
+					break
+				elseif string.find(v.Name, "Grill3-") then
+					grillNum = 2
+					break
+				elseif string.find(v.Name, "Grill2-") then
+					grillNum = 3
+					break
+				elseif string.find(v.Name, "Grill1-") then
+					grillNum = 4
+					break
+				end
+			end
+			if grillNum ~= 0 then
+				for i=1,grillNum do
+					game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Buy +1 Grill")
+				end
+			end
+			for i=1,5 do
+				game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Upgrade Grill", i)
+			end
+		end
+		---- buy best weapon ----
+		if shared.buyBestWeaponBool then
+			local pCoins, Gems = RemoteFunc:InvokeServer("Get Currency");
+			local WeaponInv, curWeaponId = RemoteFunc:InvokeServer("Get Weapon Data")
+			local wantToBuy = 2
+			local wantToBuyIndex = 1
+			---- stops if you have the best weapon in game equiped
+			if curWeaponId == 42 then
+				return
+			end
+			---- set robux weapons ID equal to equivlent 
+			if curWeaponId == 40 then curWeaponId = 3 end
+			if curWeaponId == 5 then curWeaponId = 22 end
+			---- get want to buyitems
+			for i,v in ipairs(weaponArray) do	
+				if v.cost > pCoins and v.weaponId > curWeaponId then
+					wantToBuy = weaponArray[i-1]["weaponId"]
+					wantToBuyIndex = i-1
+					break
+				elseif i == #weaponArray then
+					wantToBuy = v.weaponId
+					wantToBuyIndex = 39
+				end
+			end	
+			if wantToBuy ~= curWeaponId and curWeaponId ~= 42 then
+				RemoteEvent:FireServer("Buy Weapon", weaponArray[wantToBuyIndex]["weaponId"])
+			end
+		end
+		---- buy best fork ----
+		if shared.buyBestForkBool then
+			local pCoins, Gems = RemoteFunc:InvokeServer("Get Currency")
+			local forkInv, curForkId = RemoteFunc:InvokeServer("Get Fork Data")
+			local forkWantToBuy = 2
+			local forkWantToBuyIndex = 1
+			if curForkId == 29 then
+				print("You already have the best fork!!")
+				return
+			end
+			for i,v in ipairs(forkArray) do
+				if v.cost > pCoins and v.forkId > curForkId then
+					forkWantToBuy = forkArray[i-1]["forkId"]
+					forkWantToBuyIndex = i-1
+					break		
+				elseif i == #forkArray then
+					forkWantToBuy = v.forkId
+					forkWantToBuyIndex = 28
+				end
+			end
+			
+			if forkWantToBuy ~= curforkId and curforkId ~= 29 then
+				RemoteEvent:FireServer("Buy Fork", forkArray[forkWantToBuyIndex]["forkId"])
+			elseif forkWantToBuy == 29 and curforkId == 29 then
+				print("You already have the best fork")
+			else
+				print("Not enough money")
+			end
+		end
+		---- open egg ----
+		if shared.openEggBool == true then
+			game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase One Egg",eggNum)
+		end
+		---- open crate ----
+		if shared.openHatBool == true then
+			game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase One Egg",hatNum)
+		end
+		---- walkspeed ----
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WalkSpeed
+		
+	end
+end)
+
+
+
 
 
 ---- Set Main Page on load ----
