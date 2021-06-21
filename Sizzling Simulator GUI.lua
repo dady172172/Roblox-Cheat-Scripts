@@ -41,6 +41,7 @@ if game:GetService("CoreGui"):FindFirstChild("Sizzling Simulator GUI By Keathuns
 	game:GetService("CoreGui")["Sizzling Simulator GUI By Keathunsar"]:Remove()
 	removeSizzling = true
 	wait(.1)
+	removeSizzling = false
 end
 ---- anti AFK ----
 local VirtualUser=game:service'VirtualUser'
@@ -753,6 +754,7 @@ spawn(function()
 				end
             end
         end
+		
     end
 end)
 
@@ -770,7 +772,7 @@ function autoAttackFunc()
 						wait()
 						if autoAttackBool == false then break end
 						RemoteEvent:FireServer("Animal Hit", v.CharId.Value)	
-					until not v or not v:FindFirstChild('CharId') or not v:FindFirstChildWhichIsA('Part') or not nearest or not nearest.Parent or not autoAttackBool or v.HealthGui.Health.Amount.Text:sub(1,1) == "0"
+					until v == nil or v:FindFirstChild('CharId') == nil or v:FindFirstChildWhichIsA('Part') == nil or v.HealthGui.Health.Amount.Text:sub(1,1) == "0"
 					last,nearest,id = math.huge, nil, nil
 				end
 			end			
