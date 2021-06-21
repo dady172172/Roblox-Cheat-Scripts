@@ -738,7 +738,7 @@ end
 ---- auto attack find target ----
 spawn(function()
     while wait() do
-		if removeSizzling and game:GetService("CoreGui"):FindFirstChild("Sizzling Simulator GUI By Keathunsar") == nil then break end
+		if removeSizzling then break end
         for i,v in pairs(game.workspace:GetChildren()) do
             if v:FindFirstChild('CharId') and v.HealthGui.Health.Amount.Text:sub(1,1) ~= "0" then
 				if autoAttackAnimalName == "Closest" then 	
@@ -754,35 +754,35 @@ spawn(function()
 				end
             end
         end
-		
     end
 end)
 
 function autoAttackFunc()
 	spawn(function()
 		---- Auto Attack ----
-		repeat
+		while autoAttackBool do
 			wait()
 			if removeSizzling then break end
 			for i,v in pairs(game.workspace:GetChildren()) do	
-				if nearest ~= nil and id ~= nil and v:FindFirstChild('CharId') and autoAttackBool and v.CharId.Value == id then
+				if nearest ~= nil and id ~= nil and v:FindFirstChild('CharId') and v.CharId.Value == id then
 					currentTarget = v.CharId.Value
 					RemoteEvent:FireServer("Animal Selected", v.CharId.Value)
 					repeat
 						wait()
 						if autoAttackBool == false then break end
-						RemoteEvent:FireServer("Animal Hit", v.CharId.Value)	
+						RemoteEvent:FireServer("Animal Hit", v.CharId.Value)
 					until v == nil or v:FindFirstChild('CharId') == nil or v:FindFirstChildWhichIsA('Part') == nil or v.HealthGui.Health.Amount.Text:sub(1,1) == "0"
 					last,nearest,id = math.huge, nil, nil
 				end
-			end			
-		until autoAttackBool == false
+			end
+			pirnt("--- running ---")			
+		end
 	end)
 end
 ---- Meat/Item Magnet ----
 function magnetMeatItemsFunc()
 	spawn(function()
-		repeat
+		while magnetMeatItemsBool do
 			if removeSizzling then break end
 			wait()
 			if magnetMeatItemsBool then
@@ -802,13 +802,13 @@ function magnetMeatItemsFunc()
 					end
 				end	
 			end
-		until magnetMeatItemsBool == false
+		end
 	end)
 end
 ---- collect coins from the ground ----
 function collectCoinsFunc()
 	spawn(function()
-		repeat
+		while collectCoinsBool do
 			if removeSizzling then break end
 			wait()
 			if collectCoinsBool then
@@ -818,14 +818,14 @@ function collectCoinsFunc()
 					end
 				end
 			end
-		until collectCoinsBool == false
+		end
 	end)
 end
 ---- unlock areas ----
 local areaList = {}
 function unlockAreaFunc()
 	spawn(function()
-		repeat
+		while unlockNextAreaBool do
 			if removeSizzling then break end
 			wait()
 			if unlockNextAreaBool then			
@@ -853,13 +853,13 @@ function unlockAreaFunc()
 					end
 				end
 			end
-		until unlockNextAreaBool == false
+		end
 	end)
 end
 ---- upgrade grills ----
 function upgradeGrillsFunc()
 	spawn(function()
-		repeat
+		while upgradGrillsBool do
 			if removeSizzling then break end
 			wait()
 			if upgradGrillsBool then
@@ -892,13 +892,13 @@ function upgradeGrillsFunc()
 					RemoteEvent:FireServer("Upgrade Grill", i)
 				end
 			end
-		until upgradGrillsBool == false
+		end
 	end)
 end
 ---- buy best weapon ----
 function  buyBestWeaponFunc()
 	spawn(function()
-		repeat
+		while buyBestWeaponBool do
 			if removeSizzling then break end
 			wait()
 			if buyBestWeaponBool then
@@ -927,14 +927,14 @@ function  buyBestWeaponFunc()
 					end
 				end
 			end
-		until buyBestWeaponBool == false
+		end
 	end)
 end
 
 ---- buy best fork ----
 function  buyBestForkFunc()
 	spawn(function()
-		repeat
+		while buyBestForkBool do
 			if removeSizzling then break end
 			wait()
 			local pCoins, Gems = RemoteFunc:InvokeServer("Get Currency")
@@ -956,40 +956,40 @@ function  buyBestForkFunc()
 					RemoteEvent:FireServer("Buy Fork", forkArray[forkWantToBuyIndex]["forkId"])
 				end
 			end	
-		until buyBestForkBool == false
+		end
 	end)
 end
 
 ---- open Eggs ----
 function  openEggFunc()
 	spawn(function()
-		repeat
+		while openEggBool do
 			if removeSizzling then break end
 			wait()
 			if openEggBool then
 				game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase One Egg",eggNum)
 			end
-		until openEggBool == false
+		end
 	end)
 end
 
 ---- open crates ----
 function  openHatFunc()
 	spawn(function()
-		repeat
+		while openHatBool do
 			if removeSizzling then break end
 			wait()
 			if openHatBool then
 				game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase One Egg",hatNum)
 			end
-		until openHatBool == false
+		end
 	end)
 end
 
 ---- open chests ----
 function  openChestsFunc()
 	spawn(function()
-		repeat
+		while chestBool do
 			if removeSizzling then break end
 			wait()
 			if chestBool then
@@ -1001,34 +1001,33 @@ function  openChestsFunc()
 					end
 				end
 			end
-		until chestBool == false
+		end
 	end)
 end
 
 ---- dropoff meat ----
 function  dropOffMeatFunc()
 	spawn(function()
-		repeat
+		while dropOffMeatBool do
 			if removeSizzling then break end
 			wait()
 			if dropOffMeatBool then
 				RemoteEvent:FireServer('Drop Off Meat')
 			end
-		until dropOffMeatBool == false
-	
+		end
 	end)
 end
 
 ---- collect grill coins ----
 function  collectGrillCoinsFunc()
 	spawn(function()
-		repeat
+		while collectGrillCoinsBool do
 			if removeSizzling then break end
 			wait()
 			if collectGrillCoinsBool then
 				RemoteEvent:FireServer('Collect Grill Coins')
 			end
-		until collectGrillCoinsBool == false
+		end
 	end)
 end
 
