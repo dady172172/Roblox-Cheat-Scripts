@@ -737,7 +737,7 @@ end
 ---- auto attack find target ----
 spawn(function()
     while wait() do
-		if removeSizzling then break end
+		if removeSizzling and game:GetService("CoreGui"):FindFirstChild("Sizzling Simulator GUI By Keathunsar") == nil then break end
         for i,v in pairs(game.workspace:GetChildren()) do
             if v:FindFirstChild('CharId') and v.HealthGui.Health.Amount.Text:sub(1,1) ~= "0" then
 				if autoAttackAnimalName == "Closest" then 	
