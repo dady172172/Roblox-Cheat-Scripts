@@ -67,7 +67,7 @@ e:Button("Delete Screen Spam", function(bool)
     if SellEffect ~= nil then
         for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.SellEffect:getChildren()) do
             if v.Name == 'LocalScript' then
-                v.LocalScript.ImageLabel:Remove()
+                v.LocalScript:Remove()
             end
         end
     end
