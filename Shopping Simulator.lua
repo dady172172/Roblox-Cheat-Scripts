@@ -13,7 +13,7 @@ local c = w:CreateFolder("Menus")
 local e = w:CreateFolder("Msc")
 
 local upgradeFrame = game:GetService("Players").LocalPlayer.PlayerGui.UpgradeShop.Frame
-local shopFrame = game:GetService("Players").keathunsar.PlayerGui.CardShop.Frame
+local shopFrame = game:GetService("Players").LocalPlayer.PlayerGui.CardShop.Frame
 ---:TweenPosition(UDim2.new(0.5, 0, 0.5, 0), nil, nil, 0.3, true)
 local swipeBool = false
 b:Toggle("Swipe",function(bool)
