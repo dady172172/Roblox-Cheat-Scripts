@@ -4,44 +4,43 @@ Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 GUI Made by : https://v3rmillion.net/member.php?action=profile&uid=244024
 ]]--
 
-if getgenv().flashLightBool == nil then getgenv().flashLightBool = false end
-if getgenv().fogBool == nil then getgenv().fogBool = true end
-if getgenv().fogStart == nil then getgenv().fogStart = game.Lighting.FogStart end
-if getgenv().sunRaysBool == nil then getgenv().sunRaysBool = true end
-if getgenv().blurBool == nil then getgenv().blurBool = true end
-if getgenv().bloomBool == nil then getgenv().bloomBool = true end
-if getgenv().purchasePromptBool == nil then getgenv().purchasePromptBool = true end
-if getgenv().reloadBarBool == nil then getgenv().reloadBarBool = false end
-if getgenv().walkSpeed == nil then getgenv().walkSpeed = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed end
-if getgenv().eggSelected == nill then getgenv().eggSelected = "100" end
-if getgenv().crateSelected == nil then getgenv().crateSelected = "250" end
-if getgenv().hatNum == nil then getgenv().hatNum = 1 end
-if getgenv().eggNum == nil then getgenv().eggNum = 1 end
-if getgenv().rebirthMulti == nil then getgenv().rebirthMulti = "x1" end
-if getgenv().themeSizzle == nil then getgenv().themeSizzle = {Background = Color3.fromRGB(24, 24, 24), Glow = Color3.fromRGB(0, 0, 0), Accent = Color3.fromRGB(10, 10, 10), LightContrast = Color3.fromRGB(20, 20, 20), DarkContrast = Color3.fromRGB(14, 14, 14), TextColor = Color3.fromRGB(255, 255, 255)} end
-
-local autoAttackBool = false
-local magnetMeatItemsBool = false
-local dropOffMeatBool = false
-local collectCoinsBool = false
-local collectGrillCoinsBool = false
-local unlockNextAreaBool = false
-local upgradGrillsBool = false
-local buyBestWeaponBool = false
-local buyBestForkBool = false
-local chestBool = false
-local openEggBool = false
-local openHatBool = false
-local removeSizzling = false
-local autoAttackAnimalName = "Closest"
+local kVars = {}
+kVars.autoAttackBool = false
+kVars.magnetMeatItemsBool = false
+kVars.dropOffMeatBool = false
+kVars.collectCoinsBool = false
+kVars.collectGrillCoinsBool = false
+kVars.unlockNextAreaBool = false
+kVars.upgradGrillsBool = false
+kVars.buyBestWeaponBool = false
+kVars.buyBestForkBool = false
+kVars.chestBool = false
+kVars.openEggBool = false
+kVars.openHatBool = false
+kVars.removeSizzling = false
+kVars.fogBool = true
+kVars.origFog = game.Lighting.FogStart
+kVars.sunRaysBool = true
+kVars.blurBool = true
+kVars.bloomBool = true
+kVars.purchasePromptBool = true
+kVars.reloadBarBool = true
+kVars.walkSpeed = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
+kVars.origWalkSpeed = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
+kVars.eggSelected = "100"
+kVars.crateSelected = "250"
+kVars.hatNum = 1
+kVars.eggNum = 1
+kVars.rebirthMulti = "x1"
+kVars.themeSizzle = {Background = Color3.fromRGB(24, 24, 24), Glow = Color3.fromRGB(0, 0, 0), Accent = Color3.fromRGB(10, 10, 10), LightContrast = Color3.fromRGB(20, 20, 20), DarkContrast = Color3.fromRGB(14, 14, 14), TextColor = Color3.fromRGB(255, 255, 255)}
+kVars.autoAttackAnimalName = "Closest"
 local RemoteEvent = game:GetService("ReplicatedStorage").RemoteEvent
 local RemoteFunc = game:GetService("ReplicatedStorage").RemoteFunction
+local RunService = game:GetService("RunService")
 
 if game:GetService("CoreGui"):FindFirstChild("Sizzling Simulator GUI By Keathunsar") then
 	game:GetService("CoreGui")["Sizzling Simulator GUI By Keathunsar"]:Remove()
-	removeSizzling = true
 	wait(.1)
-	removeSizzling = false
 end
 ---- anti AFK ----
 local VirtualUser=game:service'VirtualUser'
@@ -77,7 +76,7 @@ local e = page5:addSection("Misc")
 ----- theme ----
 local theme = venyx:addPage("Theme", 5012544693)
 local colors = theme:addSection("Colors")
-for theme, color in pairs(themeSizzle) do -- all in one theme changer, i know, im cool
+for theme, color in pairs(kVars.themeSizzle) do -- all in one theme changer, i know, im cool
 colors:addColorPicker(theme, color, function(color3)
 venyx:setTheme(theme, color3)
 end)
@@ -200,11 +199,11 @@ local nearest = nil
 local id = nil
 local currentTarget = 8
 ---- Auto Attack ----
-a:addDropdown(autoAttackAnimalName,animalNamesList,function(value)
-	autoAttackAnimalName = value
+a:addDropdown(kVars.autoAttackAnimalName,animalNamesList,function(value)
+	kVars.autoAttackAnimalName = value
 end)
-a:addToggle("Auto Attack", autoAttackBool, function(bool)
-	autoAttackBool = bool
+a:addToggle("Auto Attack", kVars.autoAttackBool, function(bool)
+	kVars.autoAttackBool = bool
 	if bool then 
 		autoAttackFunc()
 	else
@@ -214,26 +213,26 @@ end)
 
 
 ---- Magnet meat/items ----
-a:addToggle("Magnet Meat/Items", magnetMeatItemsBool, function(bool)
-	magnetMeatItemsBool = bool 
+a:addToggle("Magnet Meat/Items", kVars.magnetMeatItemsBool, function(bool)
+	kVars.magnetMeatItemsBool = bool 
 	magnetMeatItemsFunc()
 end)
 
 ---- Drop Off Meat ----
-a:addToggle("Drop Off Meat", dropOffMeatBool, function(bool)
-	dropOffMeatBool  = bool
+a:addToggle("Drop Off Meat", kVars.dropOffMeatBool, function(bool)
+	kVars.dropOffMeatBool  = bool
 	dropOffMeatFunc()
 end)
 
 ---- Collect Grill Coins ----
-a:addToggle("Collect Grill Coins", collectGrillCoinsBool, function(bool)
-	collectGrillCoinsBool  = bool
+a:addToggle("Collect Grill Coins", kVars.collectGrillCoinsBool, function(bool)
+	kVars.collectGrillCoinsBool  = bool
 	collectGrillCoinsFunc()
 end)
 
 ---- Collect Coins ----
-a:addToggle("Collect Coins", collectCoinsBool, function(bool)
-	collectCoinsBool = bool
+a:addToggle("Collect Coins", kVars.collectCoinsBool, function(bool)
+	kVars.collectCoinsBool = bool
 	collectCoinsFunc()
 end)
 
@@ -251,49 +250,49 @@ for i,v in pairs(game:GetService("Workspace").AreaEntries:getChildren()) do
 	table.insert(areaListNames, tostring(v))
 end
 
-a:addToggle("Unlock Areas", unlockNextAreaBool, function(bool)
-	unlockNextAreaBool = bool
+a:addToggle("Unlock Areas", kVars.unlockNextAreaBool, function(bool)
+	kVars.unlockNextAreaBool = bool
 	unlockAreaFunc()
 end)
 
 ---- upgrade grills ----
-a:addToggle("Upgrade Grills", upgradGrillsBool, function(bool)
-	upgradGrillsBool = bool
+a:addToggle("Upgrade Grills", kVars.upgradGrillsBool, function(bool)
+	kVars.upgradGrillsBool = bool
 	upgradeGrillsFunc()
 end)
 
 ---- buy best weapon auto ----
-a:addToggle("Buy Best Weapon", buyBestWeaponBool, function(bool)
-	buyBestWeaponBool = bool
+a:addToggle("Buy Best Weapon", kVars.buyBestWeaponBool, function(bool)
+	kVars.buyBestWeaponBool = bool
 	buyBestWeaponFunc()
 end)
 
 ---- buy best fork auto ----
 
-a:addToggle("Buy Best Fork", buyBestForkBool, function(bool)
-	buyBestForkBool = bool
+a:addToggle("Buy Best Fork", kVars.buyBestForkBool, function(bool)
+	kVars.buyBestForkBool = bool
 	buyBestForkFunc()
 end)
 
 ---- auto chests ----
 
-a:addToggle("Chests", chestBool, function(bool)
-	chestBool = bool
+a:addToggle("Chests", kVars.chestBool, function(bool)
+	kVars.chestBool = bool
 	openChestsFunc()
 end)
 
 ----------------------------------------------------------- Rebirth Section -----------------------------------------------------------
 ---- Rebirth Dropdown ----	
-aRebirth:addDropdown(rebirthMulti,{"x1","x3","x5"},function(num)
-	getgenv().rebirthMulti = num
+aRebirth:addDropdown(kVars.rebirthMulti,{"x1","x3","x5"},function(num)
+	kVars.rebirthMulti = num
 end)
 
 ---- Rebirth Button ----
 
 aRebirth:addButton("Rebirth",function()
-	if rebirthMulti == "x1" then RemoteEvent:FireServer('Rebirth',1) end
-	if rebirthMulti == "x3" then RemoteEvent:FireServer('Rebirth',3) end
-	if rebirthMulti == "x5" then RemoteEvent:FireServer('Rebirth',5) end
+	if kVars.rebirthMulti == "x1" then RemoteEvent:FireServer('Rebirth',1) end
+	if kVars.rebirthMulti == "x3" then RemoteEvent:FireServer('Rebirth',3) end
+	if kVars.rebirthMulti == "x5" then RemoteEvent:FireServer('Rebirth',5) end
 end)
 
 -------- Respawn Menus --------
@@ -352,9 +351,11 @@ ba:addButton("Steven [VIP]", function()
 end)
 
 function fireTouch(part)
-	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, part, 0)
-	wait(.5)
-	firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, part, 1)
+	if game.Players.LocalPlayer.Character:FindFirstChild('RightFoot') then
+		firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, part, 0)
+		wait(.5)
+		firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, part, 1)
+	end
 end
 
 ----------------------------------------------------------- BUY -----------------------------------------------------------
@@ -517,43 +518,43 @@ function funcBuyBestFork()
 end
 
 ---- Eggs ----
-cb:addDropdown(eggSelected,{"100", "1500", "10K", "50K", "150K", "750K", "2M", "5M", "20M", "75M", "100T", "10Qa"},function(num)
-	if num == "100" then getgenv().eggNum = 1 end
-	if num == "1500" then getgenv().eggNum = 2 end
-	if num == "10K" then getgenv().eggNum = 3 end
-	if num == "50K" then getgenv().eggNum = 4 end
-	if num == "150K" then getgenv().eggNum = 5 end
-	if num == "750K" then getgenv().eggNum = 6 end
-	if num == "2M" then getgenv().eggNum = 7 end
-	if num == "5M" then getgenv().eggNum = 8 end
-	if num == "20M" then getgenv().eggNum = 9 end
-	if num == "75M" then getgenv().eggNum = 10 end
-	if num == "100T" then getgenv().eggNum = 19 end
-	if num == "10Qa" then getgenv().eggNum = 21 end
-	getgenv().eggSelected = num
+cb:addDropdown(kVars.eggSelected,{"100", "1500", "10K", "50K", "150K", "750K", "2M", "5M", "20M", "75M", "100T", "10Qa"},function(num)
+	if num == "100" then kVars.eggNum = 1 end
+	if num == "1500" then kVars.eggNum = 2 end
+	if num == "10K" then kVars.eggNum = 3 end
+	if num == "50K" then kVars.eggNum = 4 end
+	if num == "150K" then kVars.eggNum = 5 end
+	if num == "750K" then kVars.eggNum = 6 end
+	if num == "2M" then kVars.eggNum = 7 end
+	if num == "5M" then kVars.eggNum = 8 end
+	if num == "20M" then kVars.eggNum = 9 end
+	if num == "75M" then kVars.eggNum = 10 end
+	if num == "100T" then kVars.eggNum = 19 end
+	if num == "10Qa" then kVars.eggNum = 21 end
+	kVars.eggSelected = num
 end)
 
-cb:addToggle("Open Egg", openEggBool, function(bool)
-	openEggBool = bool
+cb:addToggle("Open Egg", kVars.openEggBool, function(bool)
+	kVars.openEggBool = bool
 end)
 
 ---- Hats ----
-cc:addDropdown(crateSelected,{"250", "2K", "15K", "200K", "1M", "5M", "15M", "50M", "150T", "750Gems"},function(num)
-	if num == "250" then getgenv().hatNum = 11 end
-	if num == "2K" then getgenv().hatNum = 12 end
-	if num == "15K" then getgenv().hatNum = 13 end
-	if num == "200K" then getgenv().hatNum = 14 end
-	if num == "1M" then getgenv().hatNum = 15 end
-	if num == "5M" then getgenv().hatNum = 16 end
-	if num == "15M" then getgenv().hatNum = 17 end
-	if num == "50M" then getgenv().hatNum = 18 end
-	if num == "150T" then getgenv().hatNum = 20 end
-	if num == "750Gems" then getgenv().hatNum = 22 end
-	getgenv().crateSelected = num
+cc:addDropdown(kVars.crateSelected,{"250", "2K", "15K", "200K", "1M", "5M", "15M", "50M", "150T", "750Gems"},function(num)
+	if num == "250" then kVars.hatNum = 11 end
+	if num == "2K" then kVars.hatNum = 12 end
+	if num == "15K" then kVars.hatNum = 13 end
+	if num == "200K" then kVars.hatNum = 14 end
+	if num == "1M" then kVars.hatNum = 15 end
+	if num == "5M" then kVars.hatNum = 16 end
+	if num == "15M" then kVars.hatNum = 17 end
+	if num == "50M" then kVars.hatNum = 18 end
+	if num == "150T" then kVars.hatNum = 20 end
+	if num == "750Gems" then kVars.hatNum = 22 end
+	kVars.crateSelected = num
 end)
 
-cc:addToggle("Open Crate", openHatBool, function(bool)
-	openHatBool = bool
+cc:addToggle("Open Crate", kVars.openHatBool, function(bool)
+	kVars.openHatBool = bool
 end)
 
 ----------------------------------------------------------- Teleports -----------------------------------------------------------
@@ -572,10 +573,10 @@ end)
 
 ---- Auto Attack ----
 aKeyBinds:addKeybind("Auto Attack", nil, function()
-	if autoAttackBool == false then
-		autoAttackBool = true
+	if kVars.autoAttackBool == false then
+		kVars.autoAttackBool = true
 	else
-		autoAttackBool = false
+		kVars.autoAttackBool = false
 		RemoteEvent:FireServer("Animal Deselected", currentTarget)
 	end
 end, function()
@@ -583,20 +584,20 @@ end)
 
 ---- magnet meat items ----
 aKeyBinds:addKeybind("Magnet Meat/Items", nil, function()
-	if magnetMeatItemsBool == false then
-		magnetMeatItemsBool = true
+	if kVars.magnetMeatItemsBool == false then
+		kVars.magnetMeatItemsBool = true
 	else
-		magnetMeatItemsBool = false
+		kVars.magnetMeatItemsBool = false
 	end
 end, function()
 end)
 
 ---- Drop Off Meat ----
 aKeyBinds:addKeybind("Drop Off Meat", nil, function()
-	if dropOffMeatBool == false then
-		dropOffMeatBool  = true
+	if kVars.dropOffMeatBool == false then
+		kVars.dropOffMeatBool  = true
 	else
-		dropOffMeatBool  = false
+		kVars.dropOffMeatBool  = false
 	end
 end, function()
 end)
@@ -621,17 +622,6 @@ aKeyBinds:addKeybind("Collect Coins", nil, function()
 	end
 end, function()
 end)
----- flashlight bind ----
-aKeyBinds:addKeybind("Light", Enum.KeyCode.F, function()
-	
-	if flashLightBool == false then
-		flashLightBool = true
-	else
-		flashLightBool = false
-	end
-	flashLightToggle(flashLightBool)
-end, function()
-end)
 
 ---- Buy Best Weapon ----
 aKeyBinds:addKeybind("Buy Best Weapon", Enum.KeyCode.Minus, function()
@@ -647,49 +637,48 @@ end)
 
 ----------------------------------------------------------- Misc -----------------------------------------------------------
 ---- walk speed -----
-e:addSlider("Speed",walkSpeed,1,300,function(value)
-    getgenv().walkSpeed = value
+e:addSlider("Speed",kVars.walkSpeed,1,300,function(value)
+    kVars.walkSpeed = value
+end)
+---- time day ----
+e:addButton("Always Day",function(bool)
+		game:GetService("Lighting").Name = "Lighting1"
+		game.Lighting1.TimeOfDay = "12:00:00"
 end)
 
-
-e:addToggle("Light", flashLightBool, function(bool)
-	getgenv().flashLightBool = bool
-	flashLightBool(bool)
-end)
-
-e:addToggle("Fog", fogBool, function(bool)
-	getgenv().fogBool = bool
+e:addToggle("Fog", kVars.fogBool, function(bool)
+	kVars.fogBool = bool
 	if bool then
-		game.Lighting.FogStart = fogStart
+		game.Lighting.FogStart = kVars.origFog
 	else
 		game.Lighting.FogStart = 100000000
 	end
 end)
 
-e:addToggle("Sun Rays", sunRaysBool, function(bool)
-	getgenv().sunRaysBool = bool
+e:addToggle("Sun Rays", kVars.sunRaysBool, function(bool)
+	kVars.sunRaysBool = bool
 	game:GetService("Lighting").SunRays.Enabled = bool
 end)
 
-e:addToggle("Blur", blurBool, function(bool)
-	getgenv().blurBool = bool
+e:addToggle("Blur", kVars.blurBool, function(bool)
+	kVars.blurBool = bool
 	game:GetService("Lighting").Blur.Enabled = bool
 end)
 
-e:addToggle("Bloom", bloomBool , function(bool)
-	getgenv().bloomBool = bool
+e:addToggle("Bloom", kVars.bloomBool , function(bool)
+	kVars.bloomBool = bool
 	game:GetService("Lighting").Bloom.Enabled = bool
 end)
 ---- buy robux frame ----
 
-e:addToggle("Purchase Prompt", purchasePromptBool, function(bool)
-	getgenv().purchasePromptBool = bool
+e:addToggle("Purchase Prompt", kVars.purchasePromptBool, function(bool)
+	kVars.purchasePromptBool = bool
 	game:GetService("CoreGui").PurchasePromptApp.ProductPurchase.Visible = bool
 end)
 
 local reloadBarOrigPos = game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Reload.Position
-e:addToggle("Reload Bar", reloadBarBool, function(bool)
-	getgenv().reloadBarBool = bool
+e:addToggle("Reload Bar", kVars.reloadBarBool, function(bool)
+	kVars.reloadBarBool = bool
 	if bool then
 		game:GetService("Players").LocalPlayer.PlayerGui.MainGui.Reload.Position = reloadBarOrigPos
 	else
@@ -699,56 +688,21 @@ end)
 
 e:addButton("Distroy GUI", function()
 	game:GetService("CoreGui")["Sizzling Simulator GUI By Keathunsar"]:Remove()
-	removeSizzling = true
-	game:GetService("CoreGui").PurchasePromptApp.ProductPurchase.Visible = true
-	if game.Players.LocalPlayer.Character.Head:FindFirstChild('SpotLightFront') then
-		game.Players.LocalPlayer.Character.Head.SpotLightFront.Enabled = false
-		game.Players.LocalPlayer.Character.Head.SpotLightBack.Enabled = false
-		game.Players.LocalPlayer.Character.Head.SpotLightRight.Enabled = false
-		game.Players.LocalPlayer.Character.Head.SpotLightLeft.Enabled = false
-	end
-	wait(.1)
-	removeSizzling = false
-	Script:Remove()
 end)
-
----- Flash Light Function ----
-function flashLightToggle(bool)
-	getgenv().flashLightBool = bool
-	if not game.Players.LocalPlayer.Character.Head:FindFirstChild('SpotLightFront') then
-		local FlashLightNames = {"SpotLightFront", "SpotLightBack", "SpotLightRight", "SpotLightLeft"}
-		local FlashLightP = {"Front","Back","Right","Left"}
-		for i,v in pairs(FlashLightNames) do
-			local light = Instance.new("SpotLight" )
-			light.Name = (v)
-			light.Enabled = false
-			light.Brightness = 2
-			light.Range = 60
-			light.Angle = 180
-			light.Face = FlashLightP[i]
-			light.Parent = game.Players.LocalPlayer.Character.Head
-		end
-	end	
-	game.Players.LocalPlayer.Character.Head.SpotLightFront.Enabled = bool
-	game.Players.LocalPlayer.Character.Head.SpotLightBack.Enabled = bool
-	game.Players.LocalPlayer.Character.Head.SpotLightRight.Enabled = bool
-	game.Players.LocalPlayer.Character.Head.SpotLightLeft.Enabled = bool
-end
 
 ---- auto attack find target ----
 spawn(function()
     while wait() do
-		if removeSizzling then break end
         for i,v in pairs(game.workspace:GetChildren()) do
             if v:FindFirstChild('CharId') and v.HealthGui.Health.Amount.Text:sub(1,1) ~= "0" then
-				if autoAttackAnimalName == "Closest" then 	
-					local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v:FindFirstChildWhichIsA('Part').Position).magnitude
+				if kVars.autoAttackAnimalName == "Closest" and game:GetService('Players').LocalPlayer.Character:FindFirstChild('HumanoidRootPart') then 	
+					local distance = (game:GetService('Players').LocalPlayer.Character.HumanoidRootPart.Position - v:FindFirstChildWhichIsA('Part').Position).magnitude
 					if distance < last then
 						last = distance
 						nearest = v:FindFirstChildWhichIsA('Part') 
 						id = v.CharId.Value
 					end
-				elseif v.Name == autoAttackAnimalName then
+				elseif v.Name == kVars.autoAttackAnimalName then
 					nearest = v:FindFirstChildWhichIsA('Part') 
 					id = v.CharId.Value					
 				end
@@ -760,33 +714,32 @@ end)
 function autoAttackFunc()
 	spawn(function()
 		---- Auto Attack ----
-		while autoAttackBool do
+		while kVars.autoAttackBool do
 			wait()
-			if removeSizzling then break end
 			for i,v in pairs(game.workspace:GetChildren()) do	
-				if nearest ~= nil and id ~= nil and v:FindFirstChild('CharId') and v.CharId.Value == id then
+				if nearest ~= nil and id ~= nil and v:FindFirstChild('CharId') and v.CharId.Value == id and v.HealthGui.Health.Amount.Text:sub(1,1) ~= "0" then
 					currentTarget = v.CharId.Value
 					RemoteEvent:FireServer("Animal Selected", v.CharId.Value)
 					repeat
 						wait()
-						if autoAttackBool == false then break end
-						RemoteEvent:FireServer("Animal Hit", v.CharId.Value)
+						if kVars.autoAttackBool == false then break end
+						if v:FindFirstChild('CharId') then
+							RemoteEvent:FireServer("Animal Hit", v.CharId.Value)
+						end
 					until v == nil or v:FindFirstChild('CharId') == nil or v:FindFirstChildWhichIsA('Part') == nil or v.HealthGui.Health.Amount.Text:sub(1,1) == "0"
 					last,nearest,id = math.huge, nil, nil
 				end
-			end
-			pirnt("--- running ---")			
+			end			
 		end
 	end)
 end
 ---- Meat/Item Magnet ----
 function magnetMeatItemsFunc()
 	spawn(function()
-		while magnetMeatItemsBool do
-			if removeSizzling then break end
+		while kVars.magnetMeatItemsBool do
 			wait()
-			if magnetMeatItemsBool then
-				local amount = game:GetService("Players").keathunsar.PlayerGui.MainGui.SideMenu.Fork.Amount.Text
+			if kVars.magnetMeatItemsBool then
+				local amount = game:GetService("Players").LocalPlayer.PlayerGui.MainGui.SideMenu.Fork.Amount.Text
 				local cAmount, mAmount = unpack(string.split(amount, "/"))
 				local leaveArea = false
 				for i,v in pairs(game.workspace:GetChildren()) do
@@ -795,8 +748,9 @@ function magnetMeatItemsFunc()
 						for x,z in pairs(v:GetChildren()) do
 							if z.Name == "Part" and z:FindFirstChild("TouchInterest") then
 								if cAmount == mAmount then leaveArea = true break end
-								firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, z, 0)
-								break
+								if game.Players.LocalPlayer.Character:FindFirstChild('RightFoot') then
+									firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, z, 0)
+								end
 							end
 						end
 					end
@@ -808,12 +762,11 @@ end
 ---- collect coins from the ground ----
 function collectCoinsFunc()
 	spawn(function()
-		while collectCoinsBool do
-			if removeSizzling then break end
+		while kVars.collectCoinsBool do
 			wait()
-			if collectCoinsBool then
+			if kVars.collectCoinsBool then
 				for i,v in pairs(game:GetService("Workspace").Currency:GetChildren()) do
-					if v then
+					if v and game.Players.LocalPlayer.Character:FindFirstChild('RightFoot') then
 					firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, v.Part, 0)
 					end
 				end
@@ -825,33 +778,16 @@ end
 local areaList = {}
 function unlockAreaFunc()
 	spawn(function()
-		while unlockNextAreaBool do
-			if removeSizzling then break end
+		while kVars.unlockNextAreaBool do
 			wait()
-			if unlockNextAreaBool then			
-				table.clear(areaList)
-				for i,v in pairs(game:GetService("Workspace").AreaEntries:getChildren()) do
-					local isUnlocked = false
-					if v:FindFirstChild('MainWindow') then
-						if v.MainWindow.Transparency == 1 then
-							isUnlocked = true
-						end
-					end
-					table.insert(areaList, {name = string.match(tostring(v),"%d+"), unlocked = isUnlocked})
-				end
-				if areaList[#areaList]['unlocked'] ~= true then
-					
-					local next_Area = 0
-					for i,v in pairs(areaList) do
-						if v['unlocked'] == false then
-							next_Area = tonumber(v['name'])
-							break
-						end
-					end	
-					if next_Area ~= 0 then
-						RemoteEvent:FireServer("Purchase Area", next_Area)
-					end
-				end
+			local v1, v2 = game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer("Get Area Data")
+			local areaUnlock = {}
+			for i,v in pairs(v1) do
+				table.insert(areaUnlock, tostring(i))
+			end
+			local areaToUnlock = #areaUnlock
+			if #areaUnlock ~= nil and #areaUnlock ~= 13 then
+				RemoteEvent:FireServer("Purchase Area", #areaUnlock)
 			end
 		end
 	end)
@@ -859,14 +795,13 @@ end
 ---- upgrade grills ----
 function upgradeGrillsFunc()
 	spawn(function()
-		while upgradGrillsBool do
-			if removeSizzling then break end
+		while kVars.upgradGrillsBool do
 			wait()
-			if upgradGrillsBool then
+			if kVars.upgradGrillsBool then
 				local grillNum = 0
 				for i,v in pairs(game:GetService("Workspace").DropOffMeat:getChildren()) do
 
-						local grillFrame = game:GetService("Players").keathunsar.PlayerGui.MainGui.GrillMenuFrame.GrillsContents.Contents.ScrollingFrame
+						local grillFrame = game:GetService("Players").LocalPlayer.PlayerGui.MainGui.GrillMenuFrame.GrillsContents.Contents.ScrollingFrame
 						if grillFrame:FindFirstChild('5') then
 							break
 						elseif grillFrame:FindFirstChild('4') then
@@ -898,10 +833,9 @@ end
 ---- buy best weapon ----
 function  buyBestWeaponFunc()
 	spawn(function()
-		while buyBestWeaponBool do
-			if removeSizzling then break end
+		while kVars.buyBestWeaponBool do
 			wait()
-			if buyBestWeaponBool then
+			if kVars.buyBestWeaponBool then
 				local pCoins, Gems = RemoteFunc:InvokeServer("Get Currency");
 				local WeaponInv, curWeaponId = RemoteFunc:InvokeServer("Get Weapon Data")
 				local wantToBuy = 2
@@ -934,14 +868,13 @@ end
 ---- buy best fork ----
 function  buyBestForkFunc()
 	spawn(function()
-		while buyBestForkBool do
-			if removeSizzling then break end
+		while kVars.buyBestForkBool do
 			wait()
 			local pCoins, Gems = RemoteFunc:InvokeServer("Get Currency")
 			local forkInv, curForkId = RemoteFunc:InvokeServer("Get Fork Data")
 			local forkWantToBuy = 2
 			local forkWantToBuyIndex = 1
-			if curForkId ~= 29 then
+			if curForkId ~= nil and curForkId ~= 29 then
 				for i,v in ipairs(forkArray) do
 					if v.cost > pCoins and v.forkId > curForkId then
 						forkWantToBuy = forkArray[i-1]["forkId"]
@@ -963,10 +896,9 @@ end
 ---- open Eggs ----
 function  openEggFunc()
 	spawn(function()
-		while openEggBool do
-			if removeSizzling then break end
+		while kVars.openEggBool do
 			wait()
-			if openEggBool then
+			if kVars.openEggBool then
 				game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase One Egg",eggNum)
 			end
 		end
@@ -976,10 +908,9 @@ end
 ---- open crates ----
 function  openHatFunc()
 	spawn(function()
-		while openHatBool do
-			if removeSizzling then break end
+		while kVars.openHatBool do
 			wait()
-			if openHatBool then
+			if kVars.openHatBool then
 				game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase One Egg",hatNum)
 			end
 		end
@@ -989,12 +920,11 @@ end
 ---- open chests ----
 function  openChestsFunc()
 	spawn(function()
-		while chestBool do
-			if removeSizzling then break end
+		while kVars.chestBool do
 			wait()
-			if chestBool then
+			if kVars.chestBool then
 				for i, v in pairs(game:GetService("Workspace").Chests:getChildren()) do
-					if v.Bottom:FindFirstChild('Emitter') then
+					if v.Bottom:FindFirstChild('Emitter') and game.Players.LocalPlayer.Character:FindFirstChild('RightFoot') then
 						firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, v.Bottom.Emitter, 0)
 						wait(.1)
 						firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, v.Bottom.Emitter, 1)
@@ -1008,10 +938,9 @@ end
 ---- dropoff meat ----
 function  dropOffMeatFunc()
 	spawn(function()
-		while dropOffMeatBool do
-			if removeSizzling then break end
+		while kVars.dropOffMeatBool do
 			wait()
-			if dropOffMeatBool then
+			if kVars.dropOffMeatBool then
 				RemoteEvent:FireServer('Drop Off Meat')
 			end
 		end
@@ -1021,10 +950,9 @@ end
 ---- collect grill coins ----
 function  collectGrillCoinsFunc()
 	spawn(function()
-		while collectGrillCoinsBool do
-			if removeSizzling then break end
+		while kVars.collectGrillCoinsBool do
 			wait()
-			if collectGrillCoinsBool then
+			if kVars.collectGrillCoinsBool then
 				RemoteEvent:FireServer('Collect Grill Coins')
 			end
 		end
@@ -1032,6 +960,35 @@ function  collectGrillCoinsFunc()
 end
 
 ---- walkspeed ----
+kVars.Stepped = RunService.RenderStepped:Connect(function()
+	if game:GetService('Players').LocalPlayer and game:GetService('Players').LocalPlayer.Character:FindFirstChild('Humanoid') then
+			game:GetService('Players').LocalPlayer.Character.Humanoid.WalkSpeed = kVars.walkSpeed
+	end
+end)
+
+
+kVars.closeing = game:GetService("CoreGui").ChildRemoved:Connect(function(child)
+	if child.Name == "Sizzling Simulator GUI By Keathunsar" then
+		if kVars.Stepped then
+			kVars.Stepped:Disconnect()
+		end
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = kVars.origWalkSpeed
+		if game:FindFirstChild('Lighting1') then
+			game.Lighting1.Name = "Lighting"
+		end
+		game.Lighting.FogStart = kVars.origFog
+		game:GetService("Lighting").SunRays.Enabled = true
+		game:GetService("Lighting").Blur.Enabled = true
+		game:GetService("Lighting").Bloom.Enabled = true
+		game:GetService("CoreGui").PurchasePromptApp.ProductPurchase.Visible = true
+		table.clear(kVars)
+		script:Destroy()
+
+	end
+end)
+
+
+--[[
 spawn(function()
 	while wait() do
 		if removeSizzling then break end
@@ -1041,7 +998,7 @@ spawn(function()
 			
 		end
 	end
-end)
+end)]]--
 
 ---- Set Main Page on load ----
 venyx:SelectPage(venyx.pages[1], true)
