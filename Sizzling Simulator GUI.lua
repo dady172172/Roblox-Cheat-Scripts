@@ -3,7 +3,6 @@ Game : https://www.roblox.com/games/4572547530/Sizzling-Simulator?
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 GUI Made by : https://v3rmillion.net/member.php?action=profile&uid=244024
 ]]--
-
 local kVars = {}
 kVars.autoAttackBool = false
 kVars.magnetMeatItemsBool = false
@@ -26,7 +25,7 @@ kVars.bloomBool = true
 kVars.purchasePromptBool = true
 kVars.reloadBarBool = true
 kVars.walkSpeed = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
-kVars.origWalkSpeed = game.Players.LocalPlayer.Character.Humanoid.WalkSpeed
+kVars.origWalkSpeed = 65
 kVars.eggSelected = "100"
 kVars.crateSelected = "250"
 kVars.hatNum = 1
@@ -34,13 +33,13 @@ kVars.eggNum = 1
 kVars.rebirthMulti = "x1"
 kVars.themeSizzle = {Background = Color3.fromRGB(24, 24, 24), Glow = Color3.fromRGB(0, 0, 0), Accent = Color3.fromRGB(10, 10, 10), LightContrast = Color3.fromRGB(20, 20, 20), DarkContrast = Color3.fromRGB(14, 14, 14), TextColor = Color3.fromRGB(255, 255, 255)}
 kVars.autoAttackAnimalName = "Closest"
+kVars.closing = false
 local RemoteEvent = game:GetService("ReplicatedStorage").RemoteEvent
 local RemoteFunc = game:GetService("ReplicatedStorage").RemoteFunction
 local RunService = game:GetService("RunService")
 
 if game:GetService("CoreGui"):FindFirstChild("Sizzling Simulator GUI By Keathunsar") then
 	game:GetService("CoreGui")["Sizzling Simulator GUI By Keathunsar"]:Remove()
-	wait(.1)
 end
 ---- anti AFK ----
 local VirtualUser=game:service'VirtualUser'
@@ -66,7 +65,8 @@ local page3 = venyx:addPage("Buy", 5012544693)
 local c = page3:addSection("Weapon")
 local ca = page3:addSection("Fork")
 local cb = page3:addSection("Egg")
-local cc = page3:addSection("Hat")
+local cc = page3:addSection("Crate")
+local cd = page3:addSection("Delete Pet")
 local page4 = venyx:addPage("Teleport", 5012544693)
 local d = page4:addSection("Teleport")
 local pageKeyBinds = venyx:addPage("Keybinds", 5012544693)
@@ -298,15 +298,21 @@ end)
 -------- Respawn Menus --------
 ---- x1 ----
 bRebirth:addButton("x1", function()
-	fireTouch(game:GetService("Workspace").RebirthButton.TouchPart)
+	if game:GetService("Workspace"):FindFirstChild('RebirthButton') then
+		fireTouch(game:GetService("Workspace").RebirthButton.TouchPart)
+	end
 end)
 ---- x3 ----
 bRebirth:addButton("x3", function()
-	fireTouch(game:GetService("Workspace").Rebirth3Button.TouchPart)
+	if game:GetService("Workspace"):FindFirstChild('Rebirth3Button') then
+		fireTouch(game:GetService("Workspace").Rebirth3Button.TouchPart)
+	end
 end)
 ---- x5 ----
 bRebirth:addButton("x5", function()
-	fireTouch(game:GetService("Workspace").Rebirth5Button.TouchPart)
+	if game:GetService("Workspace"):FindFirstChild('Rebirth5Button') then
+		fireTouch(game:GetService("Workspace").Rebirth5Button.TouchPart)
+	end
 end)
 
 ----------------------------------------------------------- Menus -----------------------------------------------------------
@@ -317,37 +323,51 @@ end)
 
 ---- Rebirth Shop ----
 b:addButton("Rebirth Shop",function()
-	fireTouch(game:GetService("Workspace")["Rebirth Overlord Touch"].TouchPart)
+	game:GetService("Players").keathunsar.PlayerGui.MainGui.RebirthShopFrame:TweenPosition(UDim2.new(0.5, 0, 0.5, 0), nil, nil, 0.3, true)
 end)
 ---- Hats Upgrade ----
 b:addButton("Hats Upgrade",function()
-	fireTouch(game:GetService("Workspace")["Caleb Touch"].TouchPart)
+	if game:GetService("Workspace"):FindFirstChild("Caleb Touch") then
+		fireTouch(game:GetService("Workspace")["Caleb Touch"].TouchPart)
+	end
 end)
 ---- Potions Shop ----
 b:addButton("Potions Shop",function()
-	fireTouch(game:GetService("Workspace")["Pet Scientist Touch"].TouchPart)
+	if game:GetService("Workspace"):FindFirstChild("Pet Scientist Touch") then
+		fireTouch(game:GetService("Workspace")["Pet Scientist Touch"].TouchPart)
+	end
+	
 end)
 
 -------- Crafting Menus --------
 ---- Julia [Zone 6 ----
 ba:addButton("Julia [Zone 6", function()
-	fireTouch(game:GetService("Workspace")["Julia Touch"].TouchPart)
+	if game:GetService("Workspace"):FindFirstChild("Julia Touch") then
+		fireTouch(game:GetService("Workspace")["Julia Touch"].TouchPart)
+	end
 end)
 ---- Ancient Dragon [Zone 10] ----
 ba:addButton("Ancient Dragon [Zone 10]", function()
-	fireTouch(game:GetService("Workspace")["Ancient Dragon Touch"].TouchPart)
+	if game:GetService("Workspace"):FindFirstChild("Ancient Dragon Touch") then
+		fireTouch(game:GetService("Workspace")["Ancient Dragon Touch"].TouchPart)
+	end
 end)
 ---- Henry [Black Forest] ----
 ba:addButton("Henry [Black Forest]", function()
-	fireTouch(game:GetService("Workspace")["Henry Touch"].TouchPart)
+	if game:GetService("Workspace"):FindFirstChild("Henry Touch") then
+		fireTouch(game:GetService("Workspace")["Henry Touch"].TouchPart)
+	end
 end)
 ---- Trevor [Winter Forest] ----
 ba:addButton("Trevor [Winter Forest]", function()
-	fireTouch(game:GetService("Workspace")["Trevor Touch"].TouchPart)
+	if game:GetService("Workspace"):FindFirstChild("Trevor Touch") then
+		fireTouch(game:GetService("Workspace")["Trevor Touch"].TouchPart)
+	end
 end)
 ---- Steven [VIP] ----
 ba:addButton("Steven [VIP]", function()
-	fireTouch(game:GetService("Workspace")["Steven Touch"].TouchPart)
+	if game:GetService("Workspace"):FindFirstChild("Steven Touch") then
+		fireTouch(game:GetService("Workspace")["Steven Touch"].TouchPart)
 end)
 
 function fireTouch(part)
@@ -531,11 +551,11 @@ cb:addDropdown(kVars.eggSelected,{"100", "1500", "10K", "50K", "150K", "750K", "
 	if num == "75M" then kVars.eggNum = 10 end
 	if num == "100T" then kVars.eggNum = 19 end
 	if num == "10Qa" then kVars.eggNum = 21 end
-	kVars.eggSelected = num
 end)
 
 cb:addToggle("Open Egg", kVars.openEggBool, function(bool)
 	kVars.openEggBool = bool
+	if bool then openEggFunc() end
 end)
 
 ---- Hats ----
@@ -550,12 +570,54 @@ cc:addDropdown(kVars.crateSelected,{"250", "2K", "15K", "200K", "1M", "5M", "15M
 	if num == "50M" then kVars.hatNum = 18 end
 	if num == "150T" then kVars.hatNum = 20 end
 	if num == "750Gems" then kVars.hatNum = 22 end
-	kVars.crateSelected = num
 end)
 
 cc:addToggle("Open Crate", kVars.openHatBool, function(bool)
 	kVars.openHatBool = bool
+	if bool then openHatFunc() end
 end)
+
+---- delete pets ----
+local petList = {}
+for i,v in pairs(game:GetService("ReplicatedStorage").InstanceData.Pets:getChildren()) do
+	table.insert(petList,v.Name)
+end
+table.sort(petList)
+table.insert(petList,1,"None")
+cd:addDropdown(petList[1],petList,function(value)
+	kVars.petDel1 = value
+end)
+cd:addDropdown(petList[1],petList,function(value)
+	kVars.petDel2 = value
+end)
+cd:addDropdown(petList[1],petList,function(value)
+	kVars.petDel3 = value
+end)
+cd:addDropdown(petList[1],petList,function(value)
+	kVars.petDel4 = value
+end)
+cd:addDropdown(petList[1],petList,function(value)
+	kVars.petDel5 = value
+end)
+cd:addToggle("Delete *Rename Equiped*", kVars.petDelBool, function(bool)
+	kVars.petDelBool = bool
+	if bool then petDelFunc() end
+end)
+function petDelFunc()
+	spawn(function()
+		while kVars.petDelBool do
+			wait()
+			for i,v in pairs(game:GetService("Players").keathunsar.PlayerGui.MainGui.InventoryFrame.Contents.ScrollingFrame:GetChildren()) do
+				if v:FindFirstChild('Title') then
+					local name = v.Title.Text
+					if name == kVars.petDel1 or name == kVars.petDel2 or name == kVars.petDel3 or name == kVars.petDel4 or name == kVars.petDel5 then
+						RemoteEvent:FireServer("Delete Pet", v.Name:sub(4))
+					end
+				end
+			end
+		end
+	end)
+end
 
 ----------------------------------------------------------- Teleports -----------------------------------------------------------
 for k,v in ipairs(Locations) do
@@ -690,33 +752,36 @@ e:addButton("Distroy GUI", function()
 	game:GetService("CoreGui")["Sizzling Simulator GUI By Keathunsar"]:Remove()
 end)
 
----- auto attack find target ----
-spawn(function()
-    while wait() do
-        for i,v in pairs(game.workspace:GetChildren()) do
-            if v:FindFirstChild('CharId') and v.HealthGui.Health.Amount.Text:sub(1,1) ~= "0" then
-				if kVars.autoAttackAnimalName == "Closest" and game:GetService('Players').LocalPlayer.Character:FindFirstChild('HumanoidRootPart') then 	
-					local distance = (game:GetService('Players').LocalPlayer.Character.HumanoidRootPart.Position - v:FindFirstChildWhichIsA('Part').Position).magnitude
-					if distance < last then
-						last = distance
-						nearest = v:FindFirstChildWhichIsA('Part') 
-						id = v.CharId.Value
-					end
-				elseif v.Name == kVars.autoAttackAnimalName then
-					nearest = v:FindFirstChildWhichIsA('Part') 
-					id = v.CharId.Value					
-				end
-            end
-        end
-    end
-end)
+
 
 function autoAttackFunc()
+	---- auto attack find target ----
+	spawn(function()
+		while kVars.autoAttackBool do
+			wait()
+			if kVars.closing then break end
+			for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
+				if v:FindFirstChild('CharId') and v.HealthGui.Health.Amount.Text:sub(1,1) ~= "0" then
+					if kVars.autoAttackAnimalName == "Closest" and game:GetService('Players').LocalPlayer.Character:FindFirstChild('Humanoid') then 	
+						local distance = (game:GetService('Players').LocalPlayer.Character.HumanoidRootPart.Position - v:FindFirstChildWhichIsA('Part').Position).magnitude
+						if distance < last then
+							last = distance
+							nearest = v:FindFirstChildWhichIsA('Part') 
+							id = v.CharId.Value
+						end
+					elseif v.Name == kVars.autoAttackAnimalName then
+						nearest = v:FindFirstChildWhichIsA('Part') 
+						id = v.CharId.Value					
+					end
+				end
+			end			
+		end
+	end)
 	spawn(function()
 		---- Auto Attack ----
 		while kVars.autoAttackBool do
 			wait()
-			for i,v in pairs(game.workspace:GetChildren()) do	
+			for i,v in pairs(game:GetService("Workspace"):GetChildren()) do	
 				if nearest ~= nil and id ~= nil and v:FindFirstChild('CharId') and v.CharId.Value == id and v.HealthGui.Health.Amount.Text:sub(1,1) ~= "0" then
 					currentTarget = v.CharId.Value
 					RemoteEvent:FireServer("Animal Selected", v.CharId.Value)
@@ -742,7 +807,7 @@ function magnetMeatItemsFunc()
 				local amount = game:GetService("Players").LocalPlayer.PlayerGui.MainGui.SideMenu.Fork.Amount.Text
 				local cAmount, mAmount = unpack(string.split(amount, "/"))
 				local leaveArea = false
-				for i,v in pairs(game.workspace:GetChildren()) do
+				for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
 					if leaveArea then break end
 					if string.find(v.Name:lower(), "meat") or string.find(v.Name:lower(), "item") and v.Name ~= "DropOffMeat" and v.Name ~= "ItemCapsules" then
 						for x,z in pairs(v:GetChildren()) do
@@ -899,7 +964,7 @@ function  openEggFunc()
 		while kVars.openEggBool do
 			wait()
 			if kVars.openEggBool then
-				game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase One Egg",eggNum)
+				game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase One Egg",kVars.eggNum)
 			end
 		end
 	end)
@@ -911,7 +976,7 @@ function  openHatFunc()
 		while kVars.openHatBool do
 			wait()
 			if kVars.openHatBool then
-				game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase One Egg",hatNum)
+				game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase One Egg",kVars.hatNum)
 			end
 		end
 	end)
@@ -960,18 +1025,21 @@ function  collectGrillCoinsFunc()
 end
 
 ---- walkspeed ----
-kVars.Stepped = RunService.RenderStepped:Connect(function()
-	if game:GetService('Players').LocalPlayer and game:GetService('Players').LocalPlayer.Character:FindFirstChild('Humanoid') then
+spawn(function()
+	while wait() do
+		if kVars.closing then break end
+		if game:GetService('Players').LocalPlayer.Character:FindFirstChild('Humanoid') then
 			game:GetService('Players').LocalPlayer.Character.Humanoid.WalkSpeed = kVars.walkSpeed
+		end
 	end
+
 end)
 
 
 kVars.closeing = game:GetService("CoreGui").ChildRemoved:Connect(function(child)
 	if child.Name == "Sizzling Simulator GUI By Keathunsar" then
-		if kVars.Stepped then
-			kVars.Stepped:Disconnect()
-		end
+		kVars.closing = true
+		wait(.1)
 		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = kVars.origWalkSpeed
 		if game:FindFirstChild('Lighting1') then
 			game.Lighting1.Name = "Lighting"
@@ -982,6 +1050,7 @@ kVars.closeing = game:GetService("CoreGui").ChildRemoved:Connect(function(child)
 		game:GetService("Lighting").Bloom.Enabled = true
 		game:GetService("CoreGui").PurchasePromptApp.ProductPurchase.Visible = true
 		table.clear(kVars)
+		kVars.closeing:Disconnect()
 		script:Destroy()
 
 	end
