@@ -5,15 +5,23 @@ Gui made by : https://v3rmillion.net/member.php?action=profile&uid=507120
 Go vouch release thread : https://v3rmillion.net/showthread.php?tid=1040650
 ]]--
 local library = loadstring(game:HttpGet('https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wall%20v3'))()
-
-local w = library:CreateWindow("A") -- Creates the window
-
+kVars.windowName = "Fishing Simulator GUI" -- Window Name here
+local w = library:CreateWindow(kVars.windowName) -- Creates the window
 local b = w:CreateFolder("B") -- Creates the folder(U will put here your buttons,etc)
 
 
 
+---- Closing ----
+kVars.closeing = game:GetService("CoreGui").ChildRemoved:Connect(function(child)
+	if child.Name == kVars.windowName then
+		kVars.closing = true
+		wait(.1)
+		table.clear(kVars)
+		kVars.closeing:Disconnect()
+		script:Destroy()
 
-
+	end
+end)
 
 
 --[[
