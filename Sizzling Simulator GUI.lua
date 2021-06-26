@@ -341,7 +341,7 @@ end)
 
 -------- Crafting Menus --------
 ---- Julia [Zone 6 ----
-ba:addButton("Julia [Zone 6", function()
+ba:addButton("Julia [Zone 6]", function()
 	if game:GetService("Workspace"):FindFirstChild("Julia Touch") then
 		fireTouch(game:GetService("Workspace")["Julia Touch"].TouchPart)
 	end
@@ -368,6 +368,7 @@ end)
 ba:addButton("Steven [VIP]", function()
 	if game:GetService("Workspace"):FindFirstChild("Steven Touch") then
 		fireTouch(game:GetService("Workspace")["Steven Touch"].TouchPart)
+	end
 end)
 
 function fireTouch(part)
