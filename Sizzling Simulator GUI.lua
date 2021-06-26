@@ -3,6 +3,8 @@ Game : https://www.roblox.com/games/4572547530/Sizzling-Simulator?
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 GUI Made by : https://v3rmillion.net/member.php?action=profile&uid=244024
 ]]--
+--local Try = loadstring(game:HttpGet('https://raw.githubusercontent.com/F3XTeam/RBX-Try-Library/master/TryLibrary.lua'))()
+
 local kVars = {}
 kVars.autoAttackBool = false
 kVars.magnetMeatItemsBool = false
@@ -34,10 +36,26 @@ kVars.rebirthMulti = "x1"
 kVars.themeSizzle = {Background = Color3.fromRGB(24, 24, 24), Glow = Color3.fromRGB(0, 0, 0), Accent = Color3.fromRGB(10, 10, 10), LightContrast = Color3.fromRGB(20, 20, 20), DarkContrast = Color3.fromRGB(14, 14, 14), TextColor = Color3.fromRGB(255, 255, 255)}
 kVars.autoAttackAnimalName = "Closest"
 kVars.closing = false
+kVars.plr = game:GetService('Players').LocalPlayer
+kVars.plrName = kVars.plr.Name
+local forkData = {}
+local weaponData = {}
+
+for i,v in pairs(require(game:GetService("ReplicatedStorage").ScriptData.ForkData)) do
+	table.insert(forkData, v)
+end
+for i,v in pairs(require(game:GetService("ReplicatedStorage").ScriptData.WeaponData)) do
+	table.insert(weaponData, v)
+end
+
+
+
+
+
+
 local RemoteEvent = game:GetService("ReplicatedStorage").RemoteEvent
 local RemoteFunc = game:GetService("ReplicatedStorage").RemoteFunction
 local RunService = game:GetService("RunService")
-
 if game:GetService("CoreGui"):FindFirstChild("Sizzling Simulator GUI By Keathunsar") then
 	game:GetService("CoreGui")["Sizzling Simulator GUI By Keathunsar"]:Remove()
 end
@@ -159,34 +177,35 @@ weaponArray[39] = {weaponId = 42, cost = 100000000000000000}
 
 -- list of forks and cost
 local forkArray = {}
-forkArray[1] = {forkId = 2, cost = 50}
-forkArray[2] = {forkId = 3, cost = 150}
-forkArray[3] = {forkId = 4, cost = 250}
-forkArray[4] = {forkId = 5, cost = 500}
-forkArray[5] = {forkId = 6, cost = 800}
-forkArray[6] = {forkId = 7, cost = 2000}
-forkArray[7] = {forkId = 8, cost = 5000}
-forkArray[8] = {forkId = 9, cost = 10000}
-forkArray[9] = {forkId = 10, cost = 20000}
-forkArray[10] = {forkId = 11, cost = 35000}
-forkArray[11] = {forkId = 12, cost = 75000}
-forkArray[12] = {forkId = 13, cost = 150000}
-forkArray[13] = {forkId = 14, cost = 250000}
-forkArray[14] = {forkId = 15, cost = 400000}
-forkArray[15] = {forkId = 16, cost = 750000}
-forkArray[16] = {forkId = 17, cost = 1000000}
-forkArray[17] = {forkId = 18, cost = 1200000}
-forkArray[18] = {forkId = 19, cost = 3000000}
-forkArray[19] = {forkId = 20, cost = 6000000}
-forkArray[20] = {forkId = 21, cost = 12000000}
-forkArray[21] = {forkId = 22, cost = 18000000}
-forkArray[22] = {forkId = 23, cost = 30000000}
-forkArray[23] = {forkId = 24, cost = 45000000}
-forkArray[24] = {forkId = 25, cost = 80000000}
-forkArray[25] = {forkId = 26, cost = 120000000}
-forkArray[26] = {forkId = 27, cost = 200000000}
-forkArray[27] = {forkId = 28, cost = 300000000}
-forkArray[28] = {forkId = 29, cost = 500000000}
+forkArray[1] = {forkId = 1, cost = 0}
+forkArray[2] = {forkId = 2, cost = 50}
+forkArray[3] = {forkId = 3, cost = 150}
+forkArray[4] = {forkId = 4, cost = 250}
+forkArray[5] = {forkId = 5, cost = 500}
+forkArray[6] = {forkId = 6, cost = 800}
+forkArray[7] = {forkId = 7, cost = 2000}
+forkArray[8] = {forkId = 8, cost = 5000}
+forkArray[9] = {forkId = 9, cost = 10000}
+forkArray[10] = {forkId = 10, cost = 20000}
+forkArray[11] = {forkId = 11, cost = 35000}
+forkArray[12] = {forkId = 12, cost = 75000}
+forkArray[13] = {forkId = 13, cost = 150000}
+forkArray[14] = {forkId = 14, cost = 250000}
+forkArray[15] = {forkId = 15, cost = 400000}
+forkArray[16] = {forkId = 16, cost = 750000}
+forkArray[17] = {forkId = 17, cost = 1000000}
+forkArray[18] = {forkId = 18, cost = 1200000}
+forkArray[19] = {forkId = 19, cost = 3000000}
+forkArray[20] = {forkId = 20, cost = 6000000}
+forkArray[21] = {forkId = 21, cost = 12000000}
+forkArray[22] = {forkId = 22, cost = 18000000}
+forkArray[23] = {forkId = 23, cost = 30000000}
+forkArray[24] = {forkId = 24, cost = 45000000}
+forkArray[25] = {forkId = 25, cost = 80000000}
+forkArray[26] = {forkId = 26, cost = 120000000}
+forkArray[27] = {forkId = 27, cost = 200000000}
+forkArray[28] = {forkId = 28, cost = 300000000}
+forkArray[29] = {forkId = 29, cost = 500000000}
 
 -- list of animals names
 local animalNamesList = {"Closest", "Chicken", "Cornish Chicken", "Duck", "Blue Duck", "Cow", "Brown Cow", "Turkey", "Red Turkey", "Pig", "Fat Pig", "Bison", "Dark Bison", "Doe", "Buck", "Black Bear", "Grizzly Bear", "Moose", "Angry Moose", "Dinosaur", "Angry Dinosaur", "Fiery Dinosaur", "Wolf", "Brown Wolf", "Big Bad Wolf", "Arctic Fox", "Yeti"}
@@ -215,25 +234,25 @@ end)
 ---- Magnet meat/items ----
 a:addToggle("Magnet Meat/Items", kVars.magnetMeatItemsBool, function(bool)
 	kVars.magnetMeatItemsBool = bool 
-	magnetMeatItemsFunc()
+	if bool then magnetMeatItemsFunc() end
 end)
 
 ---- Drop Off Meat ----
 a:addToggle("Drop Off Meat", kVars.dropOffMeatBool, function(bool)
 	kVars.dropOffMeatBool  = bool
-	dropOffMeatFunc()
+	if bool then dropOffMeatFunc() end
 end)
 
 ---- Collect Grill Coins ----
 a:addToggle("Collect Grill Coins", kVars.collectGrillCoinsBool, function(bool)
 	kVars.collectGrillCoinsBool  = bool
-	collectGrillCoinsFunc()
+	if bool then collectGrillCoinsFunc() end
 end)
 
 ---- Collect Coins ----
 a:addToggle("Collect Coins", kVars.collectCoinsBool, function(bool)
 	kVars.collectCoinsBool = bool
-	collectCoinsFunc()
+	if bool then collectCoinsFunc() end
 end)
 
 ---- Unlock Next Area ----
@@ -252,33 +271,33 @@ end
 
 a:addToggle("Unlock Areas", kVars.unlockNextAreaBool, function(bool)
 	kVars.unlockNextAreaBool = bool
-	unlockAreaFunc()
+	if bool then unlockAreaFunc() end
 end)
 
 ---- upgrade grills ----
 a:addToggle("Upgrade Grills", kVars.upgradGrillsBool, function(bool)
 	kVars.upgradGrillsBool = bool
-	upgradeGrillsFunc()
+	if bool then upgradeGrillsFunc() end
 end)
 
 ---- buy best weapon auto ----
 a:addToggle("Buy Best Weapon", kVars.buyBestWeaponBool, function(bool)
 	kVars.buyBestWeaponBool = bool
-	buyBestWeaponFunc()
+	if bool then buyBestWeaponFunc() end
 end)
 
 ---- buy best fork auto ----
 
 a:addToggle("Buy Best Fork", kVars.buyBestForkBool, function(bool)
 	kVars.buyBestForkBool = bool
-	buyBestForkFunc()
+	if bool then buyBestForkFunc() end
 end)
 
 ---- auto chests ----
 
 a:addToggle("Chests", kVars.chestBool, function(bool)
 	kVars.chestBool = bool
-	openChestsFunc()
+	if bool then openChestsFunc() end
 end)
 
 ----------------------------------------------------------- Rebirth Section -----------------------------------------------------------
@@ -763,7 +782,7 @@ function autoAttackFunc()
 			if kVars.closing then break end
 			for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
 				if v:FindFirstChild('CharId') and v.HealthGui.Health.Amount.Text:sub(1,1) ~= "0" then
-					if kVars.autoAttackAnimalName == "Closest" and game:GetService('Players').LocalPlayer.Character:FindFirstChild('Humanoid') then 	
+					if kVars.autoAttackAnimalName == "Closest" and game:GetService('Players').LocalPlayer.Character:FindFirstChild('HumanoidRootPart') then 	
 						local distance = (game:GetService('Players').LocalPlayer.Character.HumanoidRootPart.Position - v:FindFirstChildWhichIsA('Part').Position).magnitude
 						if distance < last then
 							last = distance
@@ -904,28 +923,30 @@ function  buyBestWeaponFunc()
 			if kVars.buyBestWeaponBool then
 				local pCoins, Gems = RemoteFunc:InvokeServer("Get Currency");
 				local WeaponInv, curWeaponId = RemoteFunc:InvokeServer("Get Weapon Data")
-				local wantToBuy = 2
-				local wantToBuyIndex = 1
+				local wantToBuy = nil
 				---- stops if you have the best weapon in game equiped
 				if curWeaponId ~= 42 then
 					---- set robux weapons ID equal to equivlent 
 					if curWeaponId == 40 then curWeaponId = 3 end
 					if curWeaponId == 5 then curWeaponId = 22 end
 					---- get want to buyitems
-					for i,v in ipairs(weaponArray) do	
-						if v.cost > pCoins and v.weaponId > curWeaponId then
-							wantToBuy = weaponArray[i-1]["weaponId"]
-							wantToBuyIndex = i-1
-							break
-						elseif i == #weaponArray then
-							wantToBuy = v.weaponId
-							wantToBuyIndex = 39
+					for i,v in pairs(weaponData) do
+						if v.Cost.Amount then
+							if v.Cost.Amount > pCoins and v.ID > curWeaponId then
+								wantToBuy = weaponData[i-1].ID
+								if wantToBuy == 40 then wantToBuy = 39 end
+								if wantToBuy == 5 then wantToBuy = 4 end
+								break
+							elseif i == #weaponData then
+								wantToBuy = 42
+							end
 						end
-					end	
-					if wantToBuy ~= curWeaponId and curWeaponId ~= 42 then
-						RemoteEvent:FireServer("Buy Weapon", weaponArray[wantToBuyIndex]["weaponId"])
+					end
+					if wantToBuy ~= nil and wantToBuy ~= curWeaponId then
+						RemoteEvent:FireServer("Buy Weapon", wantToBuy)
 					end
 				end
+				
 			end
 		end
 	end)
@@ -936,26 +957,28 @@ function  buyBestForkFunc()
 	spawn(function()
 		while kVars.buyBestForkBool do
 			wait()
-			local pCoins, Gems = RemoteFunc:InvokeServer("Get Currency")
-			local forkInv, curForkId = RemoteFunc:InvokeServer("Get Fork Data")
-			local forkWantToBuy = 2
-			local forkWantToBuyIndex = 1
-			if curForkId ~= nil and curForkId ~= 29 then
-				for i,v in ipairs(forkArray) do
-					if v.cost > pCoins and v.forkId > curForkId then
-						forkWantToBuy = forkArray[i-1]["forkId"]
-						forkWantToBuyIndex = i-1
-						break		
-					elseif i == #forkArray then
-						forkWantToBuy = v.forkId
-						forkWantToBuyIndex = 28
+			if kVars.buyBestForkBool then
+				local pCoins, Gems = RemoteFunc:InvokeServer("Get Currency")
+				local forkInv, curForkId = RemoteFunc:InvokeServer("Get Fork Data")
+				if curForkId == 30 then break end
+				local forkWantToBuy = nil
+				if curForkId ~= 29 then
+					for i,v in pairs(forkData) do
+						if v.Cost.Amount then
+							if v.Cost.Amount > pCoins and i > curForkId and i ~= 30 and i ~= #weaponData and i ~= 29  then
+								forkWantToBuy = i-1
+								break
+							elseif i == #forkData or i == 29 then
+								forkWantToBuy = 29
+							end
+						end
+					end
+					if forkWantToBuy ~= nil and forkWantToBuy ~= curForkId then
+						RemoteEvent:FireServer("Buy Fork", forkWantToBuy)
 					end
 				end
-				if forkWantToBuy ~= curforkId and curforkId ~= 29 then
-					RemoteEvent:FireServer("Buy Fork", forkArray[forkWantToBuyIndex]["forkId"])
-				end
-			end	
-		end
+			end
+		end	
 	end)
 end
 
@@ -1056,7 +1079,6 @@ kVars.closeing = game:GetService("CoreGui").ChildRemoved:Connect(function(child)
 
 	end
 end)
-
 
 --[[
 spawn(function()
