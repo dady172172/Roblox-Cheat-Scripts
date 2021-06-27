@@ -133,83 +133,15 @@ local Locations = {
 	[13] = {name = "BossBattle", cf = CFrame.new(366, 5, 882)},
 	[14] = {name = "VIP", cf = CFrame.new(-151, 5, -180)}
 } 
--- list of weaponId and cost
-local weaponArray = {}
-weaponArray[1] = {weaponId = 2, cost = 50}
-weaponArray[2] = {weaponId = 3, cost = 100}
-weaponArray[3] = {weaponId = 4, cost = 300}
-weaponArray[4] = {weaponId = 6, cost = 700}
-weaponArray[5] = {weaponId = 7, cost = 1000}
-weaponArray[6] = {weaponId = 8, cost = 2000}
-weaponArray[7] = {weaponId = 9, cost = 5000}
-weaponArray[8] = {weaponId = 10, cost = 10000}
-weaponArray[9] = {weaponId = 11, cost = 13000}
-weaponArray[10] = {weaponId = 12, cost = 25000}
-weaponArray[11] = {weaponId = 13, cost = 40000}
-weaponArray[12] = {weaponId = 14, cost = 55000}
-weaponArray[13] = {weaponId = 15, cost = 75000}
-weaponArray[14] = {weaponId = 16, cost = 100000}
-weaponArray[15] = {weaponId = 17, cost = 250000}
-weaponArray[16] = {weaponId = 18, cost = 375000}
-weaponArray[17] = {weaponId = 19, cost = 500000}
-weaponArray[18] = {weaponId = 20, cost = 1000000}
-weaponArray[19] = {weaponId = 21, cost = 1500000}
-weaponArray[20] = {weaponId = 22, cost = 4000000}
-weaponArray[21] = {weaponId = 23, cost = 7500000}
-weaponArray[22] = {weaponId = 24, cost = 10000000}
-weaponArray[23] = {weaponId = 25, cost = 15000000}
-weaponArray[24] = {weaponId = 26, cost = 20000000}
-weaponArray[25] = {weaponId = 27, cost = 25000000}
-weaponArray[26] = {weaponId = 28, cost = 35000000}
-weaponArray[27] = {weaponId = 29, cost = 50000000}
-weaponArray[28] = {weaponId = 30, cost = 80000000}
-weaponArray[29] = {weaponId = 31, cost = 120000000}
-weaponArray[30] = {weaponId = 32, cost = 150000000}
-weaponArray[31] = {weaponId = 33, cost = 200000000}
-weaponArray[32] = {weaponId = 34, cost = 400000000}
-weaponArray[33] = {weaponId = 35, cost = 750000000}
-weaponArray[34] = {weaponId = 36, cost = 1500000000}
-weaponArray[35] = {weaponId = 37, cost = 5000000000}
-weaponArray[36] = {weaponId = 38, cost = 7500000000}
-weaponArray[37] = {weaponId = 39, cost = 10000000000}
-weaponArray[38] = {weaponId = 41, cost = 100000000000000}
-weaponArray[39] = {weaponId = 42, cost = 100000000000000000}
-
--- list of forks and cost
-local forkArray = {}
-forkArray[1] = {forkId = 1, cost = 0}
-forkArray[2] = {forkId = 2, cost = 50}
-forkArray[3] = {forkId = 3, cost = 150}
-forkArray[4] = {forkId = 4, cost = 250}
-forkArray[5] = {forkId = 5, cost = 500}
-forkArray[6] = {forkId = 6, cost = 800}
-forkArray[7] = {forkId = 7, cost = 2000}
-forkArray[8] = {forkId = 8, cost = 5000}
-forkArray[9] = {forkId = 9, cost = 10000}
-forkArray[10] = {forkId = 10, cost = 20000}
-forkArray[11] = {forkId = 11, cost = 35000}
-forkArray[12] = {forkId = 12, cost = 75000}
-forkArray[13] = {forkId = 13, cost = 150000}
-forkArray[14] = {forkId = 14, cost = 250000}
-forkArray[15] = {forkId = 15, cost = 400000}
-forkArray[16] = {forkId = 16, cost = 750000}
-forkArray[17] = {forkId = 17, cost = 1000000}
-forkArray[18] = {forkId = 18, cost = 1200000}
-forkArray[19] = {forkId = 19, cost = 3000000}
-forkArray[20] = {forkId = 20, cost = 6000000}
-forkArray[21] = {forkId = 21, cost = 12000000}
-forkArray[22] = {forkId = 22, cost = 18000000}
-forkArray[23] = {forkId = 23, cost = 30000000}
-forkArray[24] = {forkId = 24, cost = 45000000}
-forkArray[25] = {forkId = 25, cost = 80000000}
-forkArray[26] = {forkId = 26, cost = 120000000}
-forkArray[27] = {forkId = 27, cost = 200000000}
-forkArray[28] = {forkId = 28, cost = 300000000}
-forkArray[29] = {forkId = 29, cost = 500000000}
 
 -- list of animals names
-local animalNamesList = {"Closest", "Chicken", "Cornish Chicken", "Duck", "Blue Duck", "Cow", "Brown Cow", "Turkey", "Red Turkey", "Pig", "Fat Pig", "Bison", "Dark Bison", "Doe", "Buck", "Black Bear", "Grizzly Bear", "Moose", "Angry Moose", "Dinosaur", "Angry Dinosaur", "Fiery Dinosaur", "Wolf", "Brown Wolf", "Big Bad Wolf", "Arctic Fox", "Yeti"}
 
+local animalNamesList = {}
+for i,v in pairs(game:GetService("ReplicatedStorage").InstanceData.Animals:GetChildren()) do
+	table.insert(animalNamesList,v.Name)
+end
+table.sort(animalNamesList)
+table.insert(animalNamesList,1,"Closest")
 ---------------------------------------- Main ---------------------------------------------------
 local meat = false
 local coin = false
@@ -218,7 +150,7 @@ local nearest = nil
 local id = nil
 local currentTarget = 8
 ---- Auto Attack ----
-a:addDropdown(kVars.autoAttackAnimalName,animalNamesList,function(value)
+a:addDropdown(animalNamesList[1],animalNamesList,function(value)
 	kVars.autoAttackAnimalName = value
 end)
 a:addToggle("Auto Attack", kVars.autoAttackBool, function(bool)
@@ -399,54 +331,34 @@ function fireTouch(part)
 end
 
 ----------------------------------------------------------- BUY -----------------------------------------------------------
+---- weapon dropdown prep ----
+weaponDropDownNames = {}
+weaponDropDownTable = {}
+for i,v in pairs(weaponData) do
+	if i~= 40 and i ~= 5 and i ~= 1 then
+		if v.Cost.Amount and v.Title then
+			local string1 = "$" .. tostring(v.Cost.Amount) .. " - " .. v.Title
+			table.insert(weaponDropDownNames, string1)
+			table.insert(weaponDropDownTable, {name = string1, id = i})
+		end
+	end
+end
 
 ---- Weapon DropDown ----
-local weaponNum = 2
-c:addDropdown("Select Weapon",{"50", "100", "300", "700", "1K", "2K", "5K", "10K", "13K", "25K", "40K", "55K", "75K", "100K", "250K", "375K", "500K", "1M", "1.5M", "4M", "7.5M", "10M", "15M", "20M", "25M", "35M", "50M", "80M", "120M", "150M", "200M", "400M", "750M", "1.5B", "5B", "7.5B", "10B", "100T", "100Qa"},function(num)
-	if num == "50" then weaponNum = 2 end
-	if num == "100" then weaponNum = 3 end
-	if num == "300" then weaponNum = 4 end
-	if num == "700" then weaponNum = 6 end
-	if num == "1K" then weaponNum = 7 end
-	if num == "2K" then weaponNum = 8 end
-	if num == "5K" then weaponNum = 9 end
-	if num == "10K" then hweaponNum = 10 end
-	if num == "13K" then weaponNum = 11 end
-	if num == "25K" then weaponNum = 12 end
-	if num == "40K" then weaponNum = 13 end
-	if num == "55K" then weaponNum = 14 end
-	if num == "75K" then weaponNum = 15 end
-	if num == "100K" then weaponNum = 16 end
-	if num == "250K" then weaponNum = 17 end
-	if num == "375K" then weaponNum = 18 end
-	if num == "500K" then weaponNum = 19 end
-	if num == "1M" then weaponNum = 20 end
-	if num == "1.5M" then weaponNum = 21 end
-	if num == "4M" then weaponNum = 22 end
-	if num == "7.5M" then weaponNum = 23 end
-	if num == "10M" then weaponNum = 24 end
-	if num == "15M" then weaponNum = 25 end
-	if num == "20M" then weaponNum = 26 end
-	if num == "25M" then weaponNum = 27 end
-	if num == "35M" then weaponNum = 28 end
-	if num == "50M" then weaponNum = 29 end
-	if num == "80M" then weaponNum = 30 end
-	if num == "120M" then weaponNum = 31 end
-	if num == "150M" then weaponNum = 32 end
-	if num == "200M" then weaponNum = 33 end
-	if num == "400M" then weaponNum = 34 end
-	if num == "750M" then weaponNum = 35 end
-	if num == "1.5B" then weaponNum = 36 end
-	if num == "5B" then weaponNum = 37 end
-	if num == "7.5B" then weaponNum = 38 end
-	if num == "10B" then weaponNum = 39 end
-	if num == "100T" then weaponNum = 41 end
-	if num == "100Qa" then weaponNum = 42 end
+c:addDropdown(weaponDropDownNames[1],weaponDropDownNames,function(num)
+	kVars.weaponNum = num
 end)
 
 ---- Weapon Button ----
 c:addButton("Buy",function()
-	RemoteEvent:FireServer("Buy Weapon", weaponNum)
+	for i,v in pairs(weaponDropDownTable) do
+		if kVars.weaponNum ~= nil then
+			if v.name == kVars.weaponNum then
+				RemoteEvent:FireServer("Buy Weapon", v.id)
+				break
+			end
+		end
+	end	
 end)
 
 ---- Weapon Buy Best ----
@@ -455,74 +367,61 @@ c:addButton("Buy Best",function()
 end)
 
 function funcBuyBestWeapon()
-	local pCoins, Gems = RemoteFunc:InvokeServer("Get Currency")
+	local pCoins, Gems = RemoteFunc:InvokeServer("Get Currency");
 	local WeaponInv, curWeaponId = RemoteFunc:InvokeServer("Get Weapon Data")
-	local wantToBuy = 2
-	local wantToBuyIndex = 1
+	local wantToBuy = nil
 	---- stops if you have the best weapon in game equiped
-	if curWeaponId == 42 then
-		return
-	end
-	---- set robux weapons ID equal to equivlent 
-	if curWeaponId == 40 then curWeaponId = 3 end
-	if curWeaponId == 5 then curWeaponId = 22 end
-	---- get want to buyitems
-	for i,v in ipairs(weaponArray) do	
-		if v.cost > pCoins and v.weaponId > curWeaponId then
-			wantToBuy = weaponArray[i-1]["weaponId"]
-			wantToBuyIndex = i-1
-			break
-		elseif i == #weaponArray then
-			wantToBuy = v.weaponId
-			wantToBuyIndex = 39
+	if curWeaponId ~= 42 then
+		---- set robux weapons ID equal to equivlent 
+		if curWeaponId == 40 then curWeaponId = 3 end
+		if curWeaponId == 5 then curWeaponId = 22 end
+		---- get want to buyitems
+		for i,v in pairs(weaponData) do
+			if v.Cost.Amount then
+				if v.Cost.Amount > pCoins and v.ID > curWeaponId then
+					wantToBuy = weaponData[i-1].ID
+					if wantToBuy == 40 then wantToBuy = 39 end
+					if wantToBuy == 5 then wantToBuy = 4 end
+					break
+				elseif i == #weaponData then
+					wantToBuy = 42
+				end
+			end
 		end
-	end	
-	if wantToBuy ~= curWeaponId and curWeaponId ~= 42 then
-		RemoteEvent:FireServer("Buy Weapon", weaponArray[wantToBuyIndex]["weaponId"])
-	elseif wantToBuy == 42 and curWeaponId == 42 then
-		print("You already have the best weapon")
-	else
-		print("Not enough money to buy a better weapon!")
+		if wantToBuy ~= nil and wantToBuy ~= curWeaponId then
+			RemoteEvent:FireServer("Buy Weapon", wantToBuy)
+		end
 	end
 end
 
----- Fork DropDown ----
-local ForkNum = 2
-ca:addDropdown("Select Fork",{"50", "150", "250", "500", "800", "2K", "5K", "10K", "20K", "35K", "75K", "150K", "250K", "400K", "750K", "1M", "1.2M", "3M", "6M", "12M", "18M", "30M", "45M", "80M", "120M", "200M", "300M", "500M"},function(num)
-	if num == "50" then ForkNum = 2 end
-	if num == "150" then ForkNum = 3 end
-	if num == "250" then ForkNum = 4 end
-	if num == "500" then ForkNum = 5 end
-	if num == "800" then ForkNum = 6 end
-	if num == "2K" then ForkNum = 7 end
-	if num == "5K" then ForkNum = 8 end
-	if num == "10K" then ForkNum = 9 end
-	if num == "20K" then ForkNum = 10 end
-	if num == "35K" then ForkNum = 11 end
-	if num == "75K" then ForkNum = 12 end
-	if num == "150K" then ForkNum = 13 end
-	if num == "250K" then ForkNum = 14 end
-	if num == "400K" then ForkNum = 15 end
-	if num == "750K" then ForkNum = 16 end
-	if num == "1M" then ForkNum = 17 end
-	if num == "1.2M" then ForkNum = 18 end
-	if num == "3M" then ForkNum = 19 end
-	if num == "6M" then ForkNum = 20 end
-	if num == "12M" then ForkNum = 21 end
-	if num == "18M" then ForkNum = 22 end
-	if num == "30M" then ForkNum = 23 end
-	if num == "45M" then ForkNum = 24 end
-	if num == "80M" then ForkNum = 25 end
-	if num == "120M" then ForkNum = 26 end
-	if num == "200M" then ForkNum = 27 end
-	if num == "300M" then ForkNum = 28 end
-	if num == "500M" then ForkNum = 29 end
+---- Fork DropDown Prep ----
+local forkDropDownNames = {}
+local forkDropDownTable = {}
+for i,v in pairs(forkData) do
+	if i ~= 1 and i ~= 30 then
+		if v.Cost.Amount then
+			local string1 = "$" .. tostring(v.Cost.Amount) .." - " .. v.Title
+			table.insert(forkDropDownNames, string1)
+			table.insert(forkDropDownTable, {name = string1, id = i})
+		end
+	end
+end
+---- fork dropdown ----
+ca:addDropdown(forkDropDownNames[1], forkDropDownNames,function(num)
+	kVars.forkNum = num
 end)
 
 ---- Fork Button ----
 ca:addButton("Buy",function()
-	RemoteEvent:FireServer("Buy Fork", ForkNum)
+	local thisone = nil
+	for i,v in pairs(forkDropDownTable) do
+		if v.name == kVars.forkNum then
+			RemoteEvent:FireServer("Buy Fork", v.id)
+			break
+		end
+	end
 end)
+	
 
 ---- Fork Buy Best ----e
 ca:addButton("Buy Best",function()
@@ -531,29 +430,22 @@ end)
 function funcBuyBestFork()
 	local pCoins, Gems = RemoteFunc:InvokeServer("Get Currency")
 	local forkInv, curForkId = RemoteFunc:InvokeServer("Get Fork Data")
-	local forkWantToBuy = 2
-	local forkWantToBuyIndex = 1
-	if curForkId == 29 then
-		print("You already have the best fork!!")
-		return
-	end
-	for i,v in ipairs(forkArray) do
-		if v.cost > pCoins and v.forkId > curForkId then
-			forkWantToBuy = forkArray[i-1]["forkId"]
-			forkWantToBuyIndex = i-1
-			break		
-		elseif i == #forkArray then
-			forkWantToBuy = v.forkId
-			forkWantToBuyIndex = 28
+	if curForkId == 30 then return end
+	local forkWantToBuy = nil
+	if curForkId ~= 29 then
+		for i,v in pairs(forkData) do
+			if v.Cost.Amount then
+				if v.Cost.Amount > pCoins and i > curForkId and i ~= 30 and i ~= #weaponData and i ~= 29  then
+					forkWantToBuy = i-1
+					break
+				elseif i == #forkData or i == 29 then
+					forkWantToBuy = 29
+				end
+			end
 		end
-	end
-	
-	if forkWantToBuy ~= curforkId and curforkId ~= 29 then
-		RemoteEvent:FireServer("Buy Fork", forkArray[forkWantToBuyIndex]["forkId"])
-	elseif forkWantToBuy == 29 and curforkId == 29 then
-		print("You already have the best fork")
-	else
-		print("Not enough money")
+		if forkWantToBuy ~= nil and forkWantToBuy ~= curForkId then
+			RemoteEvent:FireServer("Buy Fork", forkWantToBuy)
+		end
 	end
 end
 
