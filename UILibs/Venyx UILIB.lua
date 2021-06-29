@@ -14,7 +14,7 @@ local utility = {}
 
 -- themes
 local objects = {}
-
+local themes = _G.themes
 do
 	function utility:Create(instance, properties, children)
 		local object = Instance.new(instance)
