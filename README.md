@@ -6,7 +6,7 @@ The scripts in "Tools" are the tools that I used to make most of these scripts.\
 Some scripts may have special instruction at the top. So make sure to read any special instructions.
 
 # Disclaimer
-Any of these cheats are AT YOUR OWN RISK. I do not take responsability for bans, kicks, problems with injectors or computer, network, life problems. These files are provided for education only.\
+Any of these Scripts are AT YOUR OWN RISK. I do not take responsability for bans, kicks, problems with injectors or computer, network, life problems. These files are provided for education only.\
 Now with that out of the way.. Have fun and stay safe.
 
 # How To Use These Scripts
