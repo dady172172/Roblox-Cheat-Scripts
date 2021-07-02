@@ -3,7 +3,7 @@ Scripts that have GUI in there name, mean that they have an interface in game (B
 I provide a game link at the top of every script, so there is no confusion about which game the script is for.\
 The scripts in "Others" is just some scripts that other people have made that I have found usefull.\
 The scripts in "Tools" are the tools that I used to make most of these scripts.\
-Some scripts may have special instruction at the top. So make sure to read any special instructions.\
+Some scripts may have special instruction at the top. So make sure to read any special instructions.
 
 # Disclaimer
 Any of these cheats are AT YOUR OWN RISK. I do not take responsability for bans, kicks, problems with injectors or computer, network, life problems. These files are provided for education only.\
