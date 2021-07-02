@@ -22,7 +22,7 @@ Now with that out of the way.. Have fun and stay safe.
     A:Yes, but keep in mind some smaller scripts don't require the features of a paid injector.
 
 -   Q:Will I get banned from roblox if I use these scipts?
-    A:You can get banned if they find you in violation of Robloxes [TOS](https://en.help.roblox.com/hc/en-us/articles/115004647846-Roblox-Terms-of-Use). Injecting the game can get you banned. So please use common sense when using scripts/injectors.
+    A:You can get banned if they find you in violation of Robloxes [TOS](https://en.help.roblox.com/hc/en-us/articles/115004647846-Roblox-Terms-of-Use). Injecting the game can get you banned. So please use common sense when using scripts/injectors. If you don't RAGE HACK, you should be ok.
 
 -   Q:I injected the script and its not working?
     A:Please check and make sure that the script is for the game you are playing. By opening the link at the top of the script. Where it says "Game : https:....". This link provides the exact game the script was made for. If it is for your game then please report it here on GitHub.
@@ -32,3 +32,6 @@ Now with that out of the way.. Have fun and stay safe.
 
 -   Q:Can I request a feature be added to a Script/GUI?
     A:Yes. But its up to me if I want to add that feature or not. Feedback is always welcome.
+
+-   Q:Can I use your script and add features?
+    A:Sure as long as you credit me in the script.
