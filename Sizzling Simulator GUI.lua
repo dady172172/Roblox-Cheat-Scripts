@@ -45,6 +45,7 @@ kVars.upgradeGrillsBool = false
 kVars.buyBestWeaponBool = false
 kVars.buyBestForkBool = false
 kVars.chestBool = false
+kVars.rebirthBool = false
 kVars.openEggBool = false
 kVars.openHatBool = false
 kVars.removeSizzling = false
@@ -425,6 +426,14 @@ pages.aRebirth:addButton("Rebirth",function()
 	RemoteEvent:FireServer('Rebirth',tonumber(num))
 end)
 
+---- Rebirth Toggle ----
+pages.aRebirth:addToggle("Rebirth",kVars.rebirthBool, function(bool)
+	kVars.rebirthBool = bool
+	if bool then
+		rebirthFunc()
+	end
+end)
+
 -------- Respawn Menus --------
 ---- x1 ----
 pages.bRebirth:addButton("x1", function()
@@ -735,6 +744,9 @@ pages.aKeyBinds:addKeybind("Collect Coins", nil, function()
 	end
 end, function()
 end)
+pages.aKeyBinds:addKeybind("Open Inventory", nil, function()
+	game:GetService("Players").LocalPlayer.PlayerGui.mainGui.ViewInventoryFrame:TweenPosition(UDim2.new(0.5, 0, .5, 0), nil, nil, 0.3, true)
+end)
 
 ---- Buy Best Weapon ----
 pages.aKeyBinds:addKeybind("Buy Best Weapon", Enum.KeyCode.Minus, function()
@@ -787,6 +799,7 @@ pages.e:addToggle("Bloom", kVars.bloomBool , function(bool)
 end)
 
 pages.e:addToggle("Player Name Plates", kVars.nameplatsBool, function(bool)
+	kVars.namePlatesBool = bool
 	if bool then
 		game:GetService('Players').LocalPlayer.Character.Humanoid.NameDisplayDistance = 9e99
 	else
@@ -1060,9 +1073,9 @@ function  openChestsFunc()
 	spawn(function()
 		while kVars.chestBool do
 			wait()
-			if kVars.chestBool then
-				for i, v in pairs(game:GetService("Workspace").Chests:getChildren()) do
-					if v.Bottom:FindFirstChild('Emitter') and kVars.lplr.Character:FindFirstChild('RightFoot') then
+			if game:GetService('Players').LocalPlayer.Character:FindFirstChild('RightFoot') ~= nil then
+				for i,v in pairs(game:GetService("Workspace").Chests:getChildren()) do
+					if v.Bottom:FindFirstChild('Emitter') and game:GetService('Players').LocalPlayer.Character:FindFirstChild('RightFoot') then
 						firetouchinterest(kVars.lplr.Character.RightFoot, v.Bottom.Emitter, 0)
 						wait(.1)
 						firetouchinterest(kVars.lplr.Character.RightFoot, v.Bottom.Emitter, 1)
@@ -1096,6 +1109,32 @@ function  collectGrillCoinsFunc()
 		end
 	end)
 end
+
+---- rebirth ----
+function rebirthFunc()
+	spawn(function()
+		while kVars.rebirthBool do
+			wait()
+			local pCoins, Gems = RemoteFunc:InvokeServer("Get Currency")
+			local getRebirths = game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer("Get Rebirths")
+			local cost = nil
+			if kVars.rebirthMulti == "x5" then
+				cost = math.floor(getRebirths ^ 0.9) * 1000000000000000 + 1E+17
+			elseif kVars.rebirthMulti == "x3" then
+				cost = math.floor(getRebirths ^ 0.9) * 5000000000000 + 500000000000000
+			elseif kVars.rebirthMulti == "x1" then
+				cost = math.floor(getRebirths ^ 0.9) * 1000000000 + 1000000000
+			end
+
+			if pCoins >= cost then
+				local num = string.match(kVars.rebirthMulti, "%d")
+				RemoteEvent:FireServer('Rebirth',tonumber(num))
+			end
+		end
+	end)
+end
+
+
 ---- walkspeed ----
 spawn(function()
 	while wait() do
@@ -1105,6 +1144,9 @@ spawn(function()
 		end
 		if kVars.jumpPower ~= nil then
 			game:GetService('Players').LocalPlayer.Character.Humanoid.JumpPower = kVars.jumpPower
+		end
+		if kVars.namePlatesBool then
+			game:GetService('Players').LocalPlayer.Character.Humanoid.NameDisplayDistance = 9e99
 		end
 	end
 end)
