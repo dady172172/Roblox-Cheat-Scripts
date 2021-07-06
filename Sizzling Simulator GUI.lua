@@ -1073,15 +1073,12 @@ function  openChestsFunc()
 	spawn(function()
 		while kVars.chestBool do
 			wait()
-			if game:GetService('Players').LocalPlayer.Character:FindFirstChild('RightFoot') ~= nil then
-				for i,v in pairs(game:GetService("Workspace").Chests:getChildren()) do
-					if v.Bottom:FindFirstChild('Emitter') and game:GetService('Players').LocalPlayer.Character:FindFirstChild('RightFoot') then
-						firetouchinterest(kVars.lplr.Character.RightFoot, v.Bottom.Emitter, 0)
-						wait(.1)
-						firetouchinterest(kVars.lplr.Character.RightFoot, v.Bottom.Emitter, 1)
-					end
+			for i,v in pairs(game:GetService("Workspace").Chests:getChildren()) do
+				if v.Bottom:FindFirstChild('Emitter') and game:GetService('Players').LocalPlayer.Character:FindFirstChild('RightFoot') then
+					firetouchinterest(kVars.lplr.Character.RightFoot, v.Bottom.Emitter, 0)
+					firetouchinterest(kVars.lplr.Character.RightFoot, v.Bottom.Emitter, 1)
 				end
-			end
+			end	
 		end
 	end)
 end
@@ -1125,7 +1122,6 @@ function rebirthFunc()
 			elseif kVars.rebirthMulti == "x1" then
 				cost = math.floor(getRebirths ^ 0.9) * 1000000000 + 1000000000
 			end
-
 			if pCoins >= cost then
 				local num = string.match(kVars.rebirthMulti, "%d")
 				RemoteEvent:FireServer('Rebirth',tonumber(num))
