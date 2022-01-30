@@ -10,7 +10,7 @@ game:service'Players'.LocalPlayer.Idled:connect(function()
     VirtualUser:CaptureController()
     VirtualUser:ClickButton2(Vector2.new())
 end)
-
+local kVars = {}
 local library = loadstring(game:HttpGet('https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wall%20v3'))()
 
 local w = library:CreateWindow("Fruit Collecting Simulator") -- Creates the window
@@ -30,9 +30,9 @@ local trailTable = {"Default","Red","Blue","Pink","Green","Roblox Logo","Rainbow
 local toolTable = {"Trowel","Small Shovel","Shovel","Leaf Rake","Soade","Scissors","Pickaxe","Flat Shovel","Mallet","Crowbar","Pitchfork","Battle Axe","Saw","Small Sickle","Sickle","Reaper Scythe","Rake","Hammer","Bucket","Magnet","Chainsaw","CandyCane","Lava Shovel","Lava Crowbar","Lava Saw","Lava Pickaxe","Lava Chainsaw","Axe","Machete","Bamboo Katana","Katana"}
 
 ---- AFK Spot ----
-local afkSpotBool = false
+kVars.afkSpotBool = false
 b:Toggle("AFK Spot", function(bool)
-	afkSpotBool = bool
+	kVars.afkSpotBool = bool
 	if bool then
 		game.workspace.Gravity = 0
 	else
@@ -41,7 +41,7 @@ b:Toggle("AFK Spot", function(bool)
 end)
 function afkSpotFunc()
 	spawn(function()
-		while afkSpotBool do
+		while kVars.afkSpotBool do
 			wait()
 			if localPlayer.Character:FindFirstChild('HumanoidRootPart') then
 				game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-124, -58, -26)
@@ -50,14 +50,14 @@ function afkSpotFunc()
 	end)
 end
 ---- farm food ----
-local farmFoodBool = false
+kVars.farmFoodBool = false
 b:Toggle("Fruit", function(bool)
-	farmFoodBool = bool
+	kVars.farmFoodBool = bool
 	if bool then farmFoodFunc() end
 end)
 function farmFoodFunc()
 	spawn(function()
-		while farmFoodBool do
+		while kVars.farmFoodBool do
 			wait()
 			local curTool = localPlayer.CurrentToolEquipped.Value
 			if localPlayer.Tools:FindFirstChild("Trowel") and localPlayer.Character:FindFirstChild('HumanoidRootPart') then
@@ -84,7 +84,9 @@ function farmFoodFunc()
 				else
 					foodToCollect = "Apple"
 				end
-				rsEvents.Collect:FireServer(foodToCollect, localPlayer.Backpack[curTool])
+				if game:GetService("Players").LocalPlayer:WaitForChild("Tools") and curTool ~= nil then
+					rsEvents.Collect:FireServer(foodToCollect, localPlayer.Character[curTool])
+				end
 			end
 		end
 	end)
@@ -104,7 +106,7 @@ function sellBackpackFunc()
 	spawn(function()
 		while sellBackpackBool do
 			wait()
-			if localPlayer.Tools:FindFirstChild("Trowel") and localPlayer.Character:FindFirstChild('HumanoidRootPart') then
+			if localPlayer.Character:WaitForChild("RightFoot") then
 				firetouchinterest(localPlayer.Character.RightFoot, game:GetService("Workspace").MapFolder.TouchParts.SellPart, 0)
 				wait(.1)
 				firetouchinterest(localPlayer.Character.RightFoot, game:GetService("Workspace").MapFolder.TouchParts.SellPart, 1)
@@ -266,7 +268,8 @@ function rebirthFunc()
 	spawn(function()
 		while rebirthBool do
 			wait()
-			if localPlayer.Tools:FindFirstChild("Trowel") and localPlayer.Character:FindFirstChild('HumanoidRootPart') then
+			localPlayer:WaitForChild("Tools")
+			if localPlayer:WaitForChild("Tools") and localPlayer.Character:FindFirstChild('HumanoidRootPart') then
 				rsEvents.Rebirth:FireServer("Rebirth", localPlayer)
 			end	
 		end
@@ -518,7 +521,7 @@ end)
 spawn(function()
 	while wait() do		
 		if WalkSpeed and localPlayer.Tools:FindFirstChild("Trowel") and localPlayer.Character:FindFirstChild('HumanoidRootPart') then
-			game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WalkSpeed
+			game.Players.LocalPlayer.Character:WaitForChild("Humanoid").WalkSpeed = WalkSpeed
 		end
 	end
 end)

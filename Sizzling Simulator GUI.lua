@@ -57,6 +57,7 @@ kVars.bloomBool = true
 kVars.purchasePromptBool = true
 kVars.reloadBarBool = true
 kVars.nameplatsBool = false
+kVars.ECOGUIBool = true
 kVars.walkSpeed = game:GetService('Players').LocalPlayer.Character.Humanoid.WalkSpeed
 local origWalkSpeed = game:GetService('Players').LocalPlayer.Character.Humanoid.WalkSpeed
 kVars.jumpPower = game:GetService('Players').LocalPlayer.Character.Humanoid.JumpPower
@@ -281,10 +282,9 @@ if game:GetService("CoreGui"):FindFirstChild("Sizzling Simulator GUI By Keathuns
 end
 
 ---- anti AFK ----
-local VirtualUser=game:service'VirtualUser'
-game:service'Players'.LocalPlayer.Idled:connect(function()
-    VirtualUser:CaptureController()
-    VirtualUser:ClickButton2(Vector2.new())
+game:GetService('Players').LocalPlayer.Idled:connect(function()
+    game:GetService('VirtualUser'):CaptureController()
+    game:GetService('VirtualUser'):ClickButton2(Vector2.new())
 end)
 ---- librarys for GUI ----
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheats/master/UILibs/Venyx%20UILIB.lua"))() --someone reuploaded it so I put it in place of the original back up so guy can get free credit.
@@ -297,6 +297,7 @@ pages.a = pages.page:addSection("Collect")
 
 pages.pageRebirth = venyx:addPage("Rebirth", 5012544693)
 pages.aRebirth = pages.pageRebirth:addSection("Rebirth")
+pages.cRebirth = pages.pageRebirth:addSection("Rebirth Shop")
 pages.bRebirth = pages.pageRebirth:addSection("Menu")
 pages.page2 = venyx:addPage("Menus", 5012544693)
 pages.b = pages.page2:addSection("Menus")
@@ -344,7 +345,6 @@ pages.ab:addToggle("Attack", kVars.autoAttackBool, function(bool)
 	end
 end)
 
-
 ---- Magnet meat/items ----
 pages.a:addToggle("Magnet Meat/Items", kVars.magnetMeatItemsBool, function(bool)
 	kVars.magnetMeatItemsBool = bool 
@@ -382,7 +382,6 @@ for i,v in pairs(game:GetService("Workspace").AreaEntries:getChildren()) do
 	table.insert(areaList, {name = string.match(tostring(v),"%d+"), unlocked = isUnlocked})
 	table.insert(areaListNames, tostring(v))
 end
-
 pages.a:addToggle("Unlock Areas", kVars.unlockNextAreaBool, function(bool)
 	kVars.unlockNextAreaBool = bool
 	if bool then unlockAreaFunc() end
@@ -420,7 +419,6 @@ pages.aRebirth:addDropdown(kVars.rebirthMulti,{"x1","x3","x5"},function(num)
 end)
 
 ---- Rebirth Button ----
-
 pages.aRebirth:addButton("Rebirth",function()
 	local num = string.match(kVars.rebirthMulti, "%d")
 	RemoteEvent:FireServer('Rebirth',tonumber(num))
@@ -432,6 +430,19 @@ pages.aRebirth:addToggle("Rebirth",kVars.rebirthBool, function(bool)
 	if bool then
 		rebirthFunc()
 	end
+end)
+
+-------- Rebirth Shop --------
+pages.cRebirth:addToggle("Buy Coin Multiplier",kVars.rebirthBool, function(bool)
+	kVars.buyCoinMultiplierBool = bool
+end)
+
+pages.cRebirth:addToggle("Buy XP Multiplier",kVars.rebirthBool, function(bool)
+	kVars.buyXpMultiplierBool = bool
+end)
+
+pages.cRebirth:addToggle("Buy Pet Start Level",kVars.rebirthBool, function(bool)
+	kVars.buyPetStartLevelBool = bool
 end)
 
 -------- Respawn Menus --------
@@ -465,9 +476,10 @@ pages.b:addButton("Rebirth Shop",function()
 end)
 ---- Hats Upgrade ----
 pages.b:addButton("Hats Upgrade",function()
-	if game:GetService("Workspace"):FindFirstChild("Caleb Touch") then
+	game:GetService("Players").keathunsar.PlayerGui.MainGui.UpgradeFrame:TweenPosition(UDim2.new(0.5, 0, 0.5, 0), nil, nil, 0.3, true)
+	--[[if game:GetService("Workspace"):FindFirstChild("Caleb Touch") then
 		fireTouch(game:GetService("Workspace")["Caleb Touch"].TouchPart)
-	end
+	end]]--
 end)
 ---- Potions Shop ----
 pages.b:addButton("Potions Shop",function()
@@ -625,6 +637,10 @@ pages.cb:addToggle("Open Egg", kVars.openEggBool, function(bool)
 	if bool then openEggFunc() end
 end)
 
+pages.cb:addToggle("Open 3 *Must Buy* ", kVars.openThreeEggsBool, function(bool)
+	kVars.openThreeEggsBool = bool
+end)
+
 ---- Hats ----
 pages.cc:addDropdown(crateNames[1],crateNames,function(value)
 	for i,v in pairs(crateData) do
@@ -637,6 +653,11 @@ end)
 pages.cc:addToggle("Open Crate", kVars.openHatBool, function(bool)
 	kVars.openHatBool = bool
 	if bool then openCrateFunc() end
+end)
+
+pages.cc:addToggle("Open 3 *Must Buy*", kVars.openThreeCrateBool, function(bool)
+	kVars.openThreeCrateBool = bool
+	
 end)
 
 ---- delete pets ----
@@ -661,7 +682,7 @@ end)
 pages.cd:addDropdown(petList[1],petList,function(value)
 	kVars.petDel5 = value
 end)
-pages.cd:addToggle("Delete *Rename Equiped*", kVars.petDelBool, function(bool)
+pages.cd:addToggle("Delete *Rename Any Pets you don't want delete*", kVars.petDelBool, function(bool)
 	kVars.petDelBool = bool
 	if bool then petDelFunc() end
 end)
@@ -765,8 +786,12 @@ pages.e:addSlider("Speed",kVars.walkSpeed,30,300,function(value)
     kVars.walkSpeed = value
 end)
 ---- jump power -----
-pages.e:addSlider("Jump",kVars.jumpPower,50,300,function(value)
+pages.e:addSlider("Jump Power",kVars.jumpPower,50,300,function(value)
     kVars.jumpPower = value
+end)
+---- inf jump ---
+pages.e:addToggle("Inf Jump", kVars.infJump, function(bool)
+	kVars.varInfJump = bool
 end)
 ---- time day ----
 pages.e:addButton("Always Day *Restart to undo",function(bool)
@@ -800,11 +825,14 @@ end)
 
 pages.e:addToggle("Player Name Plates", kVars.nameplatsBool, function(bool)
 	kVars.namePlatesBool = bool
-	if bool then
-		game:GetService('Players').LocalPlayer.Character.Humanoid.NameDisplayDistance = 9e99
-	else
-		game:GetService('Players').LocalPlayer.Character.Humanoid.NameDisplayDistance = 0
-	end
+end)
+
+pages.e:addToggle("Click To Delete Pet", kVars.MTBool, function(bool)
+	kVars.MTBool = bool
+end)
+
+pages.e:addToggle("Egg/Crate Reveal Frame", kVars.ECOGUIBool, function(bool)
+	game:GetService("Players").keathunsar.PlayerGui.MainGui.EggRevealFrame.Visible = bool
 end)
 
 ---- buy robux frame ----
@@ -812,10 +840,10 @@ end)
 pages.e:addToggle("Purchase Prompt", kVars.purchasePromptBool, function(bool)
 	kVars.purchasePromptBool = bool
 	if bool then
-		game:GetService("CoreGui").PurchasePromptApp.ProductPurchase.Visible = bool
+		game:GetService("CoreGui").PurchasePrompt.ProductPurchaseContainer.Animator.Prompt.Visible = bool
 	else
-		game:GetService("CoreGui").PurchasePromptApp.ProductPurchase:TweenPosition(UDim2.new(0.5, 0, 2, 0), nil, nil, 0, true)
-		game:GetService("CoreGui").PurchasePromptApp.ProductPurchase.Visible = bool
+		--game:GetService("CoreGui").PurchasePrompt.ProductPurchaseContainer.Animator.Prompt:TweenPosition(UDim2.new(0.5, 0, 2, 0), nil, nil, 0, true)
+		game:GetService("CoreGui").PurchasePrompt.ProductPurchaseContainer.Animator.Prompt.Visible = bool
 	end
 end)
 ---- reload bar tween to move off screen to screen ----
@@ -1050,7 +1078,11 @@ function  openEggFunc()
 		while kVars.openEggBool do
 			wait()
 			if kVars.openEggBool then
-				game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase One Egg",kVars.eggSelection)
+				if kVars.openThreeEggsBool then
+					game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase Three Eggs",kVars.eggSelection)
+				else
+					game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase One Egg",kVars.eggSelection)
+				end
 			end
 		end
 	end)
@@ -1062,7 +1094,11 @@ function  openCrateFunc()
 		while kVars.openHatBool do
 			wait()
 			if kVars.openHatBool then
-				game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase One Egg",kVars.crateSelection)
+				if kVars.openThreeCrateBool then
+					game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase Three Eggs",kVars.crateSelection)
+				else
+					game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase One Egg",kVars.crateSelection)
+				end
 			end
 		end
 	end)
@@ -1130,7 +1166,6 @@ function rebirthFunc()
 	end)
 end
 
-
 ---- walkspeed ----
 spawn(function()
 	while wait() do
@@ -1142,7 +1177,40 @@ spawn(function()
 			game:GetService('Players').LocalPlayer.Character.Humanoid.JumpPower = kVars.jumpPower
 		end
 		if kVars.namePlatesBool then
-			game:GetService('Players').LocalPlayer.Character.Humanoid.NameDisplayDistance = 9e99
+			for i,v in pairs(game.Players:GetChildren()) do
+				if v:FindFirstChild("Character") and v.Character:FindFirstChild("Humanoid") then
+					v.Character.Humanoid.NameOcclusion = 'NoOcclusion'
+					v.Character.Humanoid.NameDisplayDistance = 'inf'
+				end
+			end
+		end
+		if kVars.buyCoinMultiplierBool then
+			game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase Rebirth Shop", "Coins")
+		end
+		if kVars.buyXpMultiplierBool then
+			game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase Rebirth Shop", "XP")
+		end
+		if kVars.buyPetStartLevelBool then
+			game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase Rebirth Shop", "PetLevel")
+		end
+	end
+end)
+
+---- inf jump ----
+kVars.JRC = game:GetService("UserInputService").JumpRequest:connect(function()
+	if kVars.varInfJump then
+		game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")
+	end
+end)
+
+---- click pet destroy ----
+local mouse = game:GetService("Players").LocalPlayer:GetMouse()
+kVars.MT = mouse.Button1Down:Connect(function()
+	if kVars.MTBool then
+		for i,v in pairs(mouse.Target.Parent:GetChildren()) do
+			if v.Name == "PetId" then
+				v.Parent:Destroy()
+			end
 		end
 	end
 end)
@@ -1152,6 +1220,9 @@ kVars.closeing = game:GetService("CoreGui").ChildRemoved:Connect(function(child)
 	if child.Name == "Sizzling Simulator GUI By Keathunsar" then
 		kVars.closing = true
 		wait(.1)
+		kVars.JRC:Disconnect()
+		kVars.MT:Disconnect()
+
 		game:GetService('Players').LocalPlayer.Character.Humanoid.WalkSpeed = 65
 		game:GetService('Players').LocalPlayer.Character.Humanoid.JumpPower = 50
 		game.Lighting.FogStart = kVars.origFog
