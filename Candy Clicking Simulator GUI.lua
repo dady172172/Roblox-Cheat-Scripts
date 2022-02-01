@@ -1,36 +1,60 @@
 --[[
-Game :
+Game : https://www.roblox.com/games/5852812686
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 Gui made by : https://v3rmillion.net/member.php?action=profile&uid=507120
 Go vouch release thread : https://v3rmillion.net/showthread.php?tid=1040650
 ]]--
-
---- Anti AFK ---
-local VirtualUser = game:service('VirtualUser')
-game:service('Players').LocalPlayer.Idled:connect(function()
-    VirtualUser:CaptureController()
-    VirtualUser:ClickButton2(Vector2.new())
-end)
-
 local library = loadstring(game:HttpGet('https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wall%20v3'))()
 kVars = {}
-kVars.windowName = "Fishing Simulator GUI" -- Window Name here
+kVars.windowName = "Candy Clicking Simulator GUI" -- Window Name here
 script.Name = kVars.windowName
 local w = library:CreateWindow(kVars.windowName) -- Creates the window
 local f = w:CreateFolder("Farm") -- Creates the folder(U will put here your buttons,etc)
 
-f:Toggle("Toggle",function(bool)
-    kVars.bool = bool
-    if bool then f() end
+--- Anti AFK ---
+local VirtualUser = game:service('VirtualUser')
+kVars.AntiAfk = game:service('Players').LocalPlayer.Idled:connect(function()
+    VirtualUser:CaptureController()
+    VirtualUser:ClickButton2(Vector2.new())
 end)
 
-function f()
+f:Toggle("click",function(bool)
+    kVars.boolClick = bool
+    if bool then fClick() end
+end)
+
+function fClick()
     spawn(function()
-        while kVars.bool do
+        while kVars.boolClick do
             wait()
-        
-        end
+            game:GetService("ReplicatedStorage").Events.ClickEvent:InvokeServer()
+         end
     end)
+
+end
+
+kVars.varRebirth = 1
+f:Box("Box","number",function(value) -- "number" or "string"
+    local checkIfNumber = tonumber(value)
+    if checkIfNumber then
+        kVars.varRebirth = value
+    end
+end)
+
+f:Toggle("Rebirth",function(bool)
+    kVars.boolRebirth = bool
+    if bool then fRebirth() end
+end)
+
+function fRebirth()
+    spawn(function()
+        while kVars.boolRebirth do
+            wait()
+            if kVars.varRebirth == nil then return end
+            game:GetService("ReplicatedStorage").Events.Rebirth:InvokeServer(kVars.varRebirth)
+         end
+    end)
+
 end
 
 ---- Closing ----

@@ -1,5 +1,5 @@
 --[[
-Game :
+Game : https://www.roblox.com/games/5535087806
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 Gui made by : https://v3rmillion.net/member.php?action=profile&uid=507120
 Go vouch release thread : https://v3rmillion.net/showthread.php?tid=1040650
@@ -14,36 +14,72 @@ end)
 
 local library = loadstring(game:HttpGet('https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wall%20v3'))()
 kVars = {}
-kVars.windowName = "Fishing Simulator GUI" -- Window Name here
+kVars.windowName = "Tapping Mania GUI" -- Window Name here
 script.Name = kVars.windowName
 local w = library:CreateWindow(kVars.windowName) -- Creates the window
 local f = w:CreateFolder("Farm") -- Creates the folder(U will put here your buttons,etc)
+kVars.varRebirthSelected = 1
+kVars.varRebirthList = {}
+for i=1,50 do
+    table.insert(kVars.varRebirthList,i)
+end
 
-f:Toggle("Toggle",function(bool)
-    kVars.bool = bool
-    if bool then f() end
+f:Toggle("Tap",function(bool)
+    kVars.boolTap = bool
+    if bool then fTap() end
 end)
 
-function f()
+function fTap()
     spawn(function()
-        while kVars.bool do
+        while kVars.boolTap do
             wait()
-        
+            game:GetService("ReplicatedStorage").RemoteEvents.Click:FireServer()
         end
     end)
 end
 
----- Closing ----
-kVars.closeing = script.Parent.ChildRemoved:Connect(function(child)
-	if child.Name == script.Name then
-		kVars.closing = true
-		wait(.1)
-		table.clear(kVars)
-        kVars.AntiAfk:Disconnect()
-		kVars.closeing:Disconnect()
-		script:Destroy()
-	end
+f:Dropdown("Dropdown",kVars.varRebirthList,true,function(num)
+    kVars.varRebirthSelected = num
 end)
+
+f:Toggle("Rebirth",function(bool)
+    kVars.boolRebirth = bool
+    if bool then fRebirth() end
+end)
+
+function fRebirth()
+    spawn(function()
+        while kVars.boolRebirth do
+            wait()
+            game:GetService("ReplicatedStorage").RemoteEvents.Rebirth:FireServer(tonumber(kVars.varRebirthSelected))
+
+        end
+    end)
+end
+
+f:Toggle("Gems",function(bool)
+    kVars.boolGems = bool
+    if bool then fGems() end
+end)
+
+function fGems()
+    spawn(function()
+        while kVars.boolGems do
+            wait()
+            for a,z in pairs(game:GetService("Workspace").GemsYes:GetChildren()) do
+                for s,x in pairs(z:GetChildren()) do
+                    if x.Name == "Gems" then
+                        for d,c in pairs(x:GetChildren()) do
+                            if c.Name == "Gem" and c.Transparency == 0 then
+                                c.Position = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end)
+end
 
 
 --[[

@@ -1,47 +1,59 @@
 --[[
-Game :
+Game : https://www.roblox.com/games/6720959312
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 Gui made by : https://v3rmillion.net/member.php?action=profile&uid=507120
 Go vouch release thread : https://v3rmillion.net/showthread.php?tid=1040650
 ]]--
-
---- Anti AFK ---
-local VirtualUser = game:service('VirtualUser')
-game:service('Players').LocalPlayer.Idled:connect(function()
-    VirtualUser:CaptureController()
-    VirtualUser:ClickButton2(Vector2.new())
-end)
-
 local library = loadstring(game:HttpGet('https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wall%20v3'))()
 kVars = {}
-kVars.windowName = "Fishing Simulator GUI" -- Window Name here
-script.Name = kVars.windowName
+kVars.windowName = "LootQuest GUI" -- Window Name here
 local w = library:CreateWindow(kVars.windowName) -- Creates the window
 local f = w:CreateFolder("Farm") -- Creates the folder(U will put here your buttons,etc)
+local c = w:CreateFolder("Character")
 
-f:Toggle("Toggle",function(bool)
-    kVars.bool = bool
-    if bool then f() end
+f:Toggle("Sell",function(bool)
+    kVars.boolSell = bool
+    if bool then fSell() end
 end)
-
-function f()
+function fSell()
     spawn(function()
-        while kVars.bool do
+        while kVars.boolSell do
             wait()
-        
+            if game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,game:GetService("Workspace").Zones.Forest.Sell,0)
+                wait(.1)
+                firetouchinterest(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart,game:GetService("Workspace").Zones.Forest.Sell,1)
+            end
         end
     end)
 end
 
+kVars.boolWalkSpeed = 16
+c:Slider("Slider",{
+    min = 16; -- min value of the slider
+    max = 200; -- max value of the slider
+    precise = false; -- max 2 decimals
+},function(value)
+    kVars.boolWalkSpeed = value
+end)
+spawn(function()
+    while wait() do
+        if kVars.boolClosing == true then return end
+        if kVars.walkSpeed ~= nil then
+			game:GetService('Workspace')[game:GetService("Players").LocalPlayer.Name].Humanoid.WalkSpeed = kVars.walkSpeed
+		end
+    end
+end)
+
 ---- Closing ----
-kVars.closeing = script.Parent.ChildRemoved:Connect(function(child)
-	if child.Name == script.Name then
-		kVars.closing = true
+kVars.closeing = game:GetService("CoreGui").ChildRemoved:Connect(function(child)
+	if child.Name == kVars.windowName then
+		kVars.boolClosing = true
 		wait(.1)
 		table.clear(kVars)
-        kVars.AntiAfk:Disconnect()
 		kVars.closeing:Disconnect()
 		script:Destroy()
+
 	end
 end)
 
