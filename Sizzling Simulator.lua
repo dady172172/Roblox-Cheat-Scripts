@@ -1,6 +1,6 @@
 --[[
-Game https://www.roblox.com/games/4572547530/Sizzling-Simulator
-contact https://github.com/dady172172/Roblox-Cheats
+Game : https://www.roblox.com/games/4572547530/Sizzling-Simulator
+Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 ]]--
 
 -------

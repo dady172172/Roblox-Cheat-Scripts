@@ -1,5 +1,7 @@
---https://www.roblox.com/games/4058282580/CRAFTING-Strength-Simulator
---https://github.com/dady172172/Roblox-Cheats
+--[[
+Game : https://www.roblox.com/games/4058282580
+Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
+]]--
 
 buypos = CFrame.new(-254.23877, 856.087158, 1328.32764, 0.856803477, 5.30729682e-09, -0.51564306, 2.60093795e-08, 1, 5.35103197e-08, 0.51564306, -5.9259385e-08, 0.856803477)
 sellpos = CFrame.new(-369.591736, 855.879761, 1315.43188, 0.919092059, -1.6196239e-08, 0.39404285, 3.54836072e-09, 1, 3.28262999e-08, -0.39404285, -2.87721864e-08, 0.919092059)

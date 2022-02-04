@@ -1,7 +1,7 @@
---https://www.roblox.com/games/3289941263/CODE-100K-Breaking-Simulator
---https://github.com/dady172172/Roblox-Cheats
---Sane Studios is dumb
-
+--[[
+Game : https://www.roblox.com/games/3289941263
+Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
+]]--
 _G.infCoins = true
 _G.infGems = true
 _G.removeGates = true

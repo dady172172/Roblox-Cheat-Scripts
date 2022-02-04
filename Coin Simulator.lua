@@ -1,5 +1,5 @@
 --[[
-Game https://www.roblox.com/games/4767544262/Coin-Simulator
+Game https://www.roblox.com/games/4767544262
 contact https://github.com/dady172172/Roblox-Cheats
 ]]--
 --collects coins and can ruin the game for other people

@@ -1,5 +1,7 @@
---https://www.roblox.com/games/3011079475/THE-KEY-QUEST-Speed-Simulator-X
---https://github.com/dady172172/Roblox-Cheats
+--[[
+Game : https://www.roblox.com/games/3011079475
+Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
+]]--
 _G.AutoClicker = false
 _G.AutoRebirth = false
 _G.Collecter = true 

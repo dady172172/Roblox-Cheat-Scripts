@@ -1,8 +1,7 @@
 --[[
-Game : https://www.roblox.com/games/4934958405/SALE-Fruit-Collecting-Simulator
+Game : https://www.roblox.com/games/4934958405
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 Images : https://prnt.sc/15pgduu , https://prnt.sc/15pggwv
-
 Gui made by : https://v3rmillion.net/member.php?action=profile&uid=507120
 ]]--
 local VirtualUser=game:service'VirtualUser'

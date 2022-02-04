@@ -1,6 +1,8 @@
---https://www.roblox.com/games/3072491551/Doge-Simulator
---load string in case you want it ===  loadstring(game:HttpGet("https://pastebin.com/raw/bPFJrgK6", true))()
---https://github.com/dady172172/Roblox-Cheats
+--[[
+Game : https://www.roblox.com/games/3072491551
+Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
+load string in case you want it ===  loadstring(game:HttpGet("https://pastebin.com/raw/bPFJrgK6", true))()
+]]--
 local VirtualUser=game:service'VirtualUser'
 game:service'Players'.LocalPlayer.Idled:connect(function()
 VirtualUser:CaptureController()

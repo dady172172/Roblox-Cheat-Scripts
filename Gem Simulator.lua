@@ -1,6 +1,6 @@
 --[[
-Game https://www.roblox.com/games/4926631744/Gem-Simulator
-contact https://github.com/dady172172/Roblox-Cheats
+Game https://www.roblox.com/games/4926631744
+Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 ]]--
 
 _G.collecter = true  -- true to auto collect gems. false to stop

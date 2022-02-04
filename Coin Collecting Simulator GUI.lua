@@ -1,5 +1,5 @@
 --[[
-Game : https://www.roblox.com/games/2484088625/Coin-Collecting-Simulator
+Game : https://www.roblox.com/games/2484088625
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 Gui made by : https://v3rmillion.net/member.php?action=profile&uid=507120
 ]]--

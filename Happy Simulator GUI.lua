@@ -1,4 +1,7 @@
--- Example made by twink marie
+--[[
+Game : https://www.roblox.com/games/6849418972
+Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
+]]--
 local Material = loadstring(game:HttpGet("https://raw.githubusercontent.com/Kinlei/MaterialLua/master/Module.lua"))()
 local kVars = {}
 local mainFrame = Material.Load({

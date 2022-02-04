@@ -1,6 +1,6 @@
 --[[
-game https://www.roblox.com/games/4003645442/Sprinting-Simulator-2K
-more https://github.com/dady172172/Roblox-Cheats
+game : https://www.roblox.com/games/4003645442
+Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 ]]--
 
 _G.h = true

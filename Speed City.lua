@@ -1,6 +1,7 @@
---Speed City
---https://www.roblox.com/games/2636441885/CODE-SPOOKY-Speed-City
---https://github.com/dady172172/Roblox-Cheats
+--[[
+Game : https://www.roblox.com/games/2636441885/CODE-SPOOKY-Speed-City
+Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
+]]--
 
 _G.cheat1 = true
 while _G.cheat1 == true do 

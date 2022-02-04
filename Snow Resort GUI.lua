@@ -1,11 +1,5 @@
 --[[
-Game : https://www.roblox.com/games/1097288251/Snow-Resort
-Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
-GUI Made by : https://v3rmillion.net/member.php?action=profile&uid=244024
-]]--
-
---[[
-Game :
+Game : https://www.roblox.com/games/1097288251
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 Gui made by : https://v3rmillion.net/member.php?action=profile&uid=507120
 Go vouch release thread : https://v3rmillion.net/showthread.php?tid=1040650

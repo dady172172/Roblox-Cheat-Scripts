@@ -1,5 +1,5 @@
 --[[
-Game : https://www.roblox.com/games/4572547530/Sizzling-Simulator?
+Game : https://www.roblox.com/games/4572547530
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 GUI Made by : https://v3rmillion.net/member.php?action=profile&uid=244024
 ]]--
@@ -476,7 +476,7 @@ pages.b:addButton("Rebirth Shop",function()
 end)
 ---- Hats Upgrade ----
 pages.b:addButton("Hats Upgrade",function()
-	game:GetService("Players").keathunsar.PlayerGui.MainGui.UpgradeFrame:TweenPosition(UDim2.new(0.5, 0, 0.5, 0), nil, nil, 0.3, true)
+	game:GetService("Players").LocalPlayer.PlayerGui.MainGui.UpgradeFrame:TweenPosition(UDim2.new(0.5, 0, 0.5, 0), nil, nil, 0.3, true)
 	--[[if game:GetService("Workspace"):FindFirstChild("Caleb Touch") then
 		fireTouch(game:GetService("Workspace")["Caleb Touch"].TouchPart)
 	end]]--
@@ -832,7 +832,7 @@ pages.e:addToggle("Click To Delete Pet", kVars.MTBool, function(bool)
 end)
 
 pages.e:addToggle("Egg/Crate Reveal Frame", kVars.ECOGUIBool, function(bool)
-	game:GetService("Players").keathunsar.PlayerGui.MainGui.EggRevealFrame.Visible = bool
+	game:GetService("Players").LocalPlayer.PlayerGui.MainGui.EggRevealFrame.Visible = bool
 end)
 
 ---- buy robux frame ----
@@ -1229,7 +1229,6 @@ kVars.closeing = game:GetService("CoreGui").ChildRemoved:Connect(function(child)
 		game:GetService("Lighting").SunRays.Enabled = true
 		game:GetService("Lighting").Blur.Enabled = true
 		game:GetService("Lighting").Bloom.Enabled = true
-		game:GetService("CoreGui").PurchasePromptApp.ProductPurchase.Visible = true
 		for i,v in pairs(kVars) do
 			if type(v) == "boolean" then
 				v = false

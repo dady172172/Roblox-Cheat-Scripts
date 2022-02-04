@@ -1,5 +1,7 @@
---https://www.roblox.com/games/982130670/Mega-Fun-Obby-2-390-Stages
---https://github.com/dady172172/Roblox-Cheats
+--[[
+Game : https://www.roblox.com/games/982130670
+Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
+]]--
 local VirtualUser=game:service'VirtualUser'
 game:service'Players'.LocalPlayer.Idled:connect(function()
 VirtualUser:CaptureController()

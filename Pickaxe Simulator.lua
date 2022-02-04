@@ -1,6 +1,6 @@
 --[[
-Game https://www.roblox.com/games/4186060228/UPDATE-2-Pickaxe-Simulator
-contact/more https://github.com/dady172172/Roblox-Cheats
+Game : https://www.roblox.com/games/4186060228
+Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 ]]--
 
 --auto harvest and sell from rock in spawn. must be near rock in spawn

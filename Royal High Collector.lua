@@ -1,6 +1,8 @@
---https://www.roblox.com/games/735030788/Royale-High
---https://github.com/dady172172/Roblox-Cheats
+--[[
+Game : https://www.roblox.com/games/735030788
+Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 --just teleports you to the diamonds in the school area and will teleport you to the spiders you can collect in the main lobby. script can tell the difference between the two.
+]]--
 _G.Collector = true 
 while _G.Collector == true do
 	Wait(.01)

@@ -1,6 +1,6 @@
 --[[
-Game https://www.roblox.com/games/2146413442/Longest-Obby-in-Roblox-2060
-More https://github.com/dady172172/Roblox-Cheats
+Game : https://www.roblox.com/games/2146413442
+Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 ]]--
 
 local VirtualUser=game:service'VirtualUser'

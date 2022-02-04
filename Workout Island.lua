@@ -1,6 +1,6 @@
 --[[
-Game https://www.roblox.com/games/4032944086/PETS-Workout-Island
-More https://github.com/dady172172/Roblox-Cheats
+Game : https://www.roblox.com/games/4032944086
+Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 ]]--
 
 --lift weight

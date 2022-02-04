@@ -1,5 +1,5 @@
 --[[
-Game https://www.roblox.com/games/3165431732/Crystal-Gem-Simulator
+Game https://www.roblox.com/games/3165431732
 contact https://github.com/dady172172/Roblox-Cheats
 GUI made by : https://v3rmillion.net/member.php?action=profile&uid=507120
 ]]--

@@ -1,6 +1,8 @@
+--[[
+Game : https://www.roblox.com/games/1131164713
+Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 --make sure to select Original
---https://www.roblox.com/games/1131164713/Speed-Simulator
---https://github.com/dady172172/Roblox-Cheats
+]]--
 
 _G.cheat1 = true
 while _G.cheat1 == true do

@@ -1,6 +1,6 @@
 --[[
-https://www.roblox.com/games/2533391464/Snowman-Simulator
-https://github.com/dady172172/Roblox-Cheats
+Game : https://www.roblox.com/games/2533391464
+Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 ]]--
 Rep = game:GetService("ReplicatedStorage")
 Players = game:GetService("Players")
