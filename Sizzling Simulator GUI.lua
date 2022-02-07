@@ -942,7 +942,7 @@ function collectCoinsFunc()
 			if kVars.collectCoinsBool then
 				for i,v in pairs(game:GetService("Workspace").Currency:GetChildren()) do
 					if v and kVars.lplr.Character:FindFirstChild('RightFoot') then
-					firetouchinterest(kVars.lplr.Character.RightFoot, v.Part, 0)
+						firetouchinterest(kVars.lplr.Character.RightFoot, v.Part, 0)
 					end
 				end
 			end
@@ -1023,6 +1023,10 @@ function  buyBestWeaponFunc()
 					for i,v in pairs(weaponData) do
 						if v.price then
 							if v.price > pCoins and v.id > curWeaponId then
+								if curWeaponId == 1 then
+									wantToBuy = weaponData[1].id
+									break
+								end
 								wantToBuy = weaponData[i-1].id
 								if wantToBuy == 40 then wantToBuy = 39 end
 								if wantToBuy == 5 then wantToBuy = 4 end

@@ -1,291 +1,299 @@
 --[[
-Game https://www.roblox.com/games/2756231960
-contact https://github.com/dady172172/Roblox-Cheats
-Image https://prnt.sc/q75vfj
+Game : https://www.roblox.com/games/2756231960
+Coded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
+Gui made by : FungBert : https://v3rmillion.net/member.php?action=profile&uid=1078854
+Go vouch release thread : https://v3rmillion.net/showthread.php?tid=1023761
 ]]--
-farm = false
-coins = false
-gems = false
-buybest = false
-rebirth = false
-Players = game:GetService("Players")
-plr = Players.LocalPlayer.Name
-Player = Players[plr]
-Replicated = game:GetService("ReplicatedStorage")
-Balloons = {"Red", "Blue", "Pink", "Yellow", "Green", "Black", "White", "PinkPolkaDots", "Black and White", "Rainbow", "Birthday", "Venom", "Aquatic", "Radioactive", "Alien", "Lava", "Galaxy", "Ruby", "Sapphire", "Emerald", "MLG", "Angelic", "Demonic", "Gumball", "Teddy Bear", "Toy", "Plasma", "Star", "X-Ray", "VOID"}
-Hel = {"Normal", "Stretchy", "Very Stretchy", "Quiet", "Loud", "Cool", "Epic", "Super", "Super Duper", "Unreal", "Legendary", "Mythical", "Heroic", "Godly", "Out of This World", "Extraterrestrial", "Experimental", "Radioactive", "Nuclear", "Futuristic", "Quantum", "Bubblegum", "Toy", "Formal", "Almighty", "XTREME", "Olympian", "Hades", "Poseidon", "Zeus"}
 
-local VirtualUser=game:service'VirtualUser'
-game:service'Players'.LocalPlayer.Idled:connect(function()
-VirtualUser:CaptureController()
-VirtualUser:ClickButton2(Vector2.new())
-end)
-
-local function CreateInstance(cls,props)
-local inst = Instance.new(cls)
-for i,v in pairs(props) do
-	inst[i] = v
+---- variables ----
+kVars = {} -- Table for all the variables
+kVars.WindowName = "Balloon Simulator GUI"
+kVars.lp = game:GetService("Players").LocalPlayer
+kVars.hrp = kVars.lp.Character:FindFirstChild("HumanoidRootPart")
+kVars.VirtualUser = game:service('VirtualUser')
+---- if re-injecting script, we wait for the old one to close and turn all option off
+if game:GetService("CoreGui"):FindFirstChild(kVars.WindowName) then
+    wait(.15)
 end
-return inst
+
+---- antiAFK ----
+kVars.AntiAfk = kVars.lp.Idled:connect(function()
+    kVars.VirtualUser:CaptureController()
+    kVars.VirtualUser:ClickButton2(Vector2.new())
+end)
+
+---- GUI Library ----
+local UILibrary = loadstring(game:HttpGet("https://pastebin.com/raw/V1ca2q9s"))()
+
+---- pages ----
+local MainUI = UILibrary.Load(kVars.WindowName)
+local pageFarm = MainUI.AddPage("Farm")
+local pageBuy = MainUI.AddPage("Buy")
+local pageTeleport = MainUI.AddPage("Teleport")
+local pageCharacter = MainUI.AddPage("Player")
+local pageCredits = MainUI.AddPage("Credits")
+
+---------- Farm Page ----------
+----  ----
+kVars.toggleBalloons = pageFarm.AddToggle("Balloons", false, function(bool)
+    kVars.boolBalloons = bool
+    if bool then fBalloons() end
+end)
+
+function fBalloons()
+    spawn(function()
+        while kVars.boolBalloons do
+            wait()
+            game:GetService("ReplicatedStorage").FillBalloon:FireServer()
+        end
+    end)
 end
-	
-local BalloonSimulatorGUI = CreateInstance('ScreenGui',{DisplayOrder=0,Enabled=true,ResetOnSpawn=true,Name='BalloonSimulatorGUI', Parent=game.CoreGui})
-local Frame = CreateInstance('Frame',{Style=Enum.FrameStyle.Custom,Active=false,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(1, 1, 1),BackgroundTransparency=1,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.339563876, 0, 0.324749649, 0),Rotation=0,Selectable=false,Size=UDim2.new(0, 324, 0, 374),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name = 'Frame',Parent = BalloonSimulatorGUI})
-local JPSFrame = CreateInstance('Frame',{Style=Enum.FrameStyle.DropShadow,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=0,ClipsDescendants=false,Draggable=true,Position=UDim2.new(-0.000128852, 0, -0.00188833638, 0),Rotation=0,Selectable=false,Size=UDim2.new(0, 312, 0, 284),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=-1,Name = 'JPSFrame',Parent = Frame})
-local TextLabel = CreateInstance('TextLabel',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Balloon Simulator GUI',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(1, 1, 1),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,Active=false,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(1, 1, 1),BackgroundTransparency=1,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.281272709, 0, -1.81552023e-05, 0),Rotation=0,Selectable=false,Size=UDim2.new(0, 128, 0, 25),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=2,Name='TextLabel',Parent = JPSFrame})
-local FarmBalloonsBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Farm Balloons',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.0408619568, 0, 0.196445763, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 89, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=2,Name='FarmBalloonsBtn',Parent = JPSFrame})
-local ImageLabel = CreateInstance('ImageLabel',{Image='rbxassetid://38727848',ImageColor3=Color3.new(1, 1, 1),ImageRectOffset=Vector2.new(0, 0),ImageRectSize=Vector2.new(0, 0),ImageTransparency=0,ScaleType=Enum.ScaleType.Crop,SliceCenter=Rect.new(0, 0, 0, 0),Active=false,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(1, 1, 1),BackgroundTransparency=1,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.188999996, 0, 0, -110),Rotation=90,Selectable=false,Size=UDim2.new(0, 183, 0, 303),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='ImageLabel',Parent = JPSFrame})
-local FarmGemsBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Farm Gems',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.649836302, 0, 0.196445763, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 89, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=2,Name='FarmGemsBtn',Parent = JPSFrame})
-local FarmCoinsBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Farm Coin',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.342143983, 0, 0.196445793, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 89, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=2,Name='FarmCoinsBtn',Parent = JPSFrame})
-local BuyBestBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Buy Best',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.0408619568, 0, 0.307548434, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 89, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=2,Name='BuyBestBtn',Parent = JPSFrame})
-local RebirthBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Rebirth',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.342143983, 0, 0.307548434, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 89, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=2,Name='RebirthBtn',Parent = JPSFrame})
-local TpChestsBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Collect Chests',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.649836302, 0, 0.307548434, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 89, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=2,Name='TpChestsBtn',Parent = JPSFrame})
-local ImageLabel = CreateInstance('ImageLabel',{Image='rbxassetid://38727848',ImageColor3=Color3.new(1, 1, 1),ImageRectOffset=Vector2.new(0, 0),ImageRectSize=Vector2.new(0, 0),ImageTransparency=0,ScaleType=Enum.ScaleType.Crop,SliceCenter=Rect.new(0, 0, 0, 0),Active=false,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(1, 1, 1),BackgroundTransparency=1,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.188999996, 0, 0, -30),Rotation=90,Selectable=false,Size=UDim2.new(0, 183, 0, 303),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='ImageLabel',Parent = JPSFrame})
-local TextLabel = CreateInstance('TextLabel',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Teleports',TextColor3=Color3.new(0, 0, 0),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(1, 1, 1),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,Active=false,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(1, 1, 1),BackgroundTransparency=1,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.274862438, 0, 0.408432573, 0),Rotation=0,Selectable=false,Size=UDim2.new(0, 128, 0, 25),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=2,Name='TextLabel',Parent = JPSFrame})
-local TpSkylandBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Skyland',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.0440670848, 0, 0.49926272, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 89, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=2,Name='TpSkylandBtn',Parent = JPSFrame})
-local TpTropicalParadiseBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Tropical Paradise',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.345349163, 0, 0.49926272, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 89, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=2,Name='TpTropicalParadiseBtn',Parent = JPSFrame})
-local TpAncientGreeceBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Ancient Greece',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.653041422, 0, 0.49926272, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 89, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=2,Name='TpAncientGreeceBtn',Parent = JPSFrame})
-local TpToyLandBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Toyland',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.653041422, 0, 0.597854257, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 89, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=2,Name='TpToyLandBtn',Parent = JPSFrame})
-local TpArchervilleBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Archerville',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.345349163, 0, 0.597854257, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 89, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=2,Name='TpArchervilleBtn',Parent = JPSFrame})
-local TpCandylandBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='CandyLand',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.0440670848, 0, 0.597854257, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 89, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=2,Name='TpCandylandBtn',Parent = JPSFrame})
-local TpRobolandBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Roboland',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.653041422, 0, 0.703487992, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 89, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=2,Name='TpRobolandBtn',Parent = JPSFrame})
-local TpDinolandBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Dinoland',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.345349163, 0, 0.703488111, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 89, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=2,Name='TpDinolandBtn',Parent = JPSFrame})
-local TpAlienlandBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Alienland',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.0440670848, 0, 0.703487992, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 89, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=2,Name='TpAlienlandBtn',Parent = JPSFrame})
-local TpDragonworldBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Dragonworld',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.0440670848, 0, 0.900671065, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 89, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=2,Name='TpDragonworldBtn',Parent = JPSFrame})
-local TpAqualandBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Aqualand',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.345349163, 0, 0.809121907, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 89, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=2,Name='TpAqualandBtn',Parent = JPSFrame})
-local TpAquaWorldBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Aquaworld',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.0440670848, 0, 0.809121788, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 89, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=2,Name='TpAquaWorldBtn',Parent = JPSFrame})
-local TpDragonlandBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Dragonland',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.345349163, 0, 0.900671184, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 89, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=2,Name='TpDragonlandBtn',Parent = JPSFrame})
-local OpenBtn = CreateInstance('TextButton',{Font=Enum.Font.SourceSans,FontSize=Enum.FontSize.Size14,Text='Close',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(0.105882, 0.164706, 0.207843),BorderSizePixel=1,ClipsDescendants=false,Draggable=false,Position=UDim2.new(1.36609697, 0, -0.609625518, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 73, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='OpenBtn',Parent = Frame})
 
-
-OpenBtn.MouseButton1Click:connect(function()
-    if OpenBtn.Text == "Close" then
-        OpenBtn.Text = "Open"
-        JPSFrame.Visible = false
-        print("Menu Closed")
-    elseif OpenBtn.Text == "Open" then
-        OpenBtn.Text = "Close"
-        JPSFrame.Visible = true
-        print("Menu Opened")       
-    end
+kVars.toggleSell = pageFarm.AddToggle("Sell", false, function(bool)
+    kVars.boolSell = bool
+    if bool then fSell() end
 end)
 
-FarmCoinsBtn.MouseButton1Click:connect(function()
-    if coins == true then coins = false 
-        FarmCoinsBtn.BackgroundColor3 = Color3.new(0, 0, 0)
-    elseif coins == false then coins = true 
-        FarmCoinsBtn.BackgroundColor3 = Color3.new(0, 170, 0)
-    end
-    CoinsFunc()
+function fSell()
+    spawn(function()
+        while kVars.boolSell do
+            wait()
+            game:GetService("ReplicatedStorage").Sell:FireServer(game:GetService("Workspace").UITriggers.Sell2)
+        end
+    end)
+end
+
+kVars.toggleCoins = pageFarm.AddToggle("Coins", false, function(bool)
+    kVars.boolCoins = bool
+    if bool then fCoins() end
 end)
 
-FarmGemsBtn.MouseButton1Click:connect(function()
-    if gems == true then gems = false 
-        FarmGemsBtn.BackgroundColor3 = Color3.new(0, 0, 0)
-    elseif gems == false then gems = true 
-        FarmGemsBtn.BackgroundColor3 = Color3.new(0, 170, 0)
-    end
-    GemsFunc()
+function fCoins()
+    spawn(function()
+        while kVars.boolCoins do
+            wait()
+            for i,v in pairs(game:GetService("Workspace").Coins:GetChildren()) do
+                if kVars.boolCoins == false then return end
+                if kVars.lp.Character:FindFirstChild("HumanoidRootPart") then
+                    firetouchinterest(kVars.hrp,v,0)
+                    firetouchinterest(kVars.hrp,v,1)
+                    wait()
+                end
+            end
+        end
+    end)
+end
+
+kVars.toggleGems = pageFarm.AddToggle("Gems", false, function(bool)
+    kVars.boolGems = bool
+    if bool then fGems() end
 end)
 
-FarmBalloonsBtn.MouseButton1Click:connect(function()
-    if farm == true then farm = false 
-        FarmBalloonsBtn.BackgroundColor3 = Color3.new(0, 0, 0)
-    elseif farm == false then farm = true 
-        FarmBalloonsBtn.BackgroundColor3 = Color3.new(0, 170, 0)
-    end
-    BalloonFunc()
+function fGems()
+    spawn(function()
+        while kVars.boolGems do
+            wait()
+            for i,v in pairs(game:GetService("Workspace").Gems:GetChildren()) do
+                if kVars.boolGems == false then return end
+                if kVars.lp.Character:FindFirstChild("HumanoidRootPart") then
+                    firetouchinterest(kVars.hrp,v,0)
+                    firetouchinterest(kVars.hrp,v,1)
+                    wait()
+                end
+            end
+        end
+    end)
+end
+
+
+kVars.toggleTooths = pageFarm.AddToggle("Teeth", false, function(bool)
+    kVars.boolTooths = bool
+    if bool then fTooths() end
 end)
 
-BuyBestBtn.MouseButton1Click:connect(function()
-    if buybest == true then buybest = false 
-        BuyBestBtn.BackgroundColor3 = Color3.new(0, 0, 0)
-    elseif buybest == false then buybest = true 
-        BuyBestBtn.BackgroundColor3 = Color3.new(0, 170, 0)
-    end
-    BuyBestFunc()
+function fTooths()
+    spawn(function()
+        while kVars.boolTooths do
+            wait()
+            for i,v in pairs(game:GetService("Workspace").Tooths:GetChildren()) do
+                if kVars.boolTooths == false then return end
+                firetouchinterest(kVars.hrp,v,0)
+                wait()
+                firetouchinterest(kVars.hrp,v,1)
+            end
+        end
+    end)
+end
+
+kVars.toggleChest = pageFarm.AddToggle("Chests", false, function(bool)
+    kVars.boolChests = bool
+    if bool then fChests() end
 end)
 
-RebirthBtn.MouseButton1Click:connect(function()
-    if rebirth == true then rebirth = false 
-        RebirthBtn.BackgroundColor3 = Color3.new(0, 0, 0)
-    elseif rebirth == false then rebirth = true 
-        RebirthBtn.BackgroundColor3 = Color3.new(0, 170, 0)
-    end
-    RebirthFunc()
+function fChests()
+    spawn(function()
+        while kVars.boolChests do
+            wait()
+            for i,v in pairs(game:GetService("Workspace").Chests:GetChildren()) do
+                if v.Transparency ~= 0.9 and kVars.lp.Character:FindFirstChild("HumanoidRootPart") then
+                    firetouchinterest(kVars.hrp,v,0)
+                    firetouchinterest(kVars.hrp,v,1)
+                    wait()
+                end
+            end
+        end
+    end)
+end
+
+kVars.toggleRebirth = pageFarm.AddToggle("Rebirth", false, function(bool)
+    kVars.boolRebirth = bool
+    if bool then fRebirth() end
 end)
 
-TpChestsBtn.MouseButton1Click:connect(function()
-    local PlrLocation = Player.Character.HumanoidRootPart.CFrame
-    for _,v in pairs(game:GetService("Workspace").Chests:GetChildren()) do
-        wait(.1)
-       Player.Character.HumanoidRootPart.CFrame = v.CFrame
-    end
-    wait(.1)
-    Player:WaitForChild("Character").HumanoidRootPart.CFrame = v.CFrame
-end)
-
-TpTropicalParadiseBtn.MouseButton1Click:connect(function()
-    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Tropical Paradise"].CFrame
-end)
-
-TpCandylandBtn.MouseButton1Click:connect(function()
-    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Candyland"].CFrame
-end)
-
-TpArchervilleBtn.MouseButton1Click:connect(function()
-    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Archerville"].CFrame
-end)
-
-TpAncientGreeceBtn.MouseButton1Click:connect(function()
-    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Ancient Greece"].CFrame
-end)
-
-TpSkylandBtn.MouseButton1Click:connect(function()
-    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Skyland"].CFrame
-end)
-
-TpToyLandBtn.MouseButton1Click:connect(function()
-    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Toyland"].CFrame
-end)
-
-TpAlienlandBtn.MouseButton1Click:connect(function()
-    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Alienland"].CFrame
-end)
-
-TpDinolandBtn.MouseButton1Click:connect(function()
-    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Dinoland"].CFrame
-end)
-
-TpRobolandBtn.MouseButton1Click:connect(function()
-    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Roboland"].CFrame
-end)
-
-TpDragonworldBtn.MouseButton1Click:connect(function()
-    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations.Dragoworld.CFrame
-end)
-
-TpDragonlandBtn.MouseButton1Click:connect(function()
-    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations.Dragoland.CFrame
-end)
-
-TpAquaWorldBtn.MouseButton1Click:connect(function()
-    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Aquaworld"].CFrame
-end)
-
-TpAqualandBtn.MouseButton1Click:connect(function()
-    Player.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").Destinations["Aqualand"].CFrame
-end)
-
-function CoinsFunc()
-    while coins == true do
-        for _,v in pairs(game:GetService("Workspace").Coins:GetChildren()) do	
-            if coins == false then return end
-            if v.Transparency == 0 then               
-                local LSave = v.CFrame
-                if Player.Character:FindFirstChild("HumanoidRootPart") then
-                    v.CFrame = Player.Character.HumanoidRootPart.CFrame
-                    wait(.1)
-                    v.CFrame = LSave
-                    v.Transparency = 1
-                else
-                    wait(.5)
-                end               
+function fRebirth()
+    spawn(function()
+        while kVars.boolRebirth do
+            wait()
+            local coins = kVars.lp.leaderstats.Coins.Value
+            local rebirths = kVars.lp.leaderstats.Rebirths.Value
+            if rebirths == nil or rebirths == 0 then
+                rebirths = 0
             else
+                rebirths =  25000000 *  kVars.lp.leaderstats.Rebirths.Value
             end
-        end
-    end
-end
-
-
-function GemsFunc()
-    while gems == true do
-        for _,v in pairs(game:GetService("Workspace").Gems:GetChildren()) do
-            if gems == false then return end
-            if v.Transparency == 0 then
-                local LSave = v.CFrame
-                if Player.Character:FindFirstChild("HumanoidRootPart") then
-                    v.CFrame = Player.Character.HumanoidRootPart.CFrame
-                    wait(.1)
-                    v.CFrame = LSave
-                    v.Transparency = 1
-                else
-                    wait(.5)
+            if coins >= rebirths then
+                if not kVars.lp.UnlockedIslandsFolder:FindFirstChild("Roboland") and kVars.lp.Character:FindFirstChild("HumanoidRootPart") then
+                    kVars.hrp.CFrame = CFrame.new(218, 63363, 2001)
                 end
-            else
+                game:GetService("ReplicatedStorage").Rebirth:InvokeServer()
             end
         end
-    end
+    end)
 end
+---------- Buy Page ----------
+kVars.HeliumTable = {"Normal", "Stretchy", "Very Stretchy", "Quiet", "Loud", "Cool", "Epic", "Super", "Super Duper", "Unreal", "Legendary", "Mythical", "Heroic", "Godly", "Out of This World", "Extraterrestrial", "Experimental", "Radioactive", "Nuclear", "Futuristic", "Quantum", "Bubblegum", "Toy", "Formal", "Almighty", "XTREME", "Olympian", "Hades", "Poseidon", "Zeus"}
+kVars.toggleHelium = pageBuy.AddToggle("Helium", false, function(bool)
+    kVars.boolHelium = bool
+    if bool then fHelium() end
+end)
 
-function BalloonFunc()
-    while farm == true do
-        wait()
-        Replicated.FillBalloon:FireServer()
-        Replicated.FillBalloon:FireServer()
-        Replicated.FillBalloon:FireServer()
-        Replicated.FillBalloon:FireServer()
-        local v = Workspace.UITriggers.Sell2
-        Replicated.Sell:FireServer(v)
-    end
-end
-
-function BuyBestFunc()
-    
-    while buybest == true do
-        
-        --balloon
-        local currentBalloonName = Player:FindFirstChild("CurrentBalloon").Value
-        local balloonNext = 0
-        if currentBalloonName == nil then wait(1) end
-        if currentBalloonName ~= "VOID" then
-            for index,value in ipairs(Balloons) do
-                if value == currentBalloonName then
-                    balloonNext = index + 1
+function fHelium()
+    spawn(function()
+        while kVars.boolHelium do
+            wait()
+            if kVars.lp:FindFirstChild("CurrentHelium") and kVars.lp:FindFirstChild("CurrentHelium").Value ~= "Zeus" then
+                for i,v in pairs(kVars.HeliumTable) do
+                    if v == kVars.lp:FindFirstChild("CurrentHelium").Value then
+                        if tonumber(game:GetService("ReplicatedStorage").HeliumStats.HeliumPrice:FindFirstChild(kVars.HeliumTable[i + 1]).Value) <= tonumber(kVars.lp.leaderstats.Coins.Value) then
+                            game:GetService("ReplicatedStorage").BuyHelium:InvokeServer(kVars.HeliumTable[i + 1])
+                            game:GetService("ReplicatedStorage").EquipHelium:FireServer(kVars.HeliumTable[i + 1])
+                            break
+                        end
+                    end
                 end
-            end
-            Replicated.BuyBalloon:InvokeServer(Balloons[balloonNext])
-            Replicated.EquipBalloon:FireServer(Balloons[balloonNext])
-        else
+            end                        
         end
-        wait(.1)
-        --helium  
-        local currentHelName = Player:FindFirstChild("CurrentHelium").Value
-        local HeliumNext = 0
-        if currentHelName == nil then wait(1) end
-        if currentHelName ~= "Zeus" then
-            for index,value in ipairs(Hel) do
-                if value == currentHelName then
-                    HeliumNext = index + 1
+    end)
+end
+
+kVars.BalloonTable = {"Red", "Blue", "Pink", "Yellow", "Green", "Black", "White", "PinkPolkaDots", "Black and White", "Rainbow", "Birthday", "Venom", "Aquatic", "Radioactive", "Alien", "Lava", "Galaxy", "Ruby", "Sapphire", "Emerald", "MLG", "Angelic", "Demonic", "Gumball", "Teddy Bear", "Toy", "Plasma", "Star", "X-Ray", "VOID"}
+kVars.toggleBuyBalloons = pageBuy.AddToggle("Balloons", false, function(bool)
+    kVars.boolBuyBalloons = bool
+    if bool then fBuyBalloons() end
+end)
+
+function fBuyBalloons()
+    spawn(function()
+        while kVars.boolBuyBalloons do
+            wait()
+            if kVars.lp:FindFirstChild("CurrentBalloon") and kVars.lp:FindFirstChild("CurrentBalloon").Value ~= "VOID" then
+                for i,v in pairs(kVars.BalloonTable) do
+                    if v == kVars.lp:FindFirstChild("CurrentBalloon").Value  then
+                        if tonumber(game:GetService("ReplicatedStorage").BalloonStats.BalloonPrice:FindFirstChild(kVars.BalloonTable[i + 1]).Value) <= tonumber(kVars.lp.leaderstats.Coins.Value) then
+                            game:GetService("ReplicatedStorage").BuyBalloon:InvokeServer(kVars.BalloonTable[i + 1])
+                            game:GetService("ReplicatedStorage").EquipBalloon:FireServer(kVars.BalloonTable[i + 1])
+                            break
+                        end
+                    end
                 end
             end
-            Replicated.BuyHelium:InvokeServer(Hel[HeliumNext])
-            Replicated.EquipHelium:FireServer(Hel[HeliumNext])
-        else
         end
-        wait(1)
-
-    end
+    end)
 end
 
 
-function tpDestination(name)
-    for _,v in pairs(game:GetService("Workspace").Destinations:GetChildren()) do
-        if v.Name == name then
-            Player.Character.HumanoidRootPart.CFrame = v[name].CFrame
-            return
-        end
-    end
+
+---------- Teleport Page ----------
+kVars.Locations1 = {
+   [1] = {name = "Spawn", cf = game:GetService("Workspace").NewThing.SpawnLocation},
+   [2] = {name = "Tropical Paradise", cf = CFrame.new(192, 974, 1705)},
+   [3] = {name = "Ancient Greece", cf = CFrame.new(33, 3280, 1701)},
+   [4] = {name = "CandyLand", cf = CFrame.new(90, 8062, 1696)},
+   [5] = {name = "Archerville", cf = CFrame.new(74, 13968, 1498)},
+   [6] = {name = "Toyland", cf = CFrame.new(193, 22661, 1762)},
+   [7] = {name = "Alienland", cf = CFrame.new(177, 40996, 1944)},
+   [8] = {name = "Dinoland", cf = CFrame.new(221, 53818, 2020)},
+   [9] = {name = "Robloland", cf = CFrame.new(218, 63363, 2001)}
+}
+kVars.Locations2 = {
+    [1] = {name = "Aquaworld", cf = CFrame.new(-2329, -1413, 199)},
+    [2] = {name = "Aqualand", cf = CFrame.new(-2349, 1594, 57)},
+    [3] = {name = "Dragonworld", cf = CFrame.new(158, 53, -84)},
+    [4] = {name = "Dragonland", cf = CFrame.new(183, 3132, -210)}
+}
+pageTeleport.AddLabel("Main Islands")
+for i,v in ipairs(kVars.Locations1) do
+    pageTeleport.AddButton(v.name, function()
+        kVars.hrp.CFrame = v.cf
+    end)
+end
+pageTeleport.AddLabel("Special Islands")
+for i,v in ipairs(kVars.Locations2) do
+    pageTeleport.AddButton(v.name, function()
+        kVars.hrp.CFrame = v.cf
+    end)
 end
 
-function RebirthFunc()
-    while rebirth == true do
-        local v = CFrame.new(238.250473, 63362.6172, 1982.33765, -0.971987963, -9.69758247e-08, 0.235030681, -9.92992568e-08, 1, 1.94930538e-09, -0.235030681, -2.144367e-08, -0.971987963)
-        Player.Character.HumanoidRootPart.CFrame = v
-        wait(.7)
-        game:GetService("ReplicatedStorage").Rebirth:InvokeServer()       
-        wait(1)
-    end
-end
+---------- Character Page ----------
+---- Walk Speed ----
+kVars.sliderWalkSpeed = pageCharacter.AddSlider("Walk Speed", {Min = 16, Max = 255, Def = kVars.lp.Character.Humanoid.WalkSpeed}, function(num)
+    kVars.lp.Character.Humanoid.WalkSpeed = num
+end)
 
+---- Jump Power ----
+kVars.sliderJumpPower = pageCharacter.AddSlider("Jump Power",  {Min = 16, Max = 255, Def = kVars.lp.Character.Humanoid.JumpPower}, function(num)
+    kVars.lp.Character.Humanoid.JumpPower = num
+end)
 
+---- Inf Jump ----
+kVars.sliderInfJump = pageCharacter.AddToggle("Inf Jump", false, function(bool)
+    kVars.boolInfJump = bool
+end)
+
+kVars.InfJumpConnect = game:GetService("UserInputService").JumpRequest:connect(function()
+	if kVars.boolInfJump and kVars.lp.Character:FindFirstChild("Humanoid") then
+		kVars.lp.Character:FindFirstChildOfClass('Humanoid'):ChangeState("Jumping")
+	end
+end)
+
+---------- Credits Page ----------
+kVars.labelCodedBy = pageCredits.AddLabel("Coded by : Keathunsar")
+kVars.labelCodedByLink = pageCredits.AddLabel("https://github.com/dady172172/Roblox-Cheats")
+kVars.labelGuiBy = pageCredits.AddLabel("Gui made by : FungBert")
+kVars.labelGuiByLink = pageCredits.AddLabel("v3rmillion.net/member.php?action=profile&uid=1078854")
+
+---------- Closing ----------
+kVars.ClosingConnect = game:GetService("CoreGui").ChildRemoved:Connect(function(child)
+	if child.Name == kVars.WindowName then
+		kVars.closing = true
+		wait(.1)
+		kVars.InfJumpConnect:Disconnect()
+		for i,v in pairs(kVars) do
+			if type(v) == "boolean" then
+				v = false
+			end
+		end
+		kVars.ClosingConnect:Disconnect()
+		script:Destroy()
+	end
+end)
