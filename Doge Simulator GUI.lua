@@ -1,462 +1,485 @@
 --[[
-Game : https://www.roblox.com/games/3072491551
-Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
-load string in case you want it ===  loadstring(game:HttpGet("https://pastebin.com/raw/bPFJrgK6", true))()
+Game :
+Coded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
+Gui made by : FungBert : https://v3rmillion.net/member.php?action=profile&uid=1078854
+Go vouch release thread : https://v3rmillion.net/showthread.php?tid=1023761
 ]]--
-local VirtualUser=game:service'VirtualUser'
-game:service'Players'.LocalPlayer.Idled:connect(function()
-VirtualUser:CaptureController()
-VirtualUser:ClickButton2(Vector2.new())
-end)
 
+---- variables ----
+kVars = {} -- Table for all the variables
+kVars.WindowName = ""
+kVars.lp = game:GetService("Players").LocalPlayer
+kVars.VirtualUser = game:GetService('VirtualUser')
 
-zone1 = false
-zone2 = false
-zone3 = false
-zone4 = false
-zone5 = false
-zone6 = false
-zone7 = false
-zone8 = false
-zone9 = false
-zone10 = false
-space1 = false
-space2 = false
-rebirthfarm = false
-autoquest = false
-farmbarks = true
-	
-local function CreateInstance(cls,props)
-local inst = Instance.new(cls)
-for i,v in pairs(props) do
-	inst[i] = v
+---- if re-injecting script, we wait for the old one to close and turn all option off
+if game:GetService("CoreGui"):FindFirstChild(kVars.WindowName) then
+    wait(.15)
 end
-return inst
-end
-	
-	
-local DogeSimGUI = CreateInstance('ScreenGui',{DisplayOrder=0,Enabled=true,ResetOnSpawn=true,Name='DogeSimGUI', Parent=game.CoreGui})
-local DogeSimFrame = CreateInstance('Frame',{Style=Enum.FrameStyle.Custom,Active=false,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0.15000000596046,BorderColor3=Color3.new(1, 0, 0),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.689893484, 0, 0.639526188, 0),Rotation=0,Selectable=false,Size=UDim2.new(0, 398, 0, 227),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name = 'DogeSimFrame',Parent = DogeSimGUI})
-local Frame = CreateInstance('Frame',{Style=Enum.FrameStyle.Custom,Active=false,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(1, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 0, 0),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0, 0, -0.104803495, 0),Rotation=0,Selectable=false,Size=UDim2.new(0, 398, 0, 24),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name = 'Frame',Parent = DogeSimFrame})
-local TextLabel = CreateInstance('TextLabel',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='Doge Simulator',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,Active=false,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 0, 0),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.324120611, 0, -0.131004363, 0),Rotation=0,Selectable=false,Size=UDim2.new(0, 140, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='TextLabel',Parent = DogeSimFrame})
-local Frame = CreateInstance('Frame',{Style=Enum.FrameStyle.Custom,Active=false,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(1, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 0, 0),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0, 0, 0.99999994, 0),Rotation=0,Selectable=false,Size=UDim2.new(0, 398, 0, 24),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name = 'Frame',Parent = DogeSimFrame})
-local FarmZoneBtn = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='Farm Zone',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.0351758786, 0, -9, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='FarmZoneBtn',Parent = Frame})
-local FarmRebirthsBtn = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='Farm Rebiths',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.0351758786, 0, -7.25, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='FarmRebirthsBtn',Parent = Frame})
-local empty = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='empty',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.0351758786, 0, -3.66666627, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='empty',Parent = Frame})
-local AutoClaimQuesetsBtn = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='Auto Claim Quests',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.0351758786, 0, -5.41666651, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='AutoClaimQuesetsBtn',Parent = Frame})
-local TPSpawnBtn = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='TP Spawn',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.0351758786, 0, -1.95833313, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='TPSpawnBtn',Parent = Frame})
-local FarmBarksBtn = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='Farm Barks',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.356783926, 0, -8.91666698, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='FarmBarksBtn',Parent = Frame})
-local empty = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='empty',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.356783926, 0, -7.16666651, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='empty',Parent = Frame})
-local empty = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='empty',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.356783926, 0, -3.58333302, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='empty',Parent = Frame})
-local empty = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='empty',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.356783926, 0, -5.33333302, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='empty',Parent = Frame})
-local RunSpeed100Btn = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='Run Speed 100',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.356783926, 0, -1.87499976, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='RunSpeed100Btn',Parent = Frame})
-local empty = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='empty',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.675879359, 0, -8.91666698, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='empty',Parent = Frame})
-local empty = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='empty',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.675879359, 0, -7.16666651, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='empty',Parent = Frame})
-local empty = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='empty',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.675879359, 0, -3.58333302, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='empty',Parent = Frame})
-local empty = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='empty',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.675879359, 0, -5.33333302, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='empty',Parent = Frame})
-local TextButton = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='Script',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0.0980392, 0.117647),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.675879359, 0, -1.87499976, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='TextButton',Parent = Frame})
-local FarmZoneFrame = CreateInstance('Frame',{Style=Enum.FrameStyle.Custom,Active=false,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0.15000000596046,BorderColor3=Color3.new(1, 0, 0),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.689893484, 0, 0.639526188, 0),Rotation=0,Selectable=false,Size=UDim2.new(0, 398, 0, 227),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=false,ZIndex=1,Name = 'FarmZoneFrame',Parent = DogeSimGUI})
-local Frame = CreateInstance('Frame',{Style=Enum.FrameStyle.Custom,Active=false,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(1, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 0, 0),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0, 0, -0.104803495, 0),Rotation=0,Selectable=false,Size=UDim2.new(0, 398, 0, 24),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name = 'Frame',Parent = FarmZoneFrame})
-local TextLabel = CreateInstance('TextLabel',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='Farm Zone',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,Active=false,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 0, 0),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.324120611, 0, -0.131004363, 0),Rotation=0,Selectable=false,Size=UDim2.new(0, 140, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='TextLabel',Parent = FarmZoneFrame})
-local Frame = CreateInstance('Frame',{Style=Enum.FrameStyle.Custom,Active=false,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(1, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 0, 0),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0, 0, 0.99999994, 0),Rotation=0,Selectable=false,Size=UDim2.new(0, 398, 0, 24),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name = 'Frame',Parent = FarmZoneFrame})
-local Zone1Btn = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='Farm Zone 1',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.0351758786, 0, -9, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='Zone1Btn',Parent = Frame})
-local Zone4Btn = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='Farm Zone 4',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.0351758786, 0, -7.25, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='Zone4Btn',Parent = Frame})
-local Zone10Btn = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='Farm Zone 10',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.0351758786, 0, -3.66666627, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='Zone10Btn',Parent = Frame})
-local Zone7Btn = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='Farm Zone 7',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.0351758786, 0, -5.41666651, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='Zone7Btn',Parent = Frame})
-local TPSpawn = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='TP Spawn',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.0351758786, 0, -1.95833313, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='TPSpawn',Parent = Frame})
-local Zone2Btn = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='Farm Zone 2',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.356783926, 0, -8.91666698, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='Zone2Btn',Parent = Frame})
-local Zone5Btn = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='Farm Zone 5',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.356783926, 0, -7.16666651, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='Zone5Btn',Parent = Frame})
-local SpaceZone1Btn = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='Farm space 1',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.356783926, 0, -3.58333302, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='SpaceZone1Btn',Parent = Frame})
-local Zone8Btn = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='Farm Zone 8',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.356783926, 0, -5.33333302, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='Zone8Btn',Parent = Frame})
-local RunSpeed100Btn = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='Run Speed 100',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.356783926, 0, -1.87499976, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='RunSpeed100Btn',Parent = Frame})
-local Zone3Btn = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='Farm Zone 3',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.675879359, 0, -8.91666698, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='Zone3Btn',Parent = Frame})
-local Zone6Btn = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='Farm Zone 6',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.675879359, 0, -7.16666651, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='Zone6Btn',Parent = Frame})
-local SpaceZone2Btn = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='Farm Space 2',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.675879359, 0, -3.58333302, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='SpaceZone2Btn',Parent = Frame})
-local Zone9Btn = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='Farm Zone 9',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0, 0),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.675879359, 0, -5.33333302, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='Zone9Btn',Parent = Frame})
-local BackBtn = CreateInstance('TextButton',{Font=Enum.Font.SciFi,FontSize=Enum.FontSize.Size14,Text='Back',TextColor3=Color3.new(1, 1, 1),TextScaled=false,TextSize=14,TextStrokeColor3=Color3.new(0, 0, 0),TextStrokeTransparency=1,TextTransparency=0,TextWrapped=false,TextXAlignment=Enum.TextXAlignment.Center,TextYAlignment=Enum.TextYAlignment.Center,AutoButtonColor=true,Modal=false,Selected=false,Style=Enum.ButtonStyle.Custom,Active=true,AnchorPoint=Vector2.new(0, 0),BackgroundColor3=Color3.new(0, 0.0980392, 0.117647),BackgroundTransparency=0,BorderColor3=Color3.new(1, 1, 1),BorderSizePixel=2,ClipsDescendants=false,Draggable=false,Position=UDim2.new(0.675879359, 0, -1.87499976, 0),Rotation=0,Selectable=true,Size=UDim2.new(0, 115, 0, 30),SizeConstraint=Enum.SizeConstraint.RelativeXY,Visible=true,ZIndex=1,Name='BackBtn',Parent = Frame})
 
-
-
-
-Zone1Btn.MouseButton1Click:connect(function()
-    if zone1 == true then zone1 = false print("Disabled")
-        Zone1Btn.BackgroundColor3 = Color3.new(0, 0, 0)
-    elseif
-        zone1 == false then zone1 = true print("Enabled")
-        Zone1Btn.BackgroundColor3 = Color3.new(0, 200, 200)
-    end
-    zone1func(game:GetService("Workspace").Coins.Coin1)
+---- antiAFK ----
+kVars.AntiAfk = game:service('Players').LocalPlayer.Idled:connect(function()
+    kVars.VirtualUser:CaptureController()
+    kVars.VirtualUser:ClickButton2(Vector2.new())
 end)
 
-Zone2Btn.MouseButton1Click:connect(function()
-    if zone2 == true then zone2 = false print("Disabled")
-        Zone2Btn.BackgroundColor3 = Color3.new(0, 0, 0)
-    elseif
-        zone2 == false then zone2 = true print("Enabled")
-        Zone2Btn.BackgroundColor3 = Color3.new(0, 200, 200)
-    end
-    zone2func(game:GetService("Workspace").Coins.Coin2)
+---- GUI Library ----
+local UILibrary = loadstring(game:HttpGet("https://pastebin.com/raw/V1ca2q9s"))()
+
+---- pages ----
+local MainUI = UILibrary.Load(kVars.WindowName)
+local pageFarm = MainUI.AddPage("Farm")
+local pageTeleport = MainUI.AddPage("Teleport")
+local pageCharacter = MainUI.AddPage("Player")
+local pageMisc = MainUI.AddPage("Misc")
+local pageCredits = MainUI.AddPage("Credits")
+
+---------- Farm Page ----------
+----  ----
+kVars.toggleBark = pageFarm.AddToggle("Barks", false, function(bool)
+    kVars.boolBark = bool
+    if bool then fBark() end
 end)
 
-
-Zone3Btn.MouseButton1Click:connect(function()
-    if zone3 == true then zone3 = false print("Disabled")
-        Zone3Btn.BackgroundColor3 = Color3.new(0, 0, 0)
-    elseif
-        zone3 == false then zone3 = true print("Enabled")
-        Zone3Btn.BackgroundColor3 = Color3.new(0, 200, 200)
-    end
-    zone3func(game:GetService("Workspace").Coins.Coin3)
-end)
-
-Zone4Btn.MouseButton1Click:connect(function()
-    if zone4 == true then zone4 = false print("Disabled")
-        Zone4Btn.BackgroundColor3 = Color3.new(0, 0, 0)
-    elseif
-        zone4 == false then zone4 = true print("Enabled")
-        Zone4Btn.BackgroundColor3 = Color3.new(0, 200, 200)
-    end
-    zone4func(game:GetService("Workspace").Coins.Coin4)
-end)
-
-Zone5Btn.MouseButton1Click:connect(function()
-    if zone5 == true then zone5 = false print("Disabled")
-        Zone5Btn.BackgroundColor3 = Color3.new(0, 0, 0)
-    elseif
-        zone5 == false then zone5 = true print("Enabled")
-        Zone5Btn.BackgroundColor3 = Color3.new(0, 200, 200)
-    end
-    zone5func(game:GetService("Workspace").Coins.Chest1F, game:GetService("Workspace").Coins.Chest1)
-end)
-
-Zone6Btn.MouseButton1Click:connect(function()
-    if zone6 == true then zone6 = false print("Disabled")
-        Zone6Btn.BackgroundColor3 = Color3.new(0, 0, 0)
-    elseif
-        zone6 == false then zone6 = true print("Enabled")
-        Zone6Btn.BackgroundColor3 = Color3.new(0, 200, 200)
-    end
-    zone6func(game:GetService("Workspace").Coins.Chest2)
-end)
-
-Zone7Btn.MouseButton1Click:connect(function()
-    if zone7 == true then zone7 = false print("Disabled")
-        Zone7Btn.BackgroundColor3 = Color3.new(0, 0, 0)
-    elseif
-        zone7 == false then zone7 = true print("Enabled")
-        Zone7Btn.BackgroundColor3 = Color3.new(0, 200, 200)
-    end
-    zone7func(game:GetService("Workspace").Coins.Chest3)
-end)
-
-Zone8Btn.MouseButton1Click:connect(function()
-    if zone8 == true then zone8 = false print("Disabled")
-        Zone8Btn.BackgroundColor3 = Color3.new(0, 0, 0)
-    elseif
-        zone8 == false then zone8 = true print("Enabled")
-        Zone8Btn.BackgroundColor3 = Color3.new(0, 200, 200)
-    end
-    zone8func(game:GetService("Workspace").Coins.Diamond1)
-end)
-
-Zone9Btn.MouseButton1Click:connect(function()
-    if zone9 == true then zone9 = false print("Disabled")
-        Zone9Btn.BackgroundColor3 = Color3.new(0, 0, 0)
-    elseif
-        zone9 == false then zone9 = true print("Enabled")
-        Zone9Btn.BackgroundColor3 = Color3.new(0, 200, 200)
-    end
-    zone9func(game:GetService("Workspace").Coins.Diamond2)
-end)
-
-Zone10Btn.MouseButton1Click:connect(function()
-    if zone10 == true then zone10 = false print("Disabled")
-        Zone10Btn.BackgroundColor3 = Color3.new(0, 0, 0)
-    elseif
-        zone10 == false then zone10 = true print("Enabled")
-        Zone10Btn.BackgroundColor3 = Color3.new(0, 200, 200)
-    end
-    zone10func(game:GetService("Workspace").Coins.Diamond3)
-end)
-
-SpaceZone1Btn.MouseButton1Click:connect(function()
-    if space1 == true then space1 = false print("Disabled")
-        SpaceZone1Btn.BackgroundColor3 = Color3.new(0, 0, 0)
-    elseif
-        space1 == false then space1 = true print("Enabled")
-        SpaceZone1Btn.BackgroundColor3 = Color3.new(0, 200, 200)
-    end
-    space1func(game:GetService("Workspace").Coins.Space1)
-end)
-
-SpaceZone2Btn.MouseButton1Click:connect(function()
-    if space2 == true then space2 = false print("Disabled")
-        SpaceZone2Btn.BackgroundColor3 = Color3.new(0, 0, 0)
-    elseif
-        space2 == false then space2 = true print("Enabled")
-        SpaceZone2Btn.BackgroundColor3 = Color3.new(0, 200, 200)
-    end    
-    space2func(game:GetService("Workspace").Coins.Space2)  
-end)
-
-TPSpawn.MouseButton1Click:connect(function()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace").SpawnLocation.CFrame
-end)
-
-RunSpeed100Btn.MouseButton1Click:connect(function()
-    local plr = game.Players.LocalPlayer.Name
-    game:GetService("Workspace")[plr].Humanoid.WalkSpeed = 100
-end)
-
-FarmZoneBtn.MouseButton1Click:connect(function()
-    game:GetService("CoreGui").DogeSimGUI.DogeSimFrame.Visible = false
-    game:GetService("CoreGui").DogeSimGUI.FarmZoneFrame.Visible = true
-end)
-
-BackBtn.MouseButton1Click:connect(function()
-    game:GetService("CoreGui").DogeSimGUI.DogeSimFrame.Visible = true
-    game:GetService("CoreGui").DogeSimGUI.FarmZoneFrame.Visible = false
-end)
-
-FarmRebirthsBtn.MouseButton1Click:connect(function()
-    if rebirthfarm == true then rebirthfarm = false print("Disabled")
-        FarmRebirthsBtn.BackgroundColor3 = Color3.new(0, 0, 0)
-    elseif
-        rebirthfarm == false then rebirthfarm = true print("Enabled")
-        FarmRebirthsBtn.BackgroundColor3 = Color3.new(0, 200, 200)
-    end 
-    rebirthFarm()
-end)
-
-AutoClaimQuesetsBtn.MouseButton1Click:connect(function()
-    if autoquest == true then autoquest = false print("Disabled")
-        AutoClaimQuesetsBtn.BackgroundColor3 = Color3.new(0, 0, 0)
-    elseif
-        autoquest == false then autoquest = true print("Enabled")
-        AutoClaimQuesetsBtn.BackgroundColor3 = Color3.new(0, 200, 200)
-    end 
-    autoQuest()
-end)
-
-FarmBarksBtn.MouseButton1Click:connect(function()
-    if farmbarks == true then farmbarks = false print("Disabled")
-        FarmBarksBtn.BackgroundColor3 = Color3.new(0, 0, 0)
-    elseif
-        farmbarks == false then farmbarks = true print("Enabled")
-        FarmBarksBtn.BackgroundColor3 = Color3.new(0, 200, 200)
-    end 
-    farmBarks()
-end)
-
-
-
-function zone1func(path)
-    while zone1 == true do
-        for _,v in pairs(path:GetChildren()) do
-            wait(.1)
-            if stop == true then
-                return
+function fBark()
+    spawn(function()
+        while kVars.boolBark do
+            wait()
+            if kVars.lp.Character:FindFirstChildWhichIsA("Tool") then
+                kVars.VirtualUser:CaptureController()
+                kVars.VirtualUser:ClickButton1(Vector2.new())
+            else
+                keypress(0x31)
             end
-            v.CanCollide = false
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
         end
+    end)
+end
+
+kVars.toggleRebirth = pageFarm.AddToggle("Rebirth", false, function(bool)
+    kVars.boolRebirth = bool
+    if bool then fRebirth() end
+end)
+
+function fRebirth()
+    spawn(function()
+        while kVars.boolRebirth do
+            wait()
+            if (100000 * (2 + kVars.lp.leaderstats.Rebirths.Value)) <= kVars.lp.leaderstats.Barks.Value and kVars.lp.Character:FindFirstChild("Humanoid") then
+                game:GetService("ReplicatedStorage").RebirthEvent:FireServer()
+            end
+        end
+    end)
+end
+
+kVars.CurrentZone = nil
+for i,v in pairs(game:GetService("Players").LocalPlayer.stats:GetChildren()) do
+    if v.ClassName == "BoolValue" and v.Name ~= "Banned" and v.Value == true then
+        kVars.CurrentZone = v.Name
     end
 end
 
-function zone2func(path)
-    while zone2 == true do
-        for _,v in pairs(path:GetChildren()) do
-            wait(.1)
-            if stop == true then
-                return
-            end
-            v.CanCollide = false
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
-        end
-    end
-end
+kVars.toggleCoinsZone1 = pageFarm.AddToggle("Coins Zone1", false, function(bool)
+    kVars.boolCoinsZone1 = bool
+    if bool then fCoinsZone1() end
+end)
 
-function zone3func(path)
-    while zone3 == true do
-        for _,v in pairs(path:GetChildren()) do
-            wait(.1)
-            if stop == true then
-                return
-            end
-            v.CanCollide = false
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
-        end
-    end
-end
-
-function zone4func(path)
-    while zone4 == true do
-        for _,v in pairs(path:GetChildren()) do
-            wait(.1)
-            if stop == true then
-                return
-            end
-            v.CanCollide = false
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
-        end
-    end
-end
-
-function zone5func(path, path2)
-    while zone5 == true do
-        for _,v in pairs(path:GetChildren()) do
-            wait(.1)
-            if stop == true then
-                return
-            end
-            v.CanCollide = false
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
-        end
-        if path2 ~= nil then
-            for _,v in pairs(path2:GetChildren()) do
-                wait(.1)
-                if stop == true then
-                    return
-                end
+function fCoinsZone1()
+    spawn(function()
+        while kVars.boolCoinsZone1 do
+            wait()
+            for i,v in pairs(game:GetService("Workspace").Coins.Coin1:GetChildren()) do
                 v.CanCollide = false
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                if v.Transparency == 0 and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                    repeat
+                        wait()
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                    until v.Transparency == 1 or kVars.boolCoinsZone1 == false
+                    if kVars.boolCoinsZone1 == false then return end
+                end
+            end   
+        end
+    end)
+end
+
+kVars.toggleCoinsZone2 = pageFarm.AddToggle("Coins Zone2", false, function(bool)
+    kVars.boolCoinsZone2 = bool
+    if bool then fCoinsZone2() end
+end)
+
+function fCoinsZone2()
+    spawn(function()
+        while kVars.boolCoinsZone2 do
+            wait()
+            for i,v in pairs(game:GetService("Workspace").Coins.Coin2:GetChildren()) do
+                v.CanCollide = false
+                if v.Transparency == 0 and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                    repeat
+                        wait()
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                    until v.Transparency == 1 or kVars.boolCoinsZone2 == false
+                    if kVars.boolCoinsZone2 == false then return end
+                end
             end
         end
-    end
+    end)
 end
 
-function zone6func(path)
-    while zone6 == true do
-        for _,v in pairs(path:GetChildren()) do
-            wait(.1)
-            if stop == true then
-                return
+kVars.toggleCoinsZone3 = pageFarm.AddToggle("Coins Zone3", false, function(bool)
+    kVars.boolCoinsZone3 = bool
+    if bool then fCoinsZone3() end
+end)
+
+function fCoinsZone3()
+    spawn(function()
+        while kVars.boolCoinsZone3 do
+            wait()
+            for i,v in pairs(game:GetService("Workspace").Coins.Coin3:GetChildren()) do
+                v.CanCollide = false
+                if v.Transparency == 0 and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                    repeat
+                        wait()
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                    until v.Transparency == 1 or kVars.boolCoinsZone3 == false
+                    if kVars.boolCoinsZone3 == false then return end
+                end
             end
-            v.CanCollide = false
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
         end
-    end
+    end)
 end
 
-function zone7func(path)
-    while zone7 == true do
-        for _,v in pairs(path:GetChildren()) do
-            wait(.1)
-            if stop == true then
-                return
+kVars.toggleCoinsZone4 = pageFarm.AddToggle("Coins Zone4", false, function(bool)
+    kVars.boolCoinsZone4 = bool
+    if bool then fCoinsZone4() end
+end)
+
+function fCoinsZone4()
+    spawn(function()
+        while kVars.boolCoinsZone4 do
+            wait()
+            for i,v in pairs(game:GetService("Workspace").Coins.Coin4:GetChildren()) do
+                v.CanCollide = false
+                if v.Transparency == 0 and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                    repeat
+                        wait()
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                    until v.Transparency == 1 or kVars.boolCoinsZone4 == false
+                    if kVars.boolCoinsZone4 == false then return end
+                end
             end
-            v.CanCollide = false
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
-        end
-    end
-end
-
-function zone8func(path)
-    while zone8 == true do
-        for _,v in pairs(path:GetChildren()) do
-            wait(.1)
-            if stop == true then
-                return
+            for i,v in pairs(game:GetService("Workspace").Coins.Chest1:GetChildren()) do
+                v.CanCollide = false
+                if v.Transparency == 0 and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                    repeat
+                        wait()
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                    until v.Transparency == 1 or kVars.boolCoinsZone4 == false
+                    if kVars.boolCoinsZone4 == false then return end
+                end
             end
-            v.CanCollide = false
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
         end
-    end
+    end)
 end
 
-function zone9func(path)
-    while zone9 == true do
-        for _,v in pairs(path:GetChildren()) do
-            wait(.1)
-            if stop == true then
-                return
+kVars.toggleCoinsZone5 = pageFarm.AddToggle("Coins Zone5", false, function(bool)
+    kVars.boolCoinsZone5 = bool
+    if bool then fCoinsZone5() end
+end)
+
+function fCoinsZone5()
+    spawn(function()
+        while kVars.boolCoinsZone5 do
+            wait()
+            for i,v in pairs(game:GetService("Workspace").Coins.Chest1F:GetChildren()) do
+                v.CanCollide = false
+                if v.Transparency == 0 and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                    repeat
+                        wait()
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                    until v.Transparency == 1 or kVars.boolCoinsZone5 == false
+                    if kVars.boolCoinsZone5 == false then return end
+                end
             end
-            v.CanCollide = false
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
         end
-    end
+    end)
 end
 
-function zone10func(path)
-    while zone10 == true do
-        for _,v in pairs(path:GetChildren()) do
-            wait(.1)
-            if stop == true then
-                return
+kVars.toggleCoinsZone6 = pageFarm.AddToggle("Coins Zone6", false, function(bool)
+    kVars.boolCoinsZone6 = bool
+    if bool then fCoinsZone6() end
+end)
+
+function fCoinsZone6()
+    spawn(function()
+        while kVars.boolCoinsZone6 do
+            wait()
+            for i,v in pairs(game:GetService("Workspace").Coins.Chest2:GetChildren()) do
+                v.CanCollide = false
+                if v.Transparency == 0 and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                    repeat
+                        wait()
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                    until v.Transparency == 1 or kVars.boolCoinsZone6 == false
+                    if kVars.boolCoinsZone6 == false then return end
+                end
             end
-            v.CanCollide = false
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
-        end
-    end
-end
-
-function space1func(path)
-    while zone == true do
-        for _,v in pairs(path:GetChildren()) do
-            wait(.1)
-            if stop == true then
-                return
+            for i,v in pairs(game:GetService("Workspace").Coins.Chest3:GetChildren()) do
+                v.CanCollide = false
+                if v.Name == "Chest3 Big" and v.Transparency == 0 and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                    repeat
+                        wait()
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                    until v.Transparency == 1 or kVars.boolCoinsZone6 == false
+                    if kVars.boolCoinsZone6 == false then return end
+                end
             end
-            v.CanCollide = false
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
         end
-    end
+    end)
 end
 
-function space2func(path)
-    while zone == true do
-        for _,v in pairs(path:GetChildren()) do
-            wait(.1)
-            if stop == true then
-                return
+kVars.toggleCoinsZone7 = pageFarm.AddToggle("Coins Zone7", false, function(bool)
+    kVars.boolCoinsZone7 = bool
+    if bool then fCoinsZone7() end
+end)
+
+function fCoinsZone7()
+    spawn(function()
+        while kVars.boolCoinsZone7 do
+            wait()
+            for i,v in pairs(game:GetService("Workspace").Coins.Chest3:GetChildren()) do
+                v.CanCollide = false
+                if v.Name ~= "Chest3 Big" and v.Transparency == 0 and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                    repeat
+                        wait()
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                    until v.Transparency == 1 or kVars.boolCoinsZone7 == false
+                    if kVars.boolCoinsZone7 == false then return end
+                end
             end
-            v.CanCollide = false
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
         end
-    end
+    end)
 end
 
-function rebirthFarm()
-    
-    while rebirthfarm == true do       
-        wait(.8)
-        local virtualUser = game:GetService('VirtualUser')
-        virtualUser:CaptureController()
-        wait(0.116159)
-        virtualUser:SetKeyUp('0x11a')
-        wait(0.399961)
-        virtualUser:Button1Down(Vector2.new(-0.0, -0.0), CFrame.new(-0.0, 0.0, -0.0, -0.0, 0.0, 0.0, 0.0))
-        virtualUser:SetKeyDown('0x11a')   
-        local plr = game.Players.LocalPlayer.Name
-        local barks = game:GetService("Players")[plr].leaderstats.Barks.Value
-        local str = game:GetService("Players")[plr].PlayerGui.Rebirth.Frame.Frame.Frame.TextLabel.Text
-        local rebirthForAmount = string.match(str, "%d+")
-        if tonumber(barks) >= tonumber(rebirthForAmount) then
-            game:GetService("ReplicatedStorage").RebirthEvent:FireServer()
+kVars.toggleCoinsZone8 = pageFarm.AddToggle("Coins Zone8", false, function(bool)
+    kVars.boolCoinsZone8 = bool
+    if bool then fCoinsZone8() end
+end)
+
+function fCoinsZone8()
+    spawn(function()
+        while kVars.boolCoinsZone8 do
+            wait()
+            for i,v in pairs(game:GetService("Workspace").Coins.Diamond1:GetChildren()) do
+                v.CanCollide = false
+                if v.Transparency ~= 1 and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                    repeat
+                        wait()
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                    until v.Transparency == 1 or kVars.boolCoinsZone8 == false
+                    if kVars.boolCoinsZone8 == false then return end
+                end
+            end
         end
-    end
-    
+    end)
 end
 
-function autoQuest()
-    while autoquest == true do
-		wait(.8)
-		game.ReplicatedStorage.Award1:FireServer()
-		game.ReplicatedStorage.Award2:FireServer()
-		game.ReplicatedStorage.Award3:FireServer()
+kVars.toggleCoinsZone9 = pageFarm.AddToggle("Coins Zone9", false, function(bool)
+    kVars.boolCoinsZone9 = bool
+    if bool then fCoinsZone9() end
+end)
+
+function fCoinsZone9()
+    spawn(function()
+        while kVars.boolCoinsZone9 do
+            wait()
+            for i,v in pairs(game:GetService("Workspace").Coins.Diamond2:GetChildren()) do
+                v.CanCollide = false
+                if v.Transparency ~= 1 and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                    repeat
+                        wait()
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                    until v.Transparency == 1 or kVars.boolCoinsZone9 == false
+                    if kVars.boolCoinsZone9 == false then return end
+                end
+            end
+        end
+    end)
+end
+
+kVars.toggleCoinsZone10 = pageFarm.AddToggle("Coins Zone10", false, function(bool)
+    kVars.boolCoinsZone10 = bool
+    if bool then fCoinsZone10() end
+end)
+
+function fCoinsZone10()
+    spawn(function()
+        while kVars.boolCoinsZone10 do
+            wait()
+            for i,v in pairs(game:GetService("Workspace").Coins.Diamond3:GetChildren()) do
+                v.CanCollide = false
+                if v.Transparency ~= 1 and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                    repeat
+                        wait()
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                    until v.Transparency == 1 or kVars.boolCoinsZone10 == false
+                    if kVars.boolCoinsZone10 == false then return end
+                end
+            end
+        end
+    end)
+end
+
+kVars.toggleCoinsSpace1 = pageFarm.AddToggle("Gems Space1", false, function(bool)
+    kVars.boolCoinsSpace1 = bool
+    if bool then fCoinsSpace1() end
+end)
+
+function fCoinsSpace1()
+    spawn(function()
+        while kVars.boolCoinsSpace1 do
+            wait()
+            for i,v in pairs(game:GetService("Workspace").Coins.Space1:GetChildren()) do
+                v.CanCollide = false
+                if v.Transparency ~= 1 and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                    repeat
+                        wait()
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                    until v.Transparency == 1 or kVars.boolCoinsSpace1 == false
+                    if kVars.boolCoinsSpace1 == false then return end
+                end
+            end
+        end
+    end)
+end
+
+kVars.toggleCoinsSpace2 = pageFarm.AddToggle("Gems Space2", false, function(bool)
+    kVars.boolCoinsSpace2 = bool
+    if bool then fCoinsSpace2() end
+end)
+
+function fCoinsSpace2()
+    spawn(function()
+        while kVars.boolCoinsSpace2 do
+            wait()
+            for i,v in pairs(game:GetService("Workspace").Coins.Space2:GetChildren()) do
+                v.CanCollide = false
+                if v.Transparency ~= 1 and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                    repeat
+                        wait()
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                    until v.Transparency == 1 or kVars.boolCoinsSpace2 == false
+                    if kVars.boolCoinsSpace2 == false then return end
+                end
+            end
+        end
+    end)
+end
+
+kVars.toggleScrap = pageFarm.AddToggle("Scrap", false, function(bool)
+    kVars.boolScrap = bool
+    if bool then fScrap() end
+end)
+
+function fScrap()
+    spawn(function()
+        while kVars.boolScrap do
+            wait()
+            for i,v in pairs(game:GetService("Workspace").Coins.Scrap:GetChildren()) do
+                v.CanCollide = false
+                if v.Transparency ~= 1 and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                    repeat
+                        wait()
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+                    until v.Transparency == 1 or kVars.boolScrap == false
+                    if kVars.boolScrap == false then return end
+                end
+            end
+        end
+    end)
+end
+---------- Teleport Page ----------
+kVars.Zones = {
+    [1] = {name = "Spawn", cf = game:GetService("Workspace").SpawnLocation.CFrame},
+    [2] = {name = "Zone1", cf = CFrame.new(-24, 5, -32)},
+    [3] = {name = "Zone2", cf = CFrame.new(-46, 5, -242)},
+    [4] = {name = "Zone3", cf = CFrame.new(-12, 5, -461)},
+    [5] = {name = "Zone4", cf = CFrame.new(-67, 5, -690)},
+    [6] = {name = "Zone5", cf = CFrame.new(83, 5, -848)},
+    [7] = {name = "Zone6", cf = CFrame.new(205, 5, -936)},
+    [8] = {name = "Zone7", cf = CFrame.new(164, 5, -1138)},
+    [9] = {name = "Zone8", cf = CFrame.new(126, 5, -1357)},
+    [10] = {name = "Zone9", cf = CFrame.new(139, 26, -1705)},
+    [11] = {name = "Zone10", cf = CFrame.new(138, 25, -1957)},
+    [12] = {name = "Space1", cf =  CFrame.new(372, 165, -4779)},
+    [13] = {name = "Space2", cf = CFrame.new(373, 165, -5215)},
+    [14] = {name = "Areana", cf = CFrame.new(-1116, 5, -100)}
+}
+
+for i,v in ipairs(kVars.Zones) do
+    pageTeleport.AddButton(v.name, function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.cf
+    end)
+end
+
+
+
+---------- Character Page ----------
+---- Walk Speed ----
+kVars.sliderWalkSpeed = pageCharacter.AddSlider("Walk Speed", {Min = 16, Max = 255, Def = kVars.lp.Character.Humanoid.WalkSpeed}, function(num)
+    kVars.lp.Character.Humanoid.WalkSpeed = num
+    kVars.varWalkSpeed = num
+end)
+spawn(function()
+    wait()
+    if kVars.lp.Character:FindFirstChild("Humanoid") and kVars.varWalkSpeed ~= nil then
+        kVars.lp.Character:WaitForChild("Humanoid").WalkSpeed = kVars.varWalkSpeed
+    end
+end)
+---- Jump Power ----
+kVars.sliderJumpPower = pageCharacter.AddSlider("Jump Power",  {Min = 16, Max = 255, Def = kVars.lp.Character.Humanoid.JumpPower}, function(num)
+    kVars.lp.Character.Humanoid.JumpPower = num
+end)
+
+---- Inf Jump ----
+kVars.sliderInfJump = pageCharacter.AddToggle("Inf Jump", false, function(bool)
+    kVars.boolInfJump = bool
+end)
+
+kVars.InfJumpConnect = game:GetService("UserInputService").JumpRequest:connect(function()
+	if kVars.boolInfJump and kVars.lp.Character:FindFirstChild("Humanoid") then
+		kVars.lp.Character:FindFirstChildOfClass('Humanoid'):ChangeState("Jumping")
 	end
-    
-end
+end)
 
-function farmBarks()
-    while farmbarks == true do
-        wait(.8)
-        local virtualUser = game:GetService('VirtualUser')
-        virtualUser:CaptureController()
-        wait(0.116159)
-        virtualUser:SetKeyUp('0x11a')
-        wait(0.399961)
-        virtualUser:Button1Down(Vector2.new(-0.0, -0.0), CFrame.new(-0.0, 0.0, -0.0, -0.0, 0.0, 0.0, 0.0))
-        virtualUser:SetKeyDown('0x11a')
+---------- Misc Page ----------
+kVars.buttonDeleteBarriers = pageMisc.AddButton("Delete Barriers", function()
+    if game:GetService("Workspace"):FindFirstChild("Barriers") then
+        game:GetService("Workspace").Barrier:Destroy()
     end
-end
+end)
+
+kVars.buttonDeleteBarriers = pageMisc.AddButton("Remove Blurryness", function()
+    if game:GetService("Lighting"):FindFirstChild("DepthOfField") then
+        game:GetService("Lighting").DepthOfField:Destroy()
+    end
+end)
+
+---------- Credits Page ----------
+kVars.labelCodedBy = pageCredits.AddLabel("Coded by : Keathunsar")
+kVars.labelCodedByLink = pageCredits.AddLabel("https://github.com/dady172172/Roblox-Cheats")
+kVars.labelGuiBy = pageCredits.AddLabel("Gui made by : FungBert")
+kVars.labelGuiByLink = pageCredits.AddLabel("v3rmillion.net/member.php?action=profile&uid=1078854")
+
+---------- Closing ----------
+kVars.ClosingConnect = game:GetService("CoreGui").ChildRemoved:Connect(function(child)
+	if child.Name == kVars.WindowName then
+		kVars.closing = true
+		wait(.1)
+		kVars.InfJumpConnect:Disconnect()
+		for i,v in pairs(kVars) do
+			if type(v) == "boolean" then
+				v = false
+			end
+		end
+		kVars.ClosingConnect:Disconnect()
+		script:Destroy()
+	end
+end)

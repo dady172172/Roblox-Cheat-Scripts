@@ -1,5 +1,5 @@
 --[[
-Game :
+Game : https://www.roblox.com/games/1554960397
 Coded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 Gui made by : FungBert : https://v3rmillion.net/member.php?action=profile&uid=1078854
 Go vouch release thread : https://v3rmillion.net/showthread.php?tid=1023761
@@ -7,7 +7,7 @@ Go vouch release thread : https://v3rmillion.net/showthread.php?tid=1023761
 
 ---- variables ----
 kVars = {} -- Table for all the variables
-kVars.WindowName = ""
+kVars.WindowName = "Car Dealership Tycoon GUI"
 kVars.lp = game:GetService("Players").LocalPlayer
 kVars.VirtualUser = game:GetService('VirtualUser')
 
@@ -33,16 +33,30 @@ local pageCredits = MainUI.AddPage("Credits")
 
 ---------- Farm Page ----------
 ----  ----
-kVars.toggle = pageFarm.AddToggle("", false, function(bool)
-    kVars.bool = bool
-    if bool then f() end
+kVars.toggleDrive = pageFarm.AddToggle("Drive", false, function(bool)
+    kVars.boolDrive = bool
+    if bool then
+        fDrive()
+    else
+        keyrelease(87) 
+    end
 end)
 
-function f()
+function fDrive()
     spawn(function()
-        while kVars.bool do
+        kVars.plrcar = "nil"
+        for i,v in pairs(game:GetService("Workspace").Cars:GetChildren()) do
+            if v:FindFirstChild("Stats") and v.Stats:FindFirstChild("Owner") then
+                if v.Stats.Owner.Value == kVars.lp.Name then
+                    kVars.plrcar = v
+                end
+            end
+        end
+        while kVars.boolDrive do
             wait()
-
+            kVars.plrcar:SetPrimaryPartCFrame(CFrame.new(-696.489014, 639.160217, -202.22522, 0, 0, -0.99986887, 0.00146542024, 0.999997497, -0.0016944519, 0.999869227, -0.00149252068, -0.0161045454))
+            keypress(87)
+            wait(5)
         end
     end)
 end

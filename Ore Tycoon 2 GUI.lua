@@ -1,5 +1,5 @@
 --[[
-Game :
+Game : https://www.roblox.com/games/1113197103
 Coded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 Gui made by : FungBert : https://v3rmillion.net/member.php?action=profile&uid=1078854
 Go vouch release thread : https://v3rmillion.net/showthread.php?tid=1023761
@@ -7,7 +7,7 @@ Go vouch release thread : https://v3rmillion.net/showthread.php?tid=1023761
 
 ---- variables ----
 kVars = {} -- Table for all the variables
-kVars.WindowName = ""
+kVars.WindowName = "Ore Tycoon 2 GUI"
 kVars.lp = game:GetService("Players").LocalPlayer
 kVars.VirtualUser = game:GetService('VirtualUser')
 
@@ -33,16 +33,57 @@ local pageCredits = MainUI.AddPage("Credits")
 
 ---------- Farm Page ----------
 ----  ----
-kVars.toggle = pageFarm.AddToggle("", false, function(bool)
-    kVars.bool = bool
-    if bool then f() end
+kVars.toggleClick = pageFarm.AddToggle("Click", false, function(bool)
+    kVars.boolClick = bool
+    if bool then fClick() end
 end)
 
-function f()
+function fClick()
     spawn(function()
-        while kVars.bool do
+        while kVars.boolClick do
             wait()
+            fireclickdetector(game:GetService("Workspace").Tycoons.Teal.PurchasedObjects["00SpecialMine"].Skin.Button.ClickDetector, 10)
+        end
+    end)
+end
 
+kVars.toggleBoxes = pageFarm.AddToggle("Boxes", false, function(bool)
+    kVars.boolBoxes = bool
+    if bool then fBoxes() end
+end)
+
+function fBoxes()
+    spawn(function()
+        while kVars.boolBoxes do
+            wait()
+            for i,v in pairs(game:GetService("Workspace").container:GetChildren()) do
+                if kVars.lp.Character:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("TouchInterest") then
+                    firetouchinterest(kVars.lp.Character:FindFirstChild("HumanoidRootPart"), v, 0)
+                    wait()
+                    firetouchinterest(kVars.lp.Character:FindFirstChild("HumanoidRootPart"), v, 1)
+                end
+            end
+        end
+    end)
+end
+
+
+
+kVars.toggleUpgrade = pageFarm.AddToggle("Upgrade", false, function(bool)
+    kVars.boolUpgrade = bool
+    if bool then fUpgrade() end
+end)
+
+function fUpgrade()
+    spawn(function()
+        while kVars.boolUpgrade do
+            wait()
+            for i,v in pairs(game:GetService("Workspace").Buttons:GetChildren()) do
+                if kVars.lp.Character:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Touch") and v.Touch:FindFirstChild("TouchInterest") then
+                    kVars.lp.Character.HumanoidRootPart.CFrame = CFrame.new(v.Touch.CFrame.x, v.Touch.CFrame.y + 4, v.Touch.CFrame.z)
+                    wait(.5)
+                end   
+            end
         end
     end)
 end
