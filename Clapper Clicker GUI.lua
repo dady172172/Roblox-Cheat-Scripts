@@ -22,7 +22,7 @@ function funcAutoClicker()
             if kVars.closing or kVars.varAutoClicker == false then return end
             local args = {
                 [1] = "Clicker Activated",
-                [2] = 999999999999
+                [2] = math.huge
             }
             game:GetService("ReplicatedStorage").RemoteEvent:FireServer(unpack(args))
         end

@@ -432,6 +432,42 @@ pages.aRebirth:addToggle("Rebirth",kVars.rebirthBool, function(bool)
 	end
 end)
 
+pages.aRebirth:addToggle("Teleport to area",kVars.rebirthBool, function(bool)
+	kVars.boolMyTeleportRebirth = bool
+	if bool then
+		fMyTeleportRebirth()
+	end
+end)
+
+function fMyTeleportRebirth()
+	spawn(function()
+		while kVars.boolMyTeleportRebirth do
+			wait()
+			local hrp = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+			local WeaponInv, curWeaponId = game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer("Get Weapon Data")
+			local a = (hrp.Position - Vector3.new(40, 6, 37)).magnitude
+			local b = (hrp.Position - Vector3.new(2598, 6, 39)).magnitude
+			local c = (hrp.Position - Vector3.new(2728, 6, -93)).magnitude
+			if curWeaponId == 39 and b > 5 then
+				wait()
+				if hrp then
+					hrp.CFrame = CFrame.new(2598, 6, 39)
+				end
+			elseif curWeaponId >= 41 and c > 5 then
+				wait()
+				if hrp then
+					hrp.CFrame = CFrame.new(2728, 6, -93)
+				end
+			elseif curWeaponId <= 38 and a > 5 then
+				wait()
+				if hrp then
+					hrp.CFrame = CFrame.new(40, 6, 37)
+				end
+			end
+		end
+	end)
+ end
+
 -------- Rebirth Shop --------
 pages.cRebirth:addToggle("Buy Coin Multiplier",kVars.rebirthBool, function(bool)
 	kVars.buyCoinMultiplierBool = bool

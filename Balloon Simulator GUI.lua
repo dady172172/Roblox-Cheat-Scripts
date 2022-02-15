@@ -1,3 +1,4 @@
+local SocialService = game:GetService("SocialService")
 --[[
 Game : https://www.roblox.com/games/2756231960
 Coded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
@@ -29,6 +30,7 @@ local UILibrary = loadstring(game:HttpGet("https://pastebin.com/raw/V1ca2q9s"))(
 local MainUI = UILibrary.Load(kVars.WindowName)
 local pageFarm = MainUI.AddPage("Farm")
 local pageBuy = MainUI.AddPage("Buy")
+local pageEggPet = MainUI.AddPage("Egg/Pet")
 local pageTeleport = MainUI.AddPage("Teleport")
 local pageCharacter = MainUI.AddPage("Player")
 local pageCredits = MainUI.AddPage("Credits")
@@ -74,10 +76,10 @@ function fCoins()
             wait()
             for i,v in pairs(game:GetService("Workspace").Coins:GetChildren()) do
                 if kVars.boolCoins == false then return end
-                if kVars.lp.Character:FindFirstChild("HumanoidRootPart") then
+                if kVars.lp.Character:FindFirstChild("HumanoidRootPart") and kVars.lp.Character:FindFirstChild("Humanoid") then
                     firetouchinterest(kVars.hrp,v,0)
-                    firetouchinterest(kVars.hrp,v,1)
                     wait()
+                    firetouchinterest(kVars.hrp,v,1)
                 end
             end
         end
@@ -95,10 +97,10 @@ function fGems()
             wait()
             for i,v in pairs(game:GetService("Workspace").Gems:GetChildren()) do
                 if kVars.boolGems == false then return end
-                if kVars.lp.Character:FindFirstChild("HumanoidRootPart") then
+                if kVars.lp.Character:FindFirstChild("HumanoidRootPart") and kVars.lp.Character:FindFirstChild("Humanoid") then
                     firetouchinterest(kVars.hrp,v,0)
-                    firetouchinterest(kVars.hrp,v,1)
                     wait()
+                    firetouchinterest(kVars.hrp,v,1)
                 end
             end
         end
@@ -117,9 +119,11 @@ function fTooths()
             wait()
             for i,v in pairs(game:GetService("Workspace").Tooths:GetChildren()) do
                 if kVars.boolTooths == false then return end
-                firetouchinterest(kVars.hrp,v,0)
-                wait()
-                firetouchinterest(kVars.hrp,v,1)
+                if kVars.lp.Character:FindFirstChild("Humanoid") then
+                    firetouchinterest(kVars.hrp,v,0)
+                    wait()
+                    firetouchinterest(kVars.hrp,v,1)
+                end
             end
         end
     end)
@@ -135,10 +139,10 @@ function fChests()
         while kVars.boolChests do
             wait()
             for i,v in pairs(game:GetService("Workspace").Chests:GetChildren()) do
-                if v.Transparency ~= 0.9 and kVars.lp.Character:FindFirstChild("HumanoidRootPart") then
+                if v.Transparency ~= 0.9 and kVars.lp.Character:FindFirstChild("HumanoidRootPart") and kVars.lp.Character:FindFirstChild("Humanoid") then
                     firetouchinterest(kVars.hrp,v,0)
-                    firetouchinterest(kVars.hrp,v,1)
                     wait()
+                    firetouchinterest(kVars.hrp,v,1)
                 end
             end
         end
@@ -161,11 +165,14 @@ function fRebirth()
             else
                 rebirths =  25000000 *  kVars.lp.leaderstats.Rebirths.Value
             end
-            if coins >= rebirths then
+            if coins >= rebirths and kVars.lp.Character:FindFirstChild("Humanoid") then
                 if not kVars.lp.UnlockedIslandsFolder:FindFirstChild("Roboland") and kVars.lp.Character:FindFirstChild("HumanoidRootPart") then
                     kVars.hrp.CFrame = CFrame.new(218, 63363, 2001)
                 end
                 game:GetService("ReplicatedStorage").Rebirth:InvokeServer()
+                wait(.2)
+                kVars.lp = game:GetService("Players").LocalPlayer
+                kVars.hrp = kVars.lp.Character.HumanoidRootPart
             end
         end
     end)
@@ -221,11 +228,89 @@ function fBuyBalloons()
     end)
 end
 
+---------- Egg Pet Page ----------
+kVars.EggsList = {}
+for i,v in pairs(game:GetService("Workspace").PetDispensers:GetChildren()) do
+    table.insert(kVars.EggsList, v.Name)
+end
+table.sort(kVars.EggsList)
+kVars.SelectedEgg = game:GetService('Workspace').PetDispensers.Common
+kVars.dropdownEggToOpen = pageEggPet.AddDropdown("Select and egg to open", kVars.EggsList, function(Value)
+    kVars.SelectedEgg = game:GetService("Workspace").PetDispensers[Value]
+end)
 
+
+
+kVars.EggsToOpen = 1
+kVars.toggleOpen3 = pageEggPet.AddToggle("Open 3 *Must have bought", false, function(bool)
+    kVars.boolOpen3 = bool
+    if bool then
+        kVars.EggsToOpen = 3
+    else
+        kVars.EggsToOpen = 1
+    end
+end)
+
+kVars.toggleOpenEgg = pageEggPet.AddToggle("Open", false, function(bool)
+    kVars.boolOpenEgg = bool
+    if bool then fOpenEgg() end
+end)
+
+function fOpenEgg()
+    spawn(function()
+        while kVars.boolOpenEgg do
+            wait()
+            game:GetService("ReplicatedStorage").PurchasePetFunction:InvokeServer(kVars.SelectedEgg, kVars.EggsToOpen)
+        end
+    end)
+end
+
+
+pageEggPet.AddLabel("Delete Pets Section")
+
+kVars.petList = {}
+for i,v in pairs(game:GetService("ReplicatedStorage").PetImages:GetChildren()) do
+    table.insert(kVars.petList, v.Name)
+end
+table.sort(kVars.petList)
+
+kVars.dropdownPetDelete1 = pageEggPet.AddDropdown("Select a pet to auto delete", kVars.petList, function(Value)
+    kVars.SelectedPet1 = Value
+end)
+kVars.dropdownPetDelete2 = pageEggPet.AddDropdown("Select a pet to auto delete", kVars.petList, function(Value)
+    kVars.SelectedPet2 = Value
+end)
+kVars.dropdownPetDelete3 = pageEggPet.AddDropdown("Select a pet to auto delete", kVars.petList, function(Value)
+    kVars.SelectedPet3 = Value
+end)
+kVars.dropdownPetDelete4 = pageEggPet.AddDropdown("Select a pet to auto delete", kVars.petList, function(Value)
+    kVars.SelectedPet4 = Value
+end)
+kVars.dropdownPetDelete5 = pageEggPet.AddDropdown("Select a pet to auto delete", kVars.EggsList, function(Value)
+    kVars.SelectedPet5 = Value
+end)
+
+kVars.toggleDeletePet = pageEggPet.AddToggle("Delete", false, function(bool)
+    kVars.boolDeletePet = bool
+    if bool then fDeletePet() end
+end)
+
+function fDeletePet()
+    spawn(function()
+        while kVars.boolDeletePet do
+            wait()
+            for i,v in pairs(game:GetService("Players").LocalPlayer.OwnedPets:GetChildren()) do
+                if v.Name == kVars.SelectedPet1 or v.Name == kVars.SelectedPet2 or v.Name == kVars.SelectedPet3 or v.Name == kVars.SelectedPet4 or v.Name == kVars.SelectedPet5 then
+                    game:GetService("ReplicatedStorage").DeletePet:FireServer(v)
+                end
+            end
+        end
+    end)
+end
 
 ---------- Teleport Page ----------
 kVars.Locations1 = {
-   [1] = {name = "Spawn", cf = game:GetService("Workspace").NewThing.SpawnLocation},
+   [1] = {name = "Spawn", cf = game:GetService("Workspace").NewThing.SpawnLocation.CFrame},
    [2] = {name = "Tropical Paradise", cf = CFrame.new(192, 974, 1705)},
    [3] = {name = "Ancient Greece", cf = CFrame.new(33, 3280, 1701)},
    [4] = {name = "CandyLand", cf = CFrame.new(90, 8062, 1696)},
@@ -290,10 +375,12 @@ kVars.ClosingConnect = game:GetService("CoreGui").ChildRemoved:Connect(function(
 		kVars.InfJumpConnect:Disconnect()
 		for i,v in pairs(kVars) do
 			if type(v) == "boolean" then
-				v = false
+	    		v = false
 			end
 		end
 		kVars.ClosingConnect:Disconnect()
 		script:Destroy()
 	end
 end)
+
+syn.protect_gui(game:GetService("CoreGui")[kVars.WindowName])
