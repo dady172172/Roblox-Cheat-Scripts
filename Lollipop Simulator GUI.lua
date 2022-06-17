@@ -63,9 +63,9 @@ function fRewards()
         while kVars.boolRewards do
             if kVars.closing then return end
             wait(3)
-            kVars.RS.Events[""]:FireServer("Lick")
-            kVars.RS.Events[""]:FireServer("Coin")
-            kVars.RS.Events[""]:FireServer("Chest")
+            kVars.RS.Events:FindFirstChild(""):FireServer("Lick")
+            kVars.RS.Events:FindFirstChild(""):FireServer("Coin")
+            kVars.RS.Events:FindFirstChild(""):FireServer("Chest")
         end
     end)
 end

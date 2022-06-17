@@ -1,12 +1,12 @@
 --[[
-Game : 
+Game : https://www.roblox.com/games/5114752311
 Coded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 Gui made by : https://v3rmillion.net/member.php?action=profile&uid=244024
 ]]--
 
 ---- Variables ----
 kVars = {}
-kVars.WindowName = ""
+kVars.WindowName = "Nut Clicker"
 kVars.txtName = kVars.WindowName .. ".txt"
 kVars.lp = game:GetService('Players').LocalPlayer
 kVars.rs = game:GetService('ReplicatedStorage')
@@ -68,26 +68,96 @@ local pageFarm = Window:addPage("Farm", 3117485989)
 local pagePlayer = Window:addPage("Player", 5012544693)
 local pageSettings = Window:addPage("Settings", 6942070576)
 local sectionAutoFarm = pageFarm:addSection("Auto Farm")
+local sectionUpgrade = pageFarm:addSection("Upgrade")
 local sectionPlayerStats = pagePlayer:addSection("Stats")
 local sectionTpToPlayer = pagePlayer:addSection("Teleport To Player")
 local sectionTheme = pageSettings:addSection("Theme")
 local sectionKeybinds = pageSettings:addSection("Keybinds")
 
 ----  ----
-sectionAutoFarm:addToggle("", false, function(bool)
-    kVars.bool = bool
-    if bool then f() end
+sectionAutoFarm:addToggle("Click", false, function(bool)
+    kVars.boolClick = bool
+    if bool then fClick() end
 end)
 
-function f()
+function fClick()
     spawn(function()
-        while kVars.bool do
+        while kVars.boolClick do
             wait()
-            
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
+            game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()    
+
         end
     end)
 end
+kVars.upgradeList = {{name = "250", num = 1}, {name = "2500", num = 2}, {name = "25k", num = 3}, {name = "250k", num = 4}, {name = "2.5m", num = 5}, {name = "25m", num = 6}, {name = "250m", num = 7}, {name = "2.5b", num = 8}, {name = "25b", num = 9}, {name = "250b", num = 10}, {name = "2.5t", num = 11}, {name ="25qd", num = 12}}
+local upgradeList1 = {}
+for i,v in pairs(kVars.upgradeList) do
+    table.insert(upgradeList1, v.name)
+end
+kVars.upgradeSelection = "none"
+sectionUpgrade:addDropdown("Dropdown", upgradeList1, function(txt)
+    for i,v in pairs(kVars.upgradeList) do
+        if v.name == txt then
+            kVars.upgradeSelection = v.num
+        end
+    end
+ end)
 
+ sectionUpgrade:addToggle("Buy Upgrade", false, function(bool)
+    kVars.boolBuyUpgrade = bool
+    if bool then fBuyUpgrade() end
+end)
+
+function fBuyUpgrade()
+    spawn(function()
+        while kVars.boolBuyUpgrade do
+            wait()
+            local a = "Upgrade" .. tostring(kVars.upgradeSelection) .. "Button"
+               game:GetService("Players").LocalPlayer.PlayerGui.Upgrading.UpgradeFrame.MainFrame[a].Fire.RemoteFunction:InvokeServer()
+        end
+    end)
+end
 
 ---- player stats section ----
 sectionPlayerStats:addSlider("Walk Speed", 16, kVars.lp.Character:WaitForChild('Humanoid').WalkSpeed, 1024, function(value)

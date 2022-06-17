@@ -746,7 +746,7 @@ end
 ----------------------------------------------------------- KeyBinds -----------------------------------------------------------
 ---- open close menu ----
 pages.aKeyBinds:addKeybind("Open/Close Menu", Enum.KeyCode.Backquote, function()
-venyx:toggle()
+	venyx:toggle()
 end, function()
 end)
 
@@ -830,10 +830,23 @@ pages.e:addToggle("Inf Jump", kVars.infJump, function(bool)
 	kVars.varInfJump = bool
 end)
 ---- time day ----
-pages.e:addButton("Always Day *Restart to undo",function(bool)
-		game:GetService("Lighting").Name = "Lighting1"
-		game.Lighting1.TimeOfDay = "12:00:00"
+kVars.boolAlwaysDay = false
+pages.e:addToggle("Always Day", kVars.boolAlwaysDay, function(bool)
+	kVars.boolAlwaysDay = bool
 end)
+
+local mt = getrawmetatable(game)
+local old = mt.__namecall
+setreadonly(mt, false)
+mt.__namecall = function(self, ...)
+    local method = getnamecallmethod()
+    if self == game.Lighting and method == "SetMinutesAfterMidnight" and kVars.boolAlwaysDay then
+        game.Lighting.TimeOfDay = "12:00:00"
+        return
+    end
+    return old(self, ...)
+end
+setreadonly(mt, true)
 
 pages.e:addToggle("Fog", kVars.fogBool, function(bool)
 	kVars.fogBool = bool

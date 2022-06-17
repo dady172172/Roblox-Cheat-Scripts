@@ -53,7 +53,7 @@ function fFruit()
     spawn(function()
         while kVars.boolFruit do
             wait()
-            if game.workspace:FindFirstChild(kVars.lp.Name) and game.workspace[kVars.lp.Name]:FindFirstChildWhichIsA("Tool") then
+            if game:GetService('Players').LocalPlayer.Character:FindFirstChildWhichIsA('Tool') then
                 local curTool = kVars.lp.CurrentToolEquipped.Value
                 if kVars.lp.Tools:FindFirstChild("Trowel") and kVars.lp.Character:FindFirstChild('HumanoidRootPart') then
                     if kVars.lp.Areas:FindFirstChild("Dojo") then
@@ -79,13 +79,15 @@ function fFruit()
                     else
                         kVars.foodToCollect = "Apple"
                     end
-                    if kVars.lp:WaitForChild("Tools") and curTool ~= nil then
-                        kVars.rsEvents.Collect:FireServer(kVars.foodToCollect, kVars.lp.Character[curTool])
+                    if game:GetService('Players').LocalPlayer.Character:FindFirstChildWhichIsA('Tool') then
+                        kVars.rsEvents.Collect:FireServer(kVars.foodToCollect, game:GetService('Players').LocalPlayer.Character:FindFirstChildWhichIsA('Tool'))
                     end
                 end
             else
-                keypress(0x31)
-                keyrelease(0x31)
+                if game:GetService('Players').LocalPlayer:FindFirstChild('Backpack') and game:GetService('Players').LocalPlayer.Character:FindFirstChild('Humanoid') then
+                    local tool = game:GetService('Players').LocalPlayer:FindFirstChild('Backpack'):FindFirstChildWhichIsA('Tool')
+                    game:GetService('Players').LocalPlayer.Character.Humanoid:EquipTool(tool)
+                end
             end
         end
     end)
@@ -100,8 +102,7 @@ function fSell()
     spawn(function()
         while kVars.boolSell do
             wait()
-            wait()
-			if game.workspace:FindFirstChild(kVars.lp.Name) and kVars.lp.Character:FindFirstChild("RightFoot") then
+			if kVars.lp.Character:FindFirstChild("RightFoot") then
 				firetouchinterest(kVars.lp.Character.RightFoot, game:GetService("Workspace").MapFolder.TouchParts.SellPart, 0)
 				wait(.1)
 				firetouchinterest(kVars.lp.Character.RightFoot, game:GetService("Workspace").MapFolder.TouchParts.SellPart, 1)
@@ -119,8 +120,8 @@ function fRebirth()
     spawn(function()
         while kVars.boolRebirth do
             wait()
-			if game.workspace:FindFirstChild(kVars.lp.Name) and kVars.lp:FindFirstChild("Tools") and kVars.lp.Character:FindFirstChild('HumanoidRootPart') then
-				kVars.rsEvents.Rebirth:FireServer("Rebirth", kVars.lp)
+			if kVars.lp:FindFirstChild("Tools") and kVars.lp.Character:FindFirstChild('HumanoidRootPart') then
+				kVars.rsEvents.Rebirth:FireServer("Rebirth4", kVars.lp)
 			end
         end
     end)
@@ -139,7 +140,7 @@ function fBackPack()
             wait()
             local currentBackpack = kVars.lp.CurrentBackpackEquipped.Value
 			if game.workspace:FindFirstChild(kVars.lp.Name) and kVars.lp.Tools:FindFirstChild("Trowel") and kVars.lp.Character:FindFirstChild('HumanoidRootPart') then
-				if currentBackpack ~= kVars.backpackTable[#backpackTable] and table.find(kVars.backpackTable, currentBackpack) then
+				if currentBackpack ~= kVars.backpackTable[#kVars.backpackTable] and table.find(kVars.backpackTable, currentBackpack) then
 					kVars.rsEvents.Server:InvokeServer("PurchaseBackpack", kVars.backpackTable[table.find(kVars.backpackTable, currentBackpack)+1])
 				end
 			end

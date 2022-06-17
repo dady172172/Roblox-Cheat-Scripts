@@ -1,12 +1,12 @@
 --[[
-Game : https://www.roblox.com/games/3207803206
+Game : https://www.roblox.com/games/6209775003
 Coded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 Gui made by : https://v3rmillion.net/member.php?action=profile&uid=244024
 ]]--
 
 ---- Variables ----
 kVars = {}
-kVars.WindowName = "OM NOM Simulator GUI"
+kVars.WindowName = "Mining Legends"
 kVars.txtName = kVars.WindowName .. ".txt"
 kVars.lp = game:GetService('Players').LocalPlayer
 kVars.rs = game:GetService('ReplicatedStorage')
@@ -68,35 +68,12 @@ local pageFarm = Window:addPage("Farm", 3117485989)
 local pagePlayer = Window:addPage("Player", 5012544693)
 local pageSettings = Window:addPage("Settings", 6942070576)
 local sectionAutoFarm = pageFarm:addSection("Auto Farm")
-local sectionAutoUpgrade = pageFarm:addSection("Auto Upgrade")
-local sectionGamePasses = pageFarm:addSection("GamePasses")
 local sectionPlayerStats = pagePlayer:addSection("Stats")
 local sectionTpToPlayer = pagePlayer:addSection("Teleport To Player")
 local sectionTheme = pageSettings:addSection("Theme")
 local sectionKeybinds = pageSettings:addSection("Keybinds")
 
 ----  ----
-sectionAutoFarm:addToggle("Eat", false, function(bool)
-   kVars.boolEat = bool
-   if bool then fEat() end
-end)
-
-function fEat()
-    spawn(function()
-        while kVars.boolEat do
-            wait()
-            if game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA('Tool') then
-                game:GetService("Players").LocalPlayer.Character.Food.E:FireServer()
-            else
-                if game:GetService("Players").LocalPlayer:FindFirstChild("Backpack") and game:GetService("Players").LocalPlayer.Backpack:FindFirstChildWhichIsA('Tool') and game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid")then
-                    local tool = game:GetService("Players").LocalPlayer.Backpack:FindFirstChildWhichIsA('Tool')
-                    game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid"):EquipTool(tool)
-                end
-            end
-        end
-    end)
-end
-
 sectionAutoFarm:addToggle("Sell", false, function(bool)
     kVars.boolSell = bool
     if bool then fSell() end
@@ -106,9 +83,17 @@ function fSell()
     spawn(function()
         while kVars.boolSell do
             wait()
-            firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace").Sell.Sell.Sell, 0)
+            local sellpart = nil
+            if game:GetService("Workspace"):FindFirstChild("MoonSellPart") then
+                sellpart = game:GetService("Workspace").MoonSellPart
+            elseif game:GetService("Workspace"):FindFirstChild("JungleSellPart") then
+                sellpart = game:GetService("Workspace").JungleSellPart
+            elseif game:GetService("Workspace"):FindFirstChild("CandySellPart") then
+                sellpart = game:GetService("Workspace").CandySellPart
+            end
+            firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, sellpart, 0)
             wait()
-            firetouchinterest(game.Players.LocalPlayer.Character.RightFoot, game:GetService("Workspace").Sell.Sell.Sell, 1)
+            firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, sellpart, 1)
         end
     end)
 end
@@ -122,66 +107,38 @@ function fRebirth()
     spawn(function()
         while kVars.boolRebirth do
             wait()
-            game:GetService("ReplicatedStorage").Events.Rebirth:FireServer()
+            game:GetService("ReplicatedStorage").Functions.Rebirth:InvokeServer()
         end
     end)
 end
 
-sectionAutoFarm:addToggle("Coins", false, function(bool)
-    kVars.boolCoins = bool
-    if bool then fCoins() end
+sectionAutoFarm:addToggle("Gems", false, function(bool)
+    kVars.boolGems = bool
+    if bool then fGems() end
 end)
 
-function fCoins()
+function fGems()
     spawn(function()
-        while kVars.boolCoins do
+        while kVars.boolGems do
             wait()
-            for i,v in pairs(game:GetService("Workspace").Coins:GetChildren()) do
-                if kVars.boolCoins == false then return end
-                if game:GetService('Players').LocalPlayer.Character:FindFirstChild('RightFoot') then
-                    firetouchinterest(game:GetService('Players').LocalPlayer.Character.RightFoot, v, 0)
-                    wait()
-                    firetouchinterest(game:GetService('Players').LocalPlayer.Character.RightFoot, v, 1)
+            for b,n in pairs(game:GetService("Workspace").GemSpawn.Gems:GetChildren()) do
+                for i,v in pairs(n:GetChildren()) do
+                    if v.Name == "Inner" then
+                        firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 0)
+                        wait()
+                        firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 1)
+                    end
                 end
             end
         end
     end)
 end
 
-sectionAutoUpgrade:addToggle("Backpack", false, function(bool)
-    kVars.boolUpgradeBackpack = bool
-    if bool then fUpgradeBackpack() end
-end)
-
-function fUpgradeBackpack()
-    spawn(function()
-        while kVars.boolUpgradeBackpack do
-            wait()
-            local a = game:GetService("Players").LocalPlayer.otherstats.EquippedBackpackRef.Value + 1
-            game:GetService("ReplicatedStorage").Events.BuyEquipBackpack:FireServer(a)
-        end
-    end)
-end
-
-sectionAutoUpgrade:addToggle("Food", false, function(bool)
-    kVars.boolUpgradeFood = bool
-    if bool then fUpgradeFood() end
-end)
-
-function fUpgradeFood()
-    spawn(function()
-        while kVars.boolUpgradeFood do
-            wait()
-            local a = game:GetService("Players").LocalPlayer.otherstats.EquippedFoodRef.Value + 1
-            game:GetService("ReplicatedStorage").Events.BuyEquipFood:FireServer(a)
-        end
-    end)
-end
-
-sectionGamePasses:addButton("gamepasses don't know if it works", function()
-    for i,v in pairs(game:GetService("Players").LocalPlayer.gamepasses:GetChildren()) do
-        v.Value = 1
-    end
+sectionAutoFarm:addButton("Open Shop", function()
+    local v = game:GetService("Workspace").ShopPart
+    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 0)
+    wait()
+    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 1)
  end)
 
 ---- player stats section ----
@@ -245,9 +202,10 @@ sectionTheme:addButton("Save Theme", function()
 end)
 
 sectionKeybinds:addKeybind("Open/Close Menu", Enum.KeyCode.Backquote, function()
-	window:toggle()
+	Window:toggle()
 end, function()
 end)
+
 ---- Select main page to display ----
 Window:SelectPage(Window.pages[1], true)
 
@@ -268,3 +226,54 @@ kVars.ClosingConnect = game:GetService("CoreGui").ChildRemoved:Connect(function(
 end)
 
 syn.protect_gui(game:GetService("CoreGui")[kVars.WindowName])
+
+
+
+--[[
+section1:addToggle("Title", false, function(bool)
+   kVars.bool = bool
+   if bool then function() end
+end)
+section1:addButton("Title", function()
+   print("Clicked")
+end)
+section1:addTextbox("Notification", "Default", function(value, focusLost)
+   print("Input", value)
+
+   if focusLost then
+      Window:Notify("Title", value)
+   end
+end)
+
+section2:addKeybind("Toggle Keybind", Enum.KeyCode.One, function()
+   print("Activated Keybind")
+   Window:toggle()
+end, function()
+   print("Changed Keybind")
+end)
+section2:addColorPicker("ColorPicker", Color3.fromRGB(50, 50, 50))
+section2:addColorPicker("ColorPicker2")
+section2:addSlider("Slider", min, current, max, function(value)
+   print("Dragged", value)
+end)
+kVars.list1 = {"Hello", "World", "Hello World", "Word", 1, 2, 3}
+section2:addDropdown("Dropdown", kVars.list1, function(txt)
+   print(txt)
+end)
+section2:addButton("Button", function()
+   kVars.list1 = {"fuck you", "and your", "mom"}
+end)
+
+-- second page
+local theme = Window:addPage("Theme", 5012544693)
+local colors = theme:addSection("Colors")
+
+for theme, color in pairs(themes) do --all in one theme changer, i know, im cool
+   colors:addColorPicker(theme, color, function(color3)
+      Window:setTheme(theme, color3)
+   end)
+end
+Window:Notify("title", "msg")
+-- load
+Window:SelectPage(Window.pages[1], true) -- no default for more freedom
+]]--
