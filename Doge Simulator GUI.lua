@@ -1,5 +1,5 @@
 --[[
-Game :
+Game : https://www.roblox.com/games/3072491551
 Coded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 Gui made by : FungBert : https://v3rmillion.net/member.php?action=profile&uid=1078854
 Go vouch release thread : https://v3rmillion.net/showthread.php?tid=1023761
@@ -7,7 +7,7 @@ Go vouch release thread : https://v3rmillion.net/showthread.php?tid=1023761
 
 ---- variables ----
 kVars = {} -- Table for all the variables
-kVars.WindowName = ""
+kVars.WindowName = "Doge Simulator GUI"
 kVars.lp = game:GetService("Players").LocalPlayer
 kVars.VirtualUser = game:GetService('VirtualUser')
 

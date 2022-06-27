@@ -119,9 +119,10 @@ end)
 function fRebirth()
     spawn(function()
         while kVars.boolRebirth do
-            wait()
+            wait(2)
+            if kVars.boolRebirth == false then return end
 			if kVars.lp:FindFirstChild("Tools") and kVars.lp.Character:FindFirstChild('HumanoidRootPart') then
-				kVars.rsEvents.Rebirth:FireServer("Rebirth4", kVars.lp)
+				kVars.rsEvents.MultiRebirth:FireServer("Rebirth4", kVars.lp)
 			end
         end
     end)
