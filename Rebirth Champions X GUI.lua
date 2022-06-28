@@ -21,7 +21,7 @@ if readfile and isfile and isfile(kVars.txtName) then
         kVars.themes[i] = Color3.fromRGB(v[1], v[2], v[3])
     end
 else
-    print("Loading defult theme. Your injector does not support readfile or isfile.")
+    print("Loading defult theme")
     kVars.themes = {
         Background = Color3.fromRGB(24, 24, 24),
         Glow = Color3.fromRGB(0, 0, 0),
@@ -43,7 +43,7 @@ function saveSettings()
         end
         writefile(kVars.txtName, kVars.HttpService:JSONEncode(kVars.themes))
     else
-        print("You do not have injector dose not support writefile.")
+        print("Your injector does not support writefile.")
     end
 end
 
@@ -60,26 +60,35 @@ kVars.AntiAfk = game:GetService('Players').LocalPlayer.Idled:connect(function()
 end)
 
 ---- Load window ----
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/zxciaz/VenyxUI/main/Reuploaded"))() --someone reuploaded it so I put it in place of the original back up so guy can get free credit.
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/zxciaz/VenyxUI/main/Reuploaded"))()
 local Window = library.new(kVars.WindowName, 5013109572)
 
 ---- pages ----
 local pageFarm = Window:addPage("Farm", 3117485989)
-local pageEggs = Window:addPage("Eggs", 9194077649)
-local pagePlayer = Window:addPage("Player", 5012544693)
-local pageSettings = Window:addPage("Settings", 6942070576)
 local sectionAutoFarm = pageFarm:addSection("Auto Farm")
 local sectionAutoRebirth = pageFarm:addSection("Rebirth")
 local sectionAutoOther = pageFarm:addSection("Other")
 local sectionAutoSpecialEvent= pageFarm:addSection("Special Event")
+
+local pageEggs = Window:addPage("Eggs", 9194077649)
 local sectionEggs = pageEggs:addSection("Eggs")
 local sectionPets = pageEggs:addSection("Pets")
+
+local pageTeleport = Window:addPage("Teleport", 4814045731)
+local sectionTeleport = pageTeleport:addSection("Locations")
+
+local pageMenus = Window:addPage("Menus", 7347408509)
+local sectionMenu = pageMenus:addSection("Menus")
+
+local pagePlayer = Window:addPage("Player", 5012544693)
 local sectionPlayerStats = pagePlayer:addSection("Stats")
 local sectionTpToPlayer = pagePlayer:addSection("Teleport To Player")
+
+local pageSettings = Window:addPage("Settings", 6942070576)
 local sectionTheme = pageSettings:addSection("Theme")
 local sectionKeybinds = pageSettings:addSection("Keybinds")
 
-----  ----
+---- section auto farm ----
 sectionAutoFarm:addToggle("Clicks", false, function(bool)
     kVars.boolClick = bool
     if bool then fClick() end
@@ -94,6 +103,25 @@ function fClick()
     end)
 end
 
+sectionAutoFarm:addToggle("Chests", false, function(bool)
+    kVars.boolChests = bool
+    if bool then fChests() end
+end)
+
+function fChests()
+    spawn(function()
+        while kVars.boolChests do
+            wait(1)
+            for i,v in pairs(game:GetService("Workspace").Scripts.Chests:GetChildren()) do
+                if v.Touch and v.Touch.TouchInterest then
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Touch, 0)
+                    wait()
+                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Touch, 1)
+                end
+            end
+        end
+    end)
+end
 
 sectionAutoSpecialEvent:addToggle("Coconuts", false, function(bool)
     kVars.boolCoconuts = bool
@@ -114,7 +142,6 @@ function fCoconuts()
         end
     end)
 end
-
 
 kVars.rebirthList = {}
 for i=1,100 do
@@ -148,6 +175,7 @@ sectionAutoOther:addButton("Unlock Passes *Some May not work", function()
     end
  end)
 
+ ---- egg/pet section ----
 kVars.eggsList = {}
 for i,v in pairs(game:GetService("Workspace").Scripts.Eggs:GetChildren()) do
     table.insert(kVars.eggsList, tostring(v))
@@ -195,6 +223,31 @@ function fCraftAll()
     end)
 end
 
+---- teleport section ----
+local teleportList = game:GetService("Workspace").Scripts.TeleportTo:GetChildren()
+table.sort(teleportList, function(k1,k2)
+    return k1.name < k2.name
+end)
+for k,n in ipairs(teleportList) do
+    sectionTeleport:addButton(n.name,function()
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = n.CFrame
+    end)
+end
+
+---- menu section ----
+kVars.menusList = game:GetService("Workspace").Scripts.Spawn:GetChildren()
+table.sort(kVars.menusList,function(k1,k2)
+    return k1.name < k2.name
+end)
+for i,v in ipairs(kVars.menusList) do
+    sectionMenu:addButton(v.name, function()
+        if v.Touch then
+            firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Touch, 0)
+            wait()
+            firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Touch, 1)
+        end
+    end)
+end
 
 ---- player stats section ----
 sectionPlayerStats:addSlider("Walk Speed", 16, kVars.lp.Character:WaitForChild('Humanoid').WalkSpeed, 1024, function(value)
@@ -281,54 +334,3 @@ kVars.ClosingConnect = game:GetService("CoreGui").ChildRemoved:Connect(function(
 end)
 
 syn.protect_gui(game:GetService("CoreGui")[kVars.WindowName])
-
-
-
---[[
-section1:addToggle("Title", false, function(bool)
-   kVars.bool = bool
-   if bool then function() end
-end)
-section1:addButton("Title", function()
-   print("Clicked")
-end)
-section1:addTextbox("Notification", "Default", function(value, focusLost)
-   print("Input", value)
-
-   if focusLost then
-      Window:Notify("Title", value)
-   end
-end)
-
-section2:addKeybind("Toggle Keybind", Enum.KeyCode.One, function()
-   print("Activated Keybind")
-   Window:toggle()
-end, function()
-   print("Changed Keybind")
-end)
-section2:addColorPicker("ColorPicker", Color3.fromRGB(50, 50, 50))
-section2:addColorPicker("ColorPicker2")
-section2:addSlider("Slider", min, current, max, function(value)
-   print("Dragged", value)
-end)
-kVars.list1 = {"Hello", "World", "Hello World", "Word", 1, 2, 3}
-section2:addDropdown("Dropdown", kVars.list1, function(txt)
-   print(txt)
-end)
-section2:addButton("Button", function()
-   kVars.list1 = {"fuck you", "and your", "mom"}
-end)
-
--- second page
-local theme = Window:addPage("Theme", 5012544693)
-local colors = theme:addSection("Colors")
-
-for theme, color in pairs(themes) do --all in one theme changer, i know, im cool
-   colors:addColorPicker(theme, color, function(color3)
-      Window:setTheme(theme, color3)
-   end)
-end
-Window:Notify("title", "msg")
--- load
-Window:SelectPage(Window.pages[1], true) -- no default for more freedom
-]]--

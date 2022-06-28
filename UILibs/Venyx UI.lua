@@ -21,7 +21,7 @@ if readfile and isfile and isfile(kVars.txtName) then
         kVars.themes[i] = Color3.fromRGB(v[1], v[2], v[3])
     end
 else
-    print("Loading defult theme. Your injector does not support readfile or isfile.")
+    print("Loading defult theme")
     kVars.themes = {
         Background = Color3.fromRGB(24, 24, 24),
         Glow = Color3.fromRGB(0, 0, 0),
@@ -43,7 +43,7 @@ function saveSettings()
         end
         writefile(kVars.txtName, kVars.HttpService:JSONEncode(kVars.themes))
     else
-        print("You do not have injector dose not support writefile.")
+        print("You injector does not support writefile.")
     end
 end
 
@@ -60,7 +60,7 @@ kVars.AntiAfk = game:GetService('Players').LocalPlayer.Idled:connect(function()
 end)
 
 ---- Load window ----
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/zxciaz/VenyxUI/main/Reuploaded"))() --someone reuploaded it so I put it in place of the original back up so guy can get free credit.
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/zxciaz/VenyxUI/main/Reuploaded"))()
 local Window = library.new(kVars.WindowName, 5013109572)
 
 ---- pages ----
