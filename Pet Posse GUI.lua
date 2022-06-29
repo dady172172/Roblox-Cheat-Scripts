@@ -1,12 +1,12 @@
 --[[
-Game : 
+Game : https://www.roblox.com/games/8303902695
 Coded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 Gui made by : https://v3rmillion.net/member.php?action=profile&uid=244024
 ]]--
 
 ---- Variables ----
 kVars = {}
-kVars.WindowName = ""
+kVars.WindowName = "Pet Posse GUI"
 kVars.txtName = kVars.WindowName .. ".txt"
 kVars.lp = game:GetService('Players').LocalPlayer
 kVars.rs = game:GetService('ReplicatedStorage')
@@ -63,9 +63,14 @@ end)
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/zxciaz/VenyxUI/main/Reuploaded"))()
 local Window = library.new(kVars.WindowName, 5013109572)
 
----- pages and sections ----
+---- pages ----
 local pageFarm = Window:addPage("Farm", 3117485989)
 local sectionAutoFarm = pageFarm:addSection("Auto Farm")
+local sectionRebirth = pageFarm:addSection("Rebirth")
+local sectionUnlocks = pageFarm:addSection("Unlocks")
+
+local pageEggs = Window:addPage("Eggs", 9194077649)
+local sectionEggs = pageEggs:addSection("Auto Open")
 
 local pagePlayer = Window:addPage("Player", 5012544693)
 local sectionPlayerStats = pagePlayer:addSection("Stats")
@@ -75,17 +80,123 @@ local pageSettings = Window:addPage("Settings", 6942070576)
 local sectionTheme = pageSettings:addSection("Theme")
 local sectionKeybinds = pageSettings:addSection("Keybinds")
 
-----  ----
-sectionAutoFarm:addToggle("", false, function(bool)
-    kVars.bool = bool
-    if bool then f() end
+---- auto farm ----
+
+
+local closestCoin = nil
+local lastCoin = math.huge
+spawn(function()
+    while wait() do
+        local plrWorld = tostring(game:GetService("Players").LocalPlayer.Leaderstats.currentWorld.Value)
+        local a = game:GetService("Workspace")["__THINGS"].Coins[plrWorld]:GetChildren()
+        local b = game.Players.LocalPlayer.Character.HumanoidRootPart
+        lastCoin = math.huge
+        for i,v in pairs(a) do
+            if v ~= nil and v:FindFirstChild("Coin") ~= nil and game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(plrWorld)  then
+                local distance = (b.Position - v.Coin.Position).magnitude
+                if distance < lastCoin then
+                    closestCoin = v
+                    lastCoin = distance
+                end
+            end
+        end
+    end   
 end)
 
-function f()
+sectionAutoFarm:addToggle("Collect Coins", false, function(bool)
+    kVars.boolCollectCoins = bool
+    if bool then fCollectCoins() end
+end)
+
+function fCollectCoins()
     spawn(function()
-        while kVars.bool do
+        while kVars.boolCollectCoins do
+            local a = closestCoin
+            local plrArea = game:GetService("Players").LocalPlayer.Leaderstats.currentWorld.Value
+            repeat
+                wait()
+                if a and a:FindFirstChild("Coin") and a.Coin:FindFirstChild("ClickDetector") then
+                    fireclickdetector(a.Coin.ClickDetector)
+                end
+            until a == nil or a:FindFirstChild("Coin") == nil or kVars.boolCollectCoins == false --or area ~= game:GetService("Players").LocalPlayer.Leaderstats.currentWorld.Value
+            lastCoin = math.huge
+        end
+    end)
+end
+
+sectionRebirth:addToggle("Rebirth", false, function(bool)
+    kVars.boolRebirth = bool
+    if bool then fRebirth() end
+end)
+
+function fRebirth()
+    spawn(function()
+        while kVars.boolRebirth do
             wait()
-            
+            function getnumbersfromtext(txt)
+                local str = ""
+                string.gsub(txt,"%d+",function(e)
+                str = str .. e
+                end)
+                return str;
+            end
+            local a = getnumbersfromtext(game:GetService("Players").LocalPlayer.PlayerGui.Rebirths.Frame.RebirthsRequired.Text)
+            local b = game:GetService("Players").LocalPlayer.Leaderstats.Level.Value
+            if tonumber(a) == tonumber(b) then
+                game:GetService("Workspace").__THINGS.__REMOTES.rebirth:InvokeServer(game:GetService("Players").LocalPlayer)
+            end
+        end
+    end)
+end
+
+sectionUnlocks:addButton("Teleport Unlock", function()
+    game:GetService("Players").LocalPlayer.Leaderstats.teleport.Value = true
+end)
+
+sectionUnlocks:addButton("TripleEggs Unlock", function()
+    game:GetService("Players").LocalPlayer.Leaderstats.tripleEggs.Value = true
+end)
+
+sectionUnlocks:addButton("FastHatch Unlock", function()
+    game:GetService("Players").LocalPlayer.Leaderstats.fastHatch.Value = true
+end)
+
+sectionUnlocks:addButton("AutoHatch Unlock", function()
+    game:GetService("Players").LocalPlayer.Leaderstats.autoHatch.Value = true
+end)
+
+---- eggs section ----
+
+local eggsList = {}
+for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.Billboards.AutoHatch:GetChildren()) do
+    table.insert(eggsList, v.name)
+end
+table.sort(eggsList)
+sectionEggs:addDropdown("Select Egg To Hatch", eggsList ,function(txt)
+    kVars.selectedEgg = txt
+end)
+
+sectionEggs:addToggle("Triple Egg *needs pass", false, function(bool)
+    kVars.openTriple = bool
+end)
+
+sectionEggs:addToggle("Open", false, function(bool)
+    kVars.openEgg = bool
+    if bool then fOpenEgg() end
+    if kVars.selectedEgg ~= nil then
+        game:GetService("Workspace").__THINGS.__REMOTES.buyEgg:InvokeServer(kVars.selectedEgg)
+    end
+end)
+
+function fOpenEgg()
+    spawn(function()
+        while kVars.openEgg do
+            wait()
+            if kVars.selectedEgg ~= nil and kVars.openTriple == false then
+                game:GetService("Workspace").__THINGS.__REMOTES.buyEgg:InvokeServer(kVars.selectedEgg)
+            elseif kVars.selectedEgg ~= nil and kVars.openTriple then
+                game:GetService("Workspace").__THINGS.__REMOTES.buyEgg:InvokeServer(kVars.selectedEgg, "tripleEgg")
+            end
         end
     end)
 end
