@@ -72,6 +72,9 @@ local sectionUnlocks = pageFarm:addSection("Unlocks")
 local pageEggs = Window:addPage("Eggs", 9194077649)
 local sectionEggs = pageEggs:addSection("Auto Open")
 
+local pageMenus = Window:addPage("Menus", 7347408509)
+local sectionMenus = pageMenus:addSection("Menus")
+
 local pagePlayer = Window:addPage("Player", 5012544693)
 local sectionPlayerStats = pagePlayer:addSection("Stats")
 local sectionTpToPlayer = pagePlayer:addSection("Teleport To Player")
@@ -201,6 +204,18 @@ function fOpenEgg()
     end)
 end
 
+---- menu section ----
+sectionMenus:addButton("Merchant", function()
+    game:GetService("Players").LocalPlayer.PlayerGui.Merchant.Enabled = true
+end)
+
+sectionMenus:addButton("Upgrade", function()
+    game:GetService("Players").LocalPlayer.PlayerGui.Upgrade.Enabled = true
+end)
+
+sectionMenus:addButton("Teleport", function()
+    game:GetService("Players").LocalPlayer.PlayerGui.Teleport.Enabled = true
+end)
 
 ---- player stats section ----
 sectionPlayerStats:addSlider("Walk Speed", 16, kVars.lp.Character:WaitForChild('Humanoid').WalkSpeed, 1024, function(value)
