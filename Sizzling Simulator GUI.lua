@@ -5,7 +5,7 @@ GUI Made by : https://v3rmillion.net/member.php?action=profile&uid=244024
 ]]--
 --local Try = loadstring(game:HttpGet('https://raw.githubusercontent.com/F3XTeam/RBX-Try-Library/master/TryLibrary.lua'))()
 if game:GetService("CoreGui"):FindFirstChild("Sizzling Simulator GUI By Keathunsar") then
-    task.wait(1)
+    wait(1)
 end
 local success, response
 local saveTable = {}
@@ -442,24 +442,24 @@ end)
 function fMyTeleportRebirth()
 	spawn(function()
 		while kVars.boolMyTeleportRebirth do
-			task.wait()
+			wait()
 			local hrp = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
 			local WeaponInv, curWeaponId = game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer("Get Weapon Data")
 			local a = (hrp.Position - Vector3.new(40, 6, 37)).magnitude
 			local b = (hrp.Position - Vector3.new(2598, 6, 39)).magnitude
 			local c = (hrp.Position - Vector3.new(2728, 6, -93)).magnitude
 			if curWeaponId == 39 and b > 5 then
-				task.wait()
+				wait()
 				if hrp then
 					hrp.CFrame = CFrame.new(2598, 6, 39)
 				end
 			elseif curWeaponId >= 41 and c > 5 then
-				task.wait()
+				wait()
 				if hrp then
 					hrp.CFrame = CFrame.new(2728, 6, -93)
 				end
 			elseif curWeaponId <= 38 and a > 5 then
-				task.wait()
+				wait()
 				if hrp then
 					hrp.CFrame = CFrame.new(40, 6, 37)
 				end
@@ -560,7 +560,7 @@ end)
 function fireTouch(part)
 	if kVars.lplr.Character:FindFirstChild('RightFoot') then
 		firetouchinterest(kVars.lplr.Character.RightFoot, part, 0)
-		task.wait(.5)
+		wait(.5)
 		firetouchinterest(kVars.lplr.Character.RightFoot, part, 1)
 	end
 end
@@ -725,7 +725,7 @@ end)
 function petDelFunc()
 	spawn(function()
 		while kVars.petDelBool do
-			task.wait()
+			wait()
 			for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.MainGui.InventoryFrame.Contents.ScrollingFrame:GetChildren()) do
 				if v:FindFirstChild('Title') then
 					local name = v.Title.Text
@@ -913,7 +913,7 @@ function autoAttackFunc()
 	---- auto attack find target ----
 	spawn(function()
 		while kVars.autoAttackBool do
-			task.wait()
+			wait()
 			if kVars.closing then break end
 			for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
 				if v:FindFirstChild('CharId') and v.HealthGui.Health.Amount.Text:sub(1,1) ~= "0" then
@@ -935,7 +935,7 @@ function autoAttackFunc()
 	spawn(function()
 		---- Auto Attack ----
 		while kVars.autoAttackBool do
-			task.wait()
+			wait()
 			for i,v in pairs(game:GetService("Workspace"):GetChildren()) do	
 				if nearest ~= nil and id ~= nil and v:FindFirstChild('CharId') and v.CharId.Value == id and v.HealthGui.Health.Amount.Text:sub(1,1) ~= "0" then
 					currentTarget = v.CharId.Value
@@ -945,7 +945,7 @@ function autoAttackFunc()
 						game:GetService('Players').LocalPlayer.Character.Humanoid.WalkToPoint = Vector3.new(0,0,0)
 					end
 					repeat
-						task.wait()
+						wait()
 						if kVars.autoAttackBool == false then break end
 						if v:FindFirstChild('CharId') then
 							RemoteEvent:FireServer("Animal Hit", v.CharId.Value)
@@ -961,7 +961,7 @@ end
 function magnetMeatItemsFunc()
 	spawn(function()
 		while kVars.magnetMeatItemsBool do
-			task.wait()
+			wait()
 			if kVars.magnetMeatItemsBool then
 				local amount = kVars.lplr.PlayerGui.MainGui.SideMenu.Fork.Amount.Text
 				local cAmount, mAmount = unpack(string.split(amount, "/"))
@@ -987,7 +987,7 @@ end
 function collectCoinsFunc()
 	spawn(function()
 		while kVars.collectCoinsBool do
-			task.wait()
+			wait()
 			if kVars.collectCoinsBool then
 				for i,v in pairs(game:GetService("Workspace").Currency:GetChildren()) do
 					if v and kVars.lplr.Character:FindFirstChild('RightFoot') then
@@ -1003,7 +1003,7 @@ local areaList = {}
 function unlockAreaFunc()
 	spawn(function()
 		while kVars.unlockNextAreaBool do
-			task.wait()
+			wait()
 			local v1, v2 = game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer("Get Area Data")
 			local areaUnlock = {}
 			for i,v in pairs(v1) do
@@ -1020,7 +1020,7 @@ end
 function upgradeGrillsFunc()
 	spawn(function()
 		while kVars.upgradeGrillsBool do
-			task.wait()
+			wait()
 			if kVars.upgradeGrillsBool then
 				local grillNum = 0
 				for i,v in pairs(game:GetService("Workspace").DropOffMeat:getChildren()) do
@@ -1058,7 +1058,7 @@ end
 function  buyBestWeaponFunc()
 	spawn(function()
 		while kVars.buyBestWeaponBool do
-			task.wait()
+			wait()
 			if kVars.buyBestWeaponBool then
 				local pCoins, Gems = RemoteFunc:InvokeServer("Get Currency");
 				local WeaponInv, curWeaponId = RemoteFunc:InvokeServer("Get Weapon Data")
@@ -1099,7 +1099,7 @@ end
 function  buyBestForkFunc()
 	spawn(function()
 		while kVars.buyBestForkBool do
-			task.wait()
+			wait()
 			if kVars.buyBestForkBool then
 				local pCoins, Gems = RemoteFunc:InvokeServer("Get Currency")
 				local forkInv, curForkId = RemoteFunc:InvokeServer("Get Fork Data")
@@ -1129,7 +1129,7 @@ end
 function  openEggFunc()
 	spawn(function()
 		while kVars.openEggBool do
-			task.wait()
+			wait()
 			if kVars.openEggBool then
 				if kVars.openThreeEggsBool then
 					game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase Three Eggs",kVars.eggSelection)
@@ -1145,7 +1145,7 @@ end
 function  openCrateFunc()
 	spawn(function()
 		while kVars.openHatBool do
-			task.wait()
+			wait()
 			if kVars.openHatBool then
 				if kVars.openThreeCrateBool then
 					game:GetService("ReplicatedStorage").RemoteEvent:FireServer("Purchase Three Eggs",kVars.crateSelection)
@@ -1161,7 +1161,7 @@ end
 function  openChestsFunc()
 	spawn(function()
 		while kVars.chestBool do
-			task.wait()
+			wait()
 			for i,v in pairs(game:GetService("Workspace").Chests:getChildren()) do
 				if v.Bottom:FindFirstChild('Emitter') and game:GetService('Players').LocalPlayer.Character:FindFirstChild('RightFoot') then
 					firetouchinterest(kVars.lplr.Character.RightFoot, v.Bottom.Emitter, 0)
@@ -1176,7 +1176,7 @@ end
 function  dropOffMeatFunc()
 	spawn(function()
 		while kVars.dropOffMeatBool do
-			task.wait()
+			wait()
 			if kVars.dropOffMeatBool then
 				RemoteEvent:FireServer('Drop Off Meat')
 			end
@@ -1188,7 +1188,7 @@ end
 function  collectGrillCoinsFunc()
 	spawn(function()
 		while kVars.collectGrillCoinsBool do
-			task.wait()
+			wait()
 			if kVars.collectGrillCoinsBool then
 				RemoteEvent:FireServer('Collect Grill Coins')
 			end
@@ -1200,7 +1200,7 @@ end
 function rebirthFunc()
 	spawn(function()
 		while kVars.rebirthBool do
-			task.wait()
+			wait()
 			local pCoins, Gems = RemoteFunc:InvokeServer("Get Currency")
 			local getRebirths = game:GetService("ReplicatedStorage").RemoteFunction:InvokeServer("Get Rebirths")
 			local cost = nil
@@ -1221,7 +1221,7 @@ end
 
 ---- walkspeed ----
 spawn(function()
-	while task.wait() do
+	while wait() do
 		if kVars.closing then break end
 		if kVars.walkSpeed ~= nil then
 			game:GetService('Players').LocalPlayer.Character.Humanoid.WalkSpeed = kVars.walkSpeed
@@ -1272,7 +1272,7 @@ success, response = pcall(function()
 kVars.closeing = game:GetService("CoreGui").ChildRemoved:Connect(function(child)
 	if child.Name == "Sizzling Simulator GUI By Keathunsar" then
 		kVars.closing = true
-		task.wait(.1)
+		wait(.1)
 		kVars.JRC:Disconnect()
 		kVars.MT:Disconnect()
 
