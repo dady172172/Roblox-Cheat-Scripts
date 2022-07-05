@@ -1,4 +1,4 @@
-{
+return {
 "Michael",
 "Christopher",
 "Jessica",
