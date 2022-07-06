@@ -90,16 +90,16 @@ local closestCoin = nil
 local lastCoin = math.huge
 spawn(function()
     while wait() do
-        local plrWorld = tostring(game:GetService("Players").LocalPlayer.Leaderstats.currentWorld.Value)
-        local a = game:GetService("Workspace")["__THINGS"].Coins[plrWorld]:GetChildren()
-        local b = game.Players.LocalPlayer.Character.HumanoidRootPart
+
         lastCoin = math.huge
-        for i,v in pairs(a) do
-            if v ~= nil and v:FindFirstChild("Coin") ~= nil and game:GetService("Workspace")["__THINGS"].Coins:FindFirstChild(plrWorld)  then
-                local distance = (b.Position - v.Coin.Position).magnitude
-                if distance < lastCoin then
-                    closestCoin = v
-                    lastCoin = distance
+        if game:GetService("Workspace")["__THINGS"].Coins:FindFirstChildWhichIsA("Folder") then
+            for i,v in pairs(game:GetService("Workspace")["__THINGS"].Coins:FindFirstChildWhichIsA("Folder"):GetChildren()) do
+                if v ~= nil and v:FindFirstChild("Coin") ~= nil and game:GetService("Workspace")["__THINGS"].Coins:FindFirstChildWhichIsA("Folder")  then
+                    local distance = (game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position - v.Coin.Position).magnitude
+                    if distance < lastCoin then
+                        closestCoin = v
+                        lastCoin = distance
+                    end
                 end
             end
         end
@@ -114,15 +114,10 @@ end)
 function fCollectCoins()
     spawn(function()
         while kVars.boolCollectCoins do
-            local a = closestCoin
-            local plrArea = game:GetService("Players").LocalPlayer.Leaderstats.currentWorld.Value
-            repeat
-                wait()
-                if a and a:FindFirstChild("Coin") and a.Coin:FindFirstChild("ClickDetector") then
-                    fireclickdetector(a.Coin.ClickDetector)
-                end
-            until a == nil or a:FindFirstChild("Coin") == nil or kVars.boolCollectCoins == false --or area ~= game:GetService("Players").LocalPlayer.Leaderstats.currentWorld.Value
-            lastCoin = math.huge
+            wait()
+            if closestCoin ~= nil and closestCoin:FindFirstChild("Coin") then
+                game:GetService("Workspace")["__THINGS"]["__REMOTES"].clickedButton:FireServer(closestCoin.Coin,closestCoin)
+            end   
         end
     end)
 end
