@@ -28,7 +28,7 @@ Now with that out of the way.. Have fun and stay safe.
     A:Please check and make sure that the script is for the game you are playing. By opening the link at the top of the script. Where it says "Game : https:....". This link provides the exact game the script was made for. If it is for your game then please report it here on GitHub.
 
 -   Q:Can I request you make a script for a game?\
-    A:You can request scripts. But weather I make them or not, is up to me. Sorry.
+    A:You can request scripts. But whether I make them or not, is up to me. Sorry.
 
 -   Q:Can I request a feature be added to a Script/GUI?\
     A:Yes. But its up to me if I want to add that feature or not. Feedback is always welcome.

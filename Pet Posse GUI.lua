@@ -67,7 +67,7 @@ local Window = library.new(kVars.WindowName, 5013109572)
 local pageFarm = Window:addPage("Farm", 3117485989)
 local sectionAutoFarm = pageFarm:addSection("Auto Farm")
 local sectionRebirth = pageFarm:addSection("Rebirth")
-local sectionUnlocks = pageFarm:addSection("Unlocks")
+local sectionUnlocks = pageFarm:addSection("Unlocks *Some may not always work!")
 
 local pageEggs = Window:addPage("Eggs", 9194077649)
 local sectionEggs = pageEggs:addSection("Auto Open")
@@ -90,19 +90,20 @@ local closestCoin = nil
 local lastCoin = math.huge
 spawn(function()
     while wait() do
-
         lastCoin = math.huge
+        local tmpclosest = nil
         if game:GetService("Workspace")["__THINGS"].Coins:FindFirstChildWhichIsA("Folder") then
             for i,v in pairs(game:GetService("Workspace")["__THINGS"].Coins:FindFirstChildWhichIsA("Folder"):GetChildren()) do
                 if v ~= nil and v:FindFirstChild("Coin") ~= nil and game:GetService("Workspace")["__THINGS"].Coins:FindFirstChildWhichIsA("Folder")  then
                     local distance = (game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position - v.Coin.Position).magnitude
                     if distance < lastCoin then
-                        closestCoin = v
+                        tmpclosest = v
                         lastCoin = distance
                     end
                 end
             end
         end
+        closestCoin = tmpclosest
     end   
 end)
 
@@ -115,9 +116,26 @@ function fCollectCoins()
     spawn(function()
         while kVars.boolCollectCoins do
             wait()
+            ccCheck = closestCoin
             if closestCoin ~= nil and closestCoin:FindFirstChild("Coin") then
-                game:GetService("Workspace")["__THINGS"]["__REMOTES"].clickedButton:FireServer(closestCoin.Coin,closestCoin)
-            end   
+                if workspace["__THINGS"].Pets[kVars.lp.name]:GetChildren() ~= 0 then
+                    for i=1,#workspace["__THINGS"].Pets[kVars.lp.name]:GetChildren() do
+                        task.wait(.02)
+                        fireclickdetector(closestCoin.Coin.ClickDetector)
+                    end
+                end
+                repeat
+                    task.wait()
+                    if kVars.boolRebirth and kVars.lp.PlayerGui.Notifications.Level.Text == "MAX LEVEL!" then task.wait(2) end
+                    local response1 = pcall(function()  
+                        game:GetService("Workspace")["__THINGS"]["__REMOTES"].clickedButton:FireServer(closestCoin.Coin,closestCoin)
+                    end) 
+                    if not response1 then
+                        fCollectCoins() 
+                        return
+                    end
+                until kVars.boolCollectCoins == false or closestCoin ~= ccCheck
+            end
         end
     end)
 end
@@ -131,17 +149,8 @@ function fRebirth()
     spawn(function()
         while kVars.boolRebirth do
             wait()
-            function getnumbersfromtext(txt)
-                local str = ""
-                string.gsub(txt,"%d+",function(e)
-                str = str .. e
-                end)
-                return str;
-            end
-            local a = getnumbersfromtext(game:GetService("Players").LocalPlayer.PlayerGui.Rebirths.Frame.RebirthsRequired.Text)
-            local b = game:GetService("Players").LocalPlayer.Leaderstats.Level.Value
-            if tonumber(a) == tonumber(b) then
-                game:GetService("Workspace").__THINGS.__REMOTES.rebirth:InvokeServer(game:GetService("Players").LocalPlayer)
+            if kVars.lp.PlayerGui.Notifications.Level.Text == "MAX LEVEL!" then
+                game:GetService("Workspace").__THINGS.__REMOTES.rebirth:InvokeServer(kVars.lp)
             end
         end
     end)
@@ -297,54 +306,3 @@ kVars.ClosingConnect = game:GetService("CoreGui").ChildRemoved:Connect(function(
 end)
 
 syn.protect_gui(game:GetService("CoreGui")[kVars.WindowName])
-
-
-
---[[
-section1:addToggle("Title", false, function(bool)
-   kVars.bool = bool
-   if bool then function() end
-end)
-section1:addButton("Title", function()
-   print("Clicked")
-end)
-section1:addTextbox("Notification", "Default", function(value, focusLost)
-   print("Input", value)
-
-   if focusLost then
-      Window:Notify("Title", value)
-   end
-end)
-
-section2:addKeybind("Toggle Keybind", Enum.KeyCode.One, function()
-   print("Activated Keybind")
-   Window:toggle()
-end, function()
-   print("Changed Keybind")
-end)
-section2:addColorPicker("ColorPicker", Color3.fromRGB(50, 50, 50))
-section2:addColorPicker("ColorPicker2")
-section2:addSlider("Slider", min, current, max, function(value)
-   print("Dragged", value)
-end)
-kVars.list1 = {"Hello", "World", "Hello World", "Word", 1, 2, 3}
-section2:addDropdown("Dropdown", kVars.list1, function(txt)
-   print(txt)
-end)
-section2:addButton("Button", function()
-   kVars.list1 = {"fuck you", "and your", "mom"}
-end)
-
--- second page
-local theme = Window:addPage("Theme", 5012544693)
-local colors = theme:addSection("Colors")
-
-for theme, color in pairs(themes) do --all in one theme changer, i know, im cool
-   colors:addColorPicker(theme, color, function(color3)
-      Window:setTheme(theme, color3)
-   end)
-end
-Window:Notify("title", "msg")
--- load
-Window:SelectPage(Window.pages[1], true) -- no default for more freedom
-]]--
