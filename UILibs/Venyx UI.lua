@@ -90,6 +90,9 @@ function f()
     end)
 end
 
+sectionAutoFarm:addButton("close",function()
+    Window:Destroy()
+end)
 
 ---- player stats section ----
 sectionPlayerStats:addSlider("Walk Speed", 16, kVars.lp.Character:WaitForChild('Humanoid').WalkSpeed, 1024, function(value)
