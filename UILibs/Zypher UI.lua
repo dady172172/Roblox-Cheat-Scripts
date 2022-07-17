@@ -35,7 +35,7 @@ local Window = library:CreateMain({
 })
 
 local pageMain = Window:CreateCategory("Main")
-local sectionAutoAttack = pageMain:CreateSection("Farm")
+local sectionFarm = pageMain:CreateSection("Farm")
 
 local pageTeleport = Window:CreateCategory("Teleport")
 local sectionTPToPlayer = pageTeleport:CreateSection("Teleport To Player")
@@ -79,13 +79,13 @@ kVars.walkSpeed = kVars.humanoid.WalkSpeed
 sectionCharacter:Create("Slider", "Walk Speed", function(value)
     kVars.walkSpeed = value
     kVars.humanoid.WalkSpeed = value
-end,{min = 16, max = 500, default = kVars.humanoid.WalkSpeed, precise = false, changablevalue = true})
+end,{min = 16, max = 500, default = kVars.humanoid.walkSpeed, precise = false, changablevalue = true})
 
-kVars.jumpPower = kVars.humanoid.JumpPower
-sectionCharacter:Create("Slider", "Jump Power", function(value)
-    kVars.jumpPower = value
-    kVars.humanoid.JumpPower = value
-end,{min = 50, max = 500, default = kVars.humanoid.JumpPower, precise = false, changablevalue = true})
+kVars.jumpHeight = kVars.humanoid.JumpHeight
+sectionCharacter:Create("Slider", "Jump Height", function(value)
+    kVars.jumpHeight = value
+    kVars.humanoid.JumpHeight = value
+end,{min = 7.2, max = 500, default = kVars.humanoid.jumpHeight, precise = true, changablevalue = true})
 
 
 kVars.plrAdded = game.Players.LocalPlayer.CharacterAdded:Connect(function(child)
@@ -93,7 +93,7 @@ kVars.plrAdded = game.Players.LocalPlayer.CharacterAdded:Connect(function(child)
     kVars.hrp = kVars.lp.Character:WaitForChild('HumanoidRootPart', 999999)
     task.wait(1)
     kVars.humanoid.WalkSpeed = kVars.walkSpeed
-    kVars.humanoid.JumpPower = kVars.jumpPower
+    kVars.humanoid.JumpHeight = kVars.jumpHeight
 end)
 
 kVars.boolInfJump = false
