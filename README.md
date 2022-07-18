@@ -1,4 +1,5 @@
 # Roblox-Cheats
+If you have issues with the scripts or would like to contact me. You can join my discord at [https://discord.gg/MhMB3c2CBn](https://discord.gg/MhMB3c2CBn).\
 Scripts that have GUI in there name, mean that they have an interface in game (Buttons and Dropdowns). The scripts that do not have GUI in the name require a Global variable to be turned on and off.\
 I provide a game link at the top of every script, so there is no confusion about which game the script is for.\
 The scripts in "Others" is just some scripts that other people have made that I have found usefull.\

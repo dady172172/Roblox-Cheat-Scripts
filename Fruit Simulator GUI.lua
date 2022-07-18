@@ -94,33 +94,35 @@ sectionAutoFarm:addToggle("Teleport to fruit", false, function(bool)
     if bool then fttf() end
 end)
 
+kVars.selectedFruitToAttack = nil
 function fttf()
     spawn(function()
         while kVars.boolttf do
             wait()
-            local fttpt
-            local list = {}
             local last = math.huge
             for i,v in pairs(game:GetService("Workspace").Fruits:GetChildren()) do
-                if kVars.boolttf == false then return end
-                if v.Transparency == 0 then
-                    table.insert(list,v)
+                local dist = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Position).magnitude
+                if dist < last then
+                    last = dist
+                    kVars.selectedFruitToAttack = v
                 end
-            end
-            for i,v in pairs(list) do
-                if kVars.boolttf == false then return end
-                local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Position).magnitude
-                if distance < last then
-                    last = distance
-                    fttpt = v
-                end
-            end 
-            repeat
-                wait(2)
-                if kVars.boolttf == false then return end
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = fttpt.CFrame
 
-            until kVars.boolttf == false or fttpt == nil or fttpt.Transparency == 1
+            end
+        end
+    
+    end)
+
+    spawn(function()
+        while kVars.boolttf do
+            wait()
+            local closest = kVars.selectedFruitToAttack
+            repeat
+                wait()
+                local curDist = (closest.Position - game.Players.localPlayer.Character.Position).magnitude
+                if curDist > 2 then
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = closest.CFrame
+                end
+            until kVars.boolttf == false or curDist == nil or closest.Transparency == 1
             
         end
     end)
