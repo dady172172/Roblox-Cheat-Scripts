@@ -157,6 +157,65 @@ sectionMisc:Create("Toggle", "Purchase Prompt",function(bool)
     game:GetService("CoreGui").PurchasePrompt.Enabled = bool
 end,{default = game:GetService("CoreGui").PurchasePrompt.Enabled})
 
+kVars.Esp = {}
+kVars.boolEsp = false
+sectionMisc:Create("Toggle", "Player ESP",function(bool)
+    kVars.boolEsp = bool
+    if not bool then
+        for i,v in pairs(game.Players:GetPlayers()) do
+            if kVars.Esp[v] then
+                kVars.Esp[v].Drawing:Remove()
+            end
+        end
+        kVars.Esp = {}
+    else
+        fEsp()
+    end
+end,{default = kVars.boolEsp})
+
+kVars.plrRemovingConnect = game:GetService("Players").PlayerRemoving:Connect(function(player)
+    kVars.Esp[player].Drawing:Remove()
+end)
+
+function fEsp()
+    spawn(function()
+        while kVars.boolEsp do
+            task.wait()
+            pcall(function()
+                for i,v in pairs(game.Players:GetPlayers()) do
+                    if kVars.boolEsp == false then break end
+                    if kVars.lp.name ~= v.name and kVars.boolEsp then
+                        if not kVars.Esp[v] then
+                            kVars.Esp[v] = {}
+                            kVars.Esp[v].Drawing = Drawing.new("Text")
+                            kVars.Esp[v].Drawing.Visible = false
+                            kVars.Esp[v].Drawing.Size = 16
+                            kVars.Esp[v].Drawing.Color = Color3.fromRGB(0, 255, 60)
+                            kVars.Esp[v].Drawing.Transparency = 1
+                            kVars.Esp[v].Drawing.ZIndex = 1
+                            kVars.Esp[v].Drawing.Center = true
+                            kVars.Esp[v].Drawing.Font = 3
+                            kVars.Esp[v].Drawing.Outline = true
+                            kVars.Esp[v].Drawing.OutlineColor = Color3.fromRGB(0,0,0)
+                            kVars.Esp[v].Drawing.Text = v.name
+                        end
+                        if v.Character:FindFirstChild("Head") then
+                            local vector, onScreen = game.Workspace.CurrentCamera:WorldToScreenPoint(game.Players[v.name].Character.Head.Position)
+                            if onScreen then
+                                kVars.Esp[v].Drawing.Visible = true
+                                kVars.Esp[v].Drawing.Position = Vector2.new(vector.x, vector.y)
+                            else
+                                kVars.Esp[v].Drawing.Visible = false
+                            end
+                        end
+                    end
+                end
+            end)
+        end
+    end)
+end
+
+
 ----========== page credits ==========----
 ---- keaths ----
 sectionCreditsKeath:Create("Button", "https://github.com/dady172172/Roblox-Cheats", function()
@@ -172,6 +231,9 @@ sectionCreditsAlex:Create("Button", "https://teppyboy.github.io/", function()
     setclipboard('https://teppyboy.github.io/Mirrors/Documentations/Zypher_UI/zypher.wtf/docs/main.html')
 end,{animated = true})
 
+----========== set window size after load ==========----
+game:GetService("CoreGui"):FindFirstChild(kVars.WindowName).Motherframe.Size = UDim2.new(0, 495, 0, 400)
+
 ----========== delete script if re-injecting ==========----
 
 kVars.cR = game:GetService("CoreGui").ChildRemoved:Connect(function(child)
@@ -185,6 +247,7 @@ kVars.cR = game:GetService("CoreGui").ChildRemoved:Connect(function(child)
         kVars.connectInputBegan:Disconnect()
         kVars.connectJumpRequest:Disconnect()
         kVars.plrAdded:Disconnect()
+        kVars.plrRemovingConnect:Disconnect()
         wait(1)
         script:Destroy()
         kVars.cR:Disconnect()
