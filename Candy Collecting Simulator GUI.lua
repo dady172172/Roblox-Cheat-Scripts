@@ -66,7 +66,7 @@ end)
 function fRebirth()
     spawn(function()
         while kVars.boolRebirth do
-            wait()   
+            task.wait()   
             kVars.NetworkHandler:FireServer("Rebirth")
         end
     end)

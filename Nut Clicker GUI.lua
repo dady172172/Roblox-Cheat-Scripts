@@ -6,7 +6,7 @@ Gui made by : https://v3rmillion.net/member.php?action=profile&uid=244024
 
 ---- Variables ----
 kVars = {}
-kVars.WindowName = "Nut Clicker"
+kVars.WindowName = "Nut Clicker GUI"
 kVars.txtName = kVars.WindowName .. ".txt"
 kVars.lp = game:GetService('Players').LocalPlayer
 kVars.rs = game:GetService('ReplicatedStorage')
