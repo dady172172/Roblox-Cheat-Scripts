@@ -109,6 +109,10 @@ end)
 
 ----========== page misc ==========----
 ---- section keybinds ----
+sectionMisc:Create("Button", "Destroy this GUI",function()
+    game:GetService("CoreGui"):FindFirstChild(kVars.WindowName):Destroy()
+end,{animated = true})
+
 kVars.OpenCloseMenuKey = Enum.KeyCode.F5
 sectionKeybinds:Create("KeyBind", "Open Close Menu", function(key)
     kVars.OpenCloseMenuKey = key
@@ -140,19 +144,11 @@ sectionWorld:Create("Toggle", "Fog",function(bool)
     end
 end,{default = kVars.boolFog})
 
-sectionWorld:Create("Toggle", "Sun Rays",function(bool)
-    game:GetService("Lighting").SunRays.Enabled = bool
-end,{default = game:GetService("Lighting").SunRays.Enabled})
-
-sectionWorld:Create("Toggle", "Blur",function(bool)
-    game:GetService("Lighting").Blur.Enabled = bool
-end,{default = game:GetService("Lighting").Blur.Enabled})
-
-sectionWorld:Create("Toggle", "Bloom",function(bool)
-    game:GetService("Lighting").Bloom.Enabled = bool
-end,{default = game:GetService("Lighting").Bloom.Enabled})
-
 ---- sections options ----
+sectionMisc:Create("Button", "Destroy this GUI",function()
+    game:GetService("CoreGui"):FindFirstChild(kVars.WindowName):Destroy()
+end,{animated = true})
+
 sectionMisc:Create("Toggle", "Purchase Prompt",function(bool)
     game:GetService("CoreGui").PurchasePrompt.Enabled = bool
 end,{default = game:GetService("CoreGui").PurchasePrompt.Enabled})
