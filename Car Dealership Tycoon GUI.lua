@@ -54,7 +54,16 @@ function fDrive()
         end
         while kVars.boolDrive do
             wait()
-            kVars.plrcar:SetPrimaryPartCFrame(CFrame.new(-696.489014, 639.160217, -202.22522, 0, 0, -0.99986887, 0.00146542024, 0.999997497, -0.0016944519, 0.999869227, -0.00149252068, -0.0161045454))
+            if not workspace["Keaths Platform"] then
+                local part = Instance.new("Part")
+                part.Position = Vector3.new(0,60,0)
+                part.Size = Vector3.new(1000,5,1000)
+                part.Anchored = true
+                part.Name = "Keaths Platform"
+                part.CollisionGroupId = 5
+                part.Parent = workspace
+            end
+            kVars.plrcar:SetPrimaryPartCFrame(CFrame.new(0, 65, 0))
             keypress(87)
             wait(5)
         end
