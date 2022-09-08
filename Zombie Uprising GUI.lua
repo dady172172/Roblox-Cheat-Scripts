@@ -7,6 +7,8 @@ Features:
     Triggerbot
     Collect All Drops
 
+***** Make sure you zoom out befor holding left-control *****
+
 Boronide™ Premium Obfuscation, v0.6.1
 ]]--
 
