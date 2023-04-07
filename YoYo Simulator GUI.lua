@@ -72,7 +72,8 @@ function fUseYoYo()
             if kVars.char:FindFirstChildWhichIsA("Tool") then
                 tempTool = kVars.char:FindFirstChildWhichIsA("Tool").name
             else
-                game:GetService("ReplicatedStorage").GameEvents.ToolEvents.UpdateTool:FireServer()
+                game:GetService("ReplicatedStorage").GameEvents.ToolEvents.UpdateTool:FireServer(nil, game.Players.LocalPlayer)
+                Wait(.1)
                 tempTool = kVars.char:FindFirstChildWhichIsA("Tool").name
             end
 
@@ -139,28 +140,20 @@ function fCollectItems()
                 if kVars.boolCollectItems == false then break end
 
                 if v:FindFirstChild("HitBox") and v:FindFirstChild("Floor").Value == kVars.lp.ClientData.CurrentArea.Value then
-                    local hb = v.HitBox
-                    local hbCFrame = hb.CFrame
-                    hb.CFrame = kVars.hrp.CFrame
-                    wait(.1)
-                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, hb, 0)
-                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, hb, 1)
-                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, hb, 0)
-                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, hb, 1)
-                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, hb, 0)
-                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, hb, 1)
-                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, hb, 0)
-                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, hb, 1)
-                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, hb, 0)
-                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, hb, 1)
-                    
-                    wait(.1)
-                    hb.CFrame = hbCFrame
+                    local count = 0
+                    repeat
+                        wait()
+                        count = count + 1
+                        if (v:FindFirstChild("HitBox").Position - kVars.hrp.Position).Magnitude > 6 or count >= 2 then
+                            kVars.hrp.CFrame = v.HitBox.CFrame
+                            wait(.3)
+                            count = 0
+                        end
+                        if kVars.boolCollectItems == false then break end
+                    until not v:FindFirstChild("HitBox")
+
                 end
 
-
-                
-                
             end
         end
     end)
@@ -169,7 +162,7 @@ end
 
 
 
-
+--[[
 sectionUpgrades:Create("Toggle", "",function(bool)
     kVars.bool = bool
     if bool then
@@ -189,7 +182,7 @@ function f()
             game:GetService("ReplicatedStorage").GameEvents.RankEvents.BuyRank:FireServer(unpack(args))
         end
     end)
-end
+end]]--
 
 
 
