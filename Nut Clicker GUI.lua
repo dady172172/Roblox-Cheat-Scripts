@@ -83,7 +83,7 @@ end)
 function fClick()
     spawn(function()
         while kVars.boolClick do
-            wait()
+            task.wait()
             game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
             game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()
             game:GetService("Players").LocalPlayer.PlayerGui.Clicker.ClickerFrame.TextButton.Giver.RemoteFunction:InvokeServer()

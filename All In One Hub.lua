@@ -56,7 +56,7 @@ elseif g == 6849418972 then
 elseif g == 2845217850 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Hat%20Simulator%20GUI.lua"))()
 elseif g == 2423809996 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Ice%20Cream%20Simulator%20GUI.lua"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/ICE%20CREAM%20SIMULATOR%20GUI.lua"))()
 elseif g == 2970570231 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Ice%20Cream%20Van%20Simulator%20GUI.lua"))()
 elseif g == 2662100821 then
@@ -93,6 +93,10 @@ elseif g == 6284583030 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Pet%20Simulator%20X%20GUI.lua"))()
 elseif g == 9969599224 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Poo%20Tycoon%20GUI.lua"))()
+elseif g == 1502601752 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Rabbit%20Simulator%202%20GUI.lua"))()
+elseif g == 10919241870 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Rarity%20Factory%20Tycoon%20GUI.lua"))()
 elseif g == 8540346411 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Rebirth%20Champions%20X%20GUI.lua"))()
 elseif g == 245440965 then
@@ -111,6 +115,8 @@ elseif g == 7535149098 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Space%20Tycoon%20GUI.lua"))()
 elseif g == 3191992205 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Speed%20World%20GUI.lua"))()
+elseif g == 11254130090 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Strongest%20Tapper%20Simulator%20GUI.lua"))()
 elseif g == 6766156863 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Strongman%20Simulator%20GUI.lua"))()
 elseif g == 6137522359 then
@@ -127,6 +133,8 @@ elseif g == 4535346003 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Wing%20Simulator%20GUI.lua"))()
 elseif g == 1373038156 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Woodchopping%20Simulator%20GUI.lua"))()
+elseif g == 7606302010 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/YoYo%20Simulator%20GUI.lua"))()
 elseif g == 5714256147 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Zombie%20Simulator%20GUI.lua"))()
 elseif g == 4972091010 then
