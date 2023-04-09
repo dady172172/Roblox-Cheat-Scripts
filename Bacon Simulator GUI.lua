@@ -40,32 +40,6 @@ function autoSell()
     end)
 end
 
-b:Toggle("Hoops",function(bool)
-    kVars.varHoops = bool
-    if bool then collectHoops() end
-end)
-
-function collectHoops()
-    spawn(function()
-        while kVars.varHoops do
-            wait()
-            for a,b in pairs(game:GetService("Workspace").Islands.Hops:GetChildren()) do --spawnpart
-                for c,d in pairs(b:GetChildren()) do -- gemhop
-                    for e,f in pairs(d:GetChildren()) do --mainpart
-                        
-                        if f.Name == "MainPart" then
-                            firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,f,0)
-                            wait()
-                            firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,f,1)
-                        end
-                    end
-                end
-            end
-        end
-    end)
-
-end
-
 b:Toggle("Gems",function(bool)
     kVars.varGems = bool
     if bool then collectGems() end
@@ -73,34 +47,24 @@ end)
 
 function collectGems()
     spawn(function()
-        while kVars.varGems do
-            wait()
-            for a,b in pairs(game:GetService("Workspace").GemsHolder:GetChildren()) do
-                
-                for c,d in pairs(b:GetChildren()) do
-                    
-                    for e,f in pairs(d:GetChildren()) do
-                        
-                        if f.Name == "Gem" then
-                            wait(.1)
-                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = f.CFrame
-                           --[[
-                                firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, f, 0)
-                                wait(.01)
-                                firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, f, 1)
-                                if kVars.varGems == false then return end
-                            ]]--
-
-                            if kVars.varGems == false then return end
-                        end
-                        if kVars.varGems == false then return end
-                    end
-                    if kVars.varGems == false then return end
+        pcall(function()
+            while kVars.varGems do
+                wait()
+            
+                for a,b in pairs(game:GetService("Workspace").GemsHolder:GetDescendants()) do
+                    if b.name == "TouchInterest" then
+                        repeat
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = b.Parent.CFrame
+                            wait(.3)
+                            if kVars.varGems == false then break end
+                        until not b.Parent
+                        if kVars.varGems == false then break end
+                    end 
                 end
-                if kVars.varGems == false then return end
+                if kVars.varGems == false then break end
+                
             end
-            if kVars.varGems == false then return end
-        end
+        end)
     end)
 end
 

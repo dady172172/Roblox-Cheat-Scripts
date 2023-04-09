@@ -9,8 +9,8 @@ Go vouch release thread : https://v3rmillion.net/showthread.php?tid=1023761
 ---- variables ----
 kVars = {} -- Table for all the variables
 kVars.WindowName = "Balloon Simulator GUI"
-kVars.lp = game:GetService("Players").LocalPlayer
-kVars.hrp = kVars.lp.Character:FindFirstChild("HumanoidRootPart")
+kVars.lp = game:GetService("Players").LocalPlayer or game:GetService("Players"):WaitForChild("LocalPlayer")
+kVars.hrp = kVars.lp.Character:FindFirstChild("HumanoidRootPart") or kVars.lp:WaitForChild("Character"):WaitForChild("HumanoidRootPart")
 kVars.VirtualUser = game:service('VirtualUser')
 ---- if re-injecting script, we wait for the old one to close and turn all option off
 if game:GetService("CoreGui"):FindFirstChild(kVars.WindowName) then
