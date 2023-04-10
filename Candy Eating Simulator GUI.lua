@@ -31,6 +31,8 @@ function fCollectCandy()
             wait()
             if game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool") then
                 kVars.network:FireServer("Candy", game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool").Name)
+            else
+                game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").keathunsar.Backpack:FindFirstChildOfClass("Tool"))
             end
         end
     end)
@@ -47,6 +49,27 @@ function fSell()
             wait()
             firetouchinterest(game.Players.LocalPlayer.Character.LeftFoot,game:GetService("Workspace").Activations.SpawnSell.Touch,0)
             firetouchinterest(game.Players.LocalPlayer.Character.LeftFoot,game:GetService("Workspace").Activations.SpawnSell.Touch,1)
+        end
+    end)
+end
+
+
+
+
+f:Toggle("XP Stars",function(bool)
+    kVars.boolXPStars = bool
+    if bool then fXPStars() end
+end)
+
+function fXPStars()
+    spawn(function()
+        while kVars.boolXPStars do
+            wait()
+            for i,v in pairs(game:GetService("Workspace").PetXPSpawns.Zone1.Holder:GetChildren()) do
+                wait()
+                firetouchinterest(game.Players.LocalPlayer.Character.LeftFoot, game:GetService("Workspace").Activations.SpawnSell.Touch, 0)
+                firetouchinterest(game.Players.LocalPlayer.Character.LeftFoot, game:GetService("Workspace").Activations.SpawnSell.Touch, 1)
+            end
         end
     end)
 end
