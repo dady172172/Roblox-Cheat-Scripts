@@ -8,12 +8,20 @@ getgenv().EatFood = true -- change to false to stop
 
 local hrp = game.Players.LocalPlayer.Character.HumanoidRootPart
 while getgenv().EatFood do
-    task.wait()
-    for i,v in pairs(game:GetService("Workspace").Food:GetChildren()) do
-        if v:FindFirstChild("TouchInterest") and v.Name ~= "Tomato" then
-            task.wait()
-            firetouchinterest(hrp, v, 0)
-            firetouchinterest(hrp, v, 1)
-        end
+    wait()
+    for i,v in pairs(game:GetService("Workspace"):GetDescendants()) do
+        if v.name == "TouchInterest" then
+            if v.Parent.name == "UpperTorso" then
+                if game.Players[v.Parent.Parent.name].leaderstats.Mass.Value < game.Players.LocalPlayer.leaderstats.Mass.Value then
+                    firetouchinterest(game.Players.LocalPlayer.Character.UpperTorso, v.Parent, 0)
+                    firetouchinterest(game.Players.LocalPlayer.Character.UpperTorso, v.Parent, 1)
+                end
+            else
+                firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Parent, 0)
+                firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Parent, 1)
+          
+            end
+        end  
     end
+    
 end

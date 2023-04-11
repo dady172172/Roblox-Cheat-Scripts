@@ -1,5 +1,5 @@
 --[[
-Game : 
+Game : https://www.roblox.com/games/6284583030
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats : https://discord.gg/MhMB3c2CBn
 GUI Made by : xTheAlex14 : https://teppyboy.github.io/Mirrors/Documentations/Zypher_UI/zypher.wtf/docs/uilibdocs.html
 ]]--
@@ -160,7 +160,7 @@ end,{default = kVars.booCollectAllGifts})
 function fCollectAllGifts()
     spawn(function()
         while kVars.booCollectAllGifts do   
-            for i,v in pairs(game:GetService("Players").keathunsar.PlayerGui.FreeGifts.Frame.Container.Gifts:GetChildren()) do
+            for i,v in pairs(game:GetService("Players").LocalPlayer.PlayerGui.FreeGifts.Frame.Container.Gifts:GetChildren()) do
                 if v.ClassName == "TextButton" and string.find(v.name, "Gift") and v.Text ~= "" then
                     workspace.__THINGS.__REMOTES:FindFirstChild("redeem free gift"):InvokeServer({tonumber(string.match(v.name,"%d+"))})
                 end

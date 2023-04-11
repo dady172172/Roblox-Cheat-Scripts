@@ -1,11 +1,11 @@
 --[[
-Game : 
+Game : https://www.roblox.com/games/12074193845
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats : https://discord.gg/MhMB3c2CBn
 GUI Made by : xTheAlex14 : https://teppyboy.github.io/Mirrors/Documentations/Zypher_UI/zypher.wtf/docs/uilibdocs.html
 ]]--
 ---- vars ----
 kVars = {}
-kVars.WindowName = "Halloween Night GUI"
+kVars.WindowName = "+1 Clicker Jump Race GUI"
 kVars.lp = game:GetService('Players').LocalPlayer
 kVars.vu = game:GetService('VirtualUser')
 kVars.uis = game:GetService('UserInputService')
@@ -54,69 +54,59 @@ local sectionCreditsAlex = pageCredits:CreateSection("UI-Lib by : xTheAlex14")
 
 ----========== page main ==========----
 ---- Farm ----
-sectionFarm:Create("Toggle", "Ring DoorBells",function(bool)
-    kVars.boolRingDoorBells = bool
-    if boolRingDoorBells then
-        fRingDoorBells()
+sectionFarm:Create("Toggle", "Click",function(bool)
+    kVars.boolClick = bool
+    if bool then
+        fClick()
     end
-end,{default = kVars.boolRingDoorBells})
+end,{default = kVars.boolClick})
 
-function fRingDoorBells()
+function fClick()
     spawn(function()
-        while kVars.boolRingDoorBells do
-            task.wait(.5)
-            for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
-                if v.Name == "House" and v:FindFirstChild("DoorBell") then
-                    fireclickdetector(v.DoorBell.ClickDetector)
-                end
-            end
-        end
-    end)
-end
-
-
-sectionFarm:Create("Toggle", "Collect Candy",function(bool)
-    kVars.boolCollectCandy = bool
-    if boolCollectCandy then
-        fCollectCandy()
-    end
-end,{default = kVars.boolCollectCandy})
-
-function fCollectCandy()
-    spawn(function()
-        while kVars.boolCollectCandy do
-            task.wait(.5)
-            for i,v in pairs(game:GetService("Workspace"):GetChildren()) do
-                if v.Name == "Candy" and v:FindFirstChild("ClickDetector") then
-                    fireclickdetector(v.ClickDetector)
-                end
-            end
-        end
-    end)
-end
-
-sectionFarm:Create("Toggle", "Sell Candy",function(bool)
-    kVars.boolSellCandy = bool
-    if boolSellCandy then
-        fSellCandy()
-    end
-end,{default = kVars.boolSellCandy})
-
-function fSellCandy()
-    spawn(function()
-        while kVars.boolSellCandy do
+        while kVars.boolClick do
             task.wait()
-            one, two = game:GetService("Players").keathunsar.PlayerGui.MainGui.Frame.Candies.amount.Text:match("([^/]+),([^/]+)")
-            
+            local args = {
+                [1] = game:GetService("Players").LocalPlayer,
+                [2] = 0
+            }
 
-            game:GetService("ReplicatedStorage").SellCandyEvents.sellCandyEvent:FireServer(one)
+            game:GetService("Players").LocalPlayer.PlayerGui.StarterJump.click.startbonus.LocalScript.event.click:FireServer(unpack(args))
+
         end
     end)
 end
 
+sectionFarm:Create("Toggle", "Win",function(bool)
+    kVars.boolWin = bool
+    if bool then
+        fWin()
+    end
+end,{default = kVars.boolWin})
 
+function fWin()
+    spawn(function()
+        while kVars.boolWin do
+            wait()
+            kVars.hrp.CFrame = game:GetService("Workspace").WinParts.super1.CFrame
+        end
+    end)
+end
 
+sectionFarm:Create("Toggle", "Rebirth",function(bool)
+    kVars.boolRebirth = bool
+    if bool then
+        fRebirth()
+    end
+end,{default = kVars.boolRebirth})
 
+function fRebirth()
+    spawn(function()
+        while kVars.boolRebirth do
+            wait(1)
+            game:GetService("Players").LocalPlayer.PlayerGui.sidebuttons.RebirthFrame.Frame:FindFirstChild("1Earth").RebirthButton.LocalScript.Script.Rebirth:FireServer(game:GetService("Players").LocalPlayer)
+        end
+    end)
+end
 
 ----========== page teleport ==========----
 ---- section teleport to player ----

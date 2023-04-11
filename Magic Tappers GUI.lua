@@ -1,11 +1,11 @@
 --[[
-Game : https://www.roblox.com/games/9055667368
+Game : https://www.roblox.com/games/11481101550
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats : https://discord.gg/MhMB3c2CBn
 GUI Made by : xTheAlex14 : https://teppyboy.github.io/Mirrors/Documentations/Zypher_UI/zypher.wtf/docs/uilibdocs.html
 ]]--
 ---- vars ----
 kVars = {}
-kVars.WindowName = "Fruit Simulator GUI"
+kVars.WindowName = "Magic Tappers GUI"
 kVars.lp = game:GetService('Players').LocalPlayer
 kVars.vu = game:GetService('VirtualUser')
 kVars.uis = game:GetService('UserInputService')
@@ -54,94 +54,53 @@ local sectionCreditsAlex = pageCredits:CreateSection("UI-Lib by : xTheAlex14")
 
 ----========== page main ==========----
 ---- Farm ----
-sectionFarm:Create("Toggle", "Attack",function(bool)
-    kVars.boolAttack = bool
+sectionFarm:Create("Toggle", "Click",function(bool)
+    kVars.boolClick = bool
     if bool then
-        fAttack()
+        fClick()
     end
-end,{default = kVars.boolAttack})
+end,{default = kVars.boolClick})
 
-function fAttack()
+function fClick()
     spawn(function()
-        while kVars.boolAttack do
-            wait()
-            kVars.vu:CaptureController()
-            kVars.vu:ClickButton1(Vector2.new())
+        while kVars.boolClick do
+            task.wait()
+            game.ReplicatedStorage.Framework.Communication.Events.Tap:FireServer()
         end
     end)
 end
 
-sectionFarm:Create("Toggle", "Teleport to fruit",function(bool)
-    kVars.boolTPFruit = bool
+sectionFarm:Create("Toggle", "",function(bool)
+    kVars.bool = bool
     if bool then
-        fTPFruit()
+        f()
     end
-end,{default = kVars.boolTPFruit})
+end,{default = kVars.bool})
 
-function fTPFruit()
+function f()
     spawn(function()
-        while kVars.boolTPFruit do
+        while kVars.bool do
             wait()
-
-            local closest = nil
-            local last = math.huge
-            for i,v in pairs(game:GetService("Workspace").Fruits:GetChildren()) do
-                local dist = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Position).magnitude
-                if dist < last and v.Transparency ~= 1 then
-                    last = dist
-                    closest = v
-                end
-
-            end
-            repeat
-                wait()
-                local curDist = (closest.Position - game.Players.localPlayer.Character.HumanoidRootPart.Position).magnitude
-                if curDist > 2 then
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = closest.CFrame
-                end
-                if kVars.boolTPFruit ==  false then break end
-            until kVars.boolTPFruit == false or curDist == nil or closest.Transparency == 1
+            
         end
     end)
 end
 
-sectionFarm:Create("Toggle", "Sell",function(bool)
-    kVars.boolSell = bool
+sectionFarm:Create("Toggle", "",function(bool)
+    kVars.bool = bool
     if bool then
-        fSell()
+        f()
     end
-end,{default = kVars.boolSell})
+end,{default = kVars.bool})
 
-function fSell()
+function f()
     spawn(function()
-        while kVars.boolSell do
-            firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,game:GetService("Workspace").GameplayAssets.SellAreas.Sell.Part,0)
+        while kVars.bool do
             wait()
-            firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart,game:GetService("Workspace").GameplayAssets.SellAreas.Sell.Part,1)
-            wait(.3)
+            
         end
     end)
 end
-
-sectionFarm:Create("Toggle", "Rebirth",function(bool)
-    kVars.boolRebirth = bool
-    if bool then
-        fRebirth()
-    end
-end,{default = kVars.boolRebirth})
-
-function fRebirth()
-    spawn(function()
-        while kVars.boolRebirth do
-            wait()
-            local v1 = require(game.ReplicatedStorage:WaitForChild("FrameworkClient"))
-            local u1 = v1.GetModule("Network")
-            u1:FireServer("Rebirth")
-            wait(3)
-        end
-    end)
-end
-
 
 ----========== page teleport ==========----
 ---- section teleport to player ----
@@ -169,10 +128,10 @@ sectionCharacter:Create("Slider", "Walk Speed", function(value)
     kVars.humanoid.WalkSpeed = value
 end,{min = 16, max = 500, default = kVars.humanoid.walkSpeed, precise = false, changablevalue = true})
 
-kVars.jumpHeight = kVars.humanoid.JumpPower
+kVars.jumpHeight = kVars.humanoid.JumpHeight
 sectionCharacter:Create("Slider", "Jump Height", function(value)
     kVars.jumpHeight = value
-    kVars.humanoid.JumpPower = value
+    kVars.humanoid.JumpHeight = value
 end,{min = 7.2, max = 500, default = kVars.humanoid.jumpHeight, precise = true, changablevalue = true})
 
 
@@ -181,7 +140,7 @@ kVars.plrAdded = game.Players.LocalPlayer.CharacterAdded:Connect(function(child)
     kVars.hrp = kVars.lp.Character:WaitForChild('HumanoidRootPart', 999999)
     task.wait(1)
     kVars.humanoid.WalkSpeed = kVars.walkSpeed
-    kVars.humanoid.JumpPower = kVars.jumpHeight
+    kVars.humanoid.JumpHeight = kVars.jumpHeight
 end)
 
 kVars.boolInfJump = false
@@ -337,3 +296,51 @@ kVars.cR = game:GetService("CoreGui").ChildRemoved:Connect(function(child)
         kVars.cR:Disconnect()
     end
 end)
+
+
+
+--[[
+    ---- Toggle ----
+sectionUpgrades:Create("Toggle", "",function(bool)
+    kVars.bool = bool
+    if bool then
+        f()
+    end
+end,{default = kVars.bool})
+
+function f()
+    spawn(function()
+        while kVars.bool do
+            wait()
+            
+        end
+    end)
+end
+    ---- Button ----
+section:Create("Button", "", function()
+
+end,{animated = true})
+    ---- DropDown ----
+section:Create("DropDown", "", function(value)
+
+end,{options = kVars., default = kVars.[1], search = true})
+    ---- Slider ----
+section:Create("Slider", "", function(value)
+
+end,{min = 0, max = 5, default = 2, precise = false, changablevalue = true})
+    ---- Textbox ----
+section:Create("TextBox", "", function(value)
+
+end,{text = "I am texty"})
+    ---- KeyBind ----
+section:Create("KeyBind", "", function()
+
+end,{default = Enum.KeyCode.k})
+    ---- ColorPicker ----
+section:Create("ColorPicker", "", function(color)
+
+end,{default = Color3.fromRGB(255,255,255)})
+    ---- Label ----
+section:Create("Textlabel","Suck It")
+
+]]
