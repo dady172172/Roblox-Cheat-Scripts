@@ -1,5 +1,7 @@
 local g = game.PlaceId
-if g == 5932564241 then
+if g == 12074193845 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/+1%20Clicker%20Jump%20Race%20GUI.lua"))()
+elseif g == 5932564241 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Adventurer%20Simulator%20GUI.lua"))()
 elseif g == 6090639744 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Bacon%20Simulator%20GUI.lua"))()
@@ -39,6 +41,8 @@ elseif g == 3072491551 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Doge%20Simulator%20GUI.lua"))()
 elseif g == 5264342538 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Endless%20Mining%20Simulator%20GUI.lua"))()
+elseif g == 12242680183 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Every%20Second%20You%20Get%20+1%20Flight%20GUI.lua"))()
 elseif g == 3329474278 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Fishing%20Simulator%20GUI.lua"))()
 elseif g == 5598577415 then
@@ -49,8 +53,6 @@ elseif g == 9055667368 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Fruit%20Simulator%20GUI.lua"))()
 elseif g == 4926631744 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Gem%20Simulator%20GUI.lua"))()
-elseif g == 3963432370 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Halloween%20Simulator%20GUI.lua"))()
 elseif g == 6849418972 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Happy%20Simulator%20GUI.lua"))()
 elseif g == 2845217850 then
@@ -69,6 +71,8 @@ elseif g == 2610716991 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Lollipop%20Simulator%20GUI.lua"))()
 elseif g == 6720959312 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/LootQuest%20GUI.lua"))()
+elseif g == 11481101550 then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Magic%20Tappers%20GUI.lua"))()
 elseif g == 6507107360 then
     loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Magnet%20Masters%20GUI.lua"))()
 elseif g == 8592863835 then
