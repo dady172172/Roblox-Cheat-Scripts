@@ -1,11 +1,11 @@
 --[[
-Game : 
+Game : https://www.roblox.com/games/12405536423
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats : https://discord.gg/MhMB3c2CBn
 GUI Made by : xTheAlex14 : https://teppyboy.github.io/Mirrors/Documentations/Zypher_UI/zypher.wtf/docs/uilibdocs.html
 ]]--
 ---- vars ----
 kVars = {}
-kVars.WindowName = ""
+kVars.WindowName = "Mob Punch Simulator GUI"
 kVars.lp = game:GetService('Players').LocalPlayer
 kVars.vu = game:GetService('VirtualUser')
 kVars.uis = game:GetService('UserInputService')
@@ -54,21 +54,85 @@ local sectionCreditsAlex = pageCredits:CreateSection("UI-Lib by : xTheAlex14")
 
 ----========== page main ==========----
 ---- Farm ----
-sectionFarm:Create("Toggle", "",function(bool)
-    kVars.bool = bool
+sectionFarm:Create("Toggle", "Attack",function(bool)
+    kVars.boolAttack = bool
     if bool then
-        f()
+        fAttack()
     end
-end,{default = kVars.bool})
+end,{default = kVars.boolAttack})
 
-function f()
+kVars.AttackClosest = nil
+
+function fAttack()
     spawn(function()
-        while kVars.bool do
+        while kVars.boolAttack do
             wait()
+            local closest = nil
+            local last = math.huge
+            for i,v in pairs(game:GetService("Workspace").OreFolder:GetChildren()) do
+                if (v.Position - kVars.hrp.Position).Magnitude < last and v:FindFirstChild("Health").Value > 0 then
+                    last = (v.Position - kVars.hrp.Position).Magnitude
+                    closest = v
+                end
+            end
+            kVars.AttackClosest = closest
+        end
+    end)
+    spawn(function()
+        while kVars.boolAttack do
+            wait()
+            local closest = kVars.AttackClosest
+            repeat
+               
+                    wait()
+                    if (kVars.hrp.Position - closest.Position).Magnitude > 4 then
+                        kVars.humanoid.WalkToPoint = closest.Position
+                    end
+
+                    game:GetService("ReplicatedStorage").Events.RemoteEvents.processClicks:FireServer()
+               
+                if kVars.boolAttack == false then break end
+            until kVars.boolAttack == false or not closest or not closest:FindFirstChild("Health")
+        end
+    end)
+end
+
+sectionFarm:Create("Toggle", "Collect Drops",function(bool)
+    kVars.boolCollectDrops = bool
+    if bool then
+        fCollectDrops()
+    end
+end,{default = kVars.boolCollectDrops})
+
+function fCollectDrops()
+    spawn(function()
+        while kVars.boolCollectDrops do
+            wait()
+            for i,v in pairs(game:GetService("Workspace").CurrencyDrops:GetChildren()) do
+                v.CFrame = kVars.hrp.CFrame
+            end
             
         end
     end)
 end
+
+sectionFarm:Create("Toggle", "Rebirth",function(bool)
+    kVars.boolRebirth = bool
+    if bool then
+        fRebirth()
+    end
+end,{default = kVars.boolRebirth})
+
+function fRebirth()
+    spawn(function()
+        while kVars.boolRebirth do
+            wait(1)
+            game:GetService("ReplicatedStorage").Events.RemoteEvents.Rebirth:FireServer()
+        end
+    end)
+end
+
+
 
 
 ----========== page teleport ==========----

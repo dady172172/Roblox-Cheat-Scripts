@@ -1,11 +1,11 @@
 --[[
-Game : 
+Game : https://www.roblox.com/games/10873040243
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats : https://discord.gg/MhMB3c2CBn
 GUI Made by : xTheAlex14 : https://teppyboy.github.io/Mirrors/Documentations/Zypher_UI/zypher.wtf/docs/uilibdocs.html
 ]]--
 ---- vars ----
 kVars = {}
-kVars.WindowName = ""
+kVars.WindowName = "Strong Fat Simulator GUI"
 kVars.lp = game:GetService('Players').LocalPlayer
 kVars.vu = game:GetService('VirtualUser')
 kVars.uis = game:GetService('UserInputService')
@@ -36,6 +36,7 @@ local Window = library:CreateMain({
 
 local pageMain = Window:CreateCategory("Main")
 local sectionFarm = pageMain:CreateSection("Farm")
+local sectionUnlock = pageMain:CreateSection("Unlock")
 
 local pageTeleport = Window:CreateCategory("Teleport")
 local sectionTPToPlayer = pageTeleport:CreateSection("Teleport To Player")
@@ -54,21 +55,26 @@ local sectionCreditsAlex = pageCredits:CreateSection("UI-Lib by : xTheAlex14")
 
 ----========== page main ==========----
 ---- Farm ----
-sectionFarm:Create("Toggle", "",function(bool)
-    kVars.bool = bool
-    if bool then
-        f()
-    end
-end,{default = kVars.bool})
 
-function f()
-    spawn(function()
-        while kVars.bool do
-            wait()
-            
-        end
-    end)
-end
+
+sectionUnlock:Create("Button", "AutoClick", function()
+    game:GetService("Players").LocalPlayer.Data.AutoClick.Value = true
+end,{animated = true})
+
+sectionUnlock:Create("Button", "AutoRebirth", function()
+    game:GetService("Players").LocalPlayer.Data.AutoRebirth.Value = true
+end,{animated = true})
+
+sectionUnlock:Create("Button", "HatchSpeed", function()
+    game:GetService("Players").LocalPlayer.Data.HatchSpeed.Value = math.huge
+end,{animated = true})
+
+sectionUnlock:Create("Button", "UnlockAreas", function()
+    for i,v in pairs(game:GetService("Players").LocalPlayer.Zones:GetChildren()) do
+        v.Value = true
+    end
+end,{animated = true})
+
 
 
 ----========== page teleport ==========----
