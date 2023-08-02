@@ -11,7 +11,7 @@ Any of these Scripts are AT YOUR OWN RISK. I do not take responsability for bans
 Now with that out of the way.. Have fun and stay safe.
 
 # How To Use These Scripts
-1. Download your faverite Roblox injector. I use [Synapse X](https://x.synapse.to/). If you don't have one Google it.
+1. Download your favorite Roblox injector. I use PC -> [Synapse X](https://x.synapse.to/)  microsoft appstore -> [Electron](https://ryos.lol/). If you don't have one Google it.
 2. Join the game.
 3. Open the injector. The one you choose from step one.
 4. Add the text of the lua files above or load the lua file into the injector.

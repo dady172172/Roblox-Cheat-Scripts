@@ -4,15 +4,12 @@ Coded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 Gui made by : FungBert : https://v3rmillion.net/member.php?action=profile&uid=1078854
 Go vouch release thread : https://v3rmillion.net/showthread.php?tid=1023761
 ]]--
----- antiAFK ----
-if game:GetService("Players").LocalPlayer.PlayerScripts:FindFirstChild("AFKDetector") then
-    game:GetService("Players").LocalPlayer.PlayerScripts.AFKDetector:Destroy()
-    game.ReplicatedStorage.IsAFK:FireServer(false)
-end
+
 
 kVars = {}
 kVars.WindowName = "Wing Simulator GUI"
 kVars.lp = game:GetService("Players").LocalPlayer
+kVars.vu = game:GetService('VirtualUser')
 local UILibrary = loadstring(game:HttpGet("https://pastebin.com/raw/V1ca2q9s"))()
 
 local MainUI = UILibrary.Load(kVars.WindowName)
@@ -20,6 +17,12 @@ local pageFarm = MainUI.AddPage("Farm")
 local pageTeleport = MainUI.AddPage("Teleport")
 local pageCharacter = MainUI.AddPage("Player")
 local pageCredits = MainUI.AddPage("Credits")
+
+---- antiAFK ----
+game:GetService('Players').LocalPlayer.Idled:connect(function()
+    kVars.vu:CaptureController()
+    kVars.vu:ClickButton2(Vector2.new())
+ end)
 
 ---------- Farm Page ----------
 kVars.toggleClick = pageFarm.AddToggle("Click", false, function(bool)

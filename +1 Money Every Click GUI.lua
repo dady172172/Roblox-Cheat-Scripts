@@ -1,11 +1,11 @@
 --[[
-Game : 
+Game : https://www.roblox.com/games/13230182363
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats : https://discord.gg/MhMB3c2CBn
 GUI Made by : xTheAlex14 : https://teppyboy.github.io/Mirrors/Documentations/Zypher_UI/zypher.wtf/docs/uilibdocs.html
 ]]--
 ---- vars ----
 kVars = {}
-kVars.WindowName = ""
+kVars.WindowName = "+1 Money Every Click GUI"
 kVars.lp = game:GetService('Players').LocalPlayer
 kVars.vu = game:GetService('VirtualUser')
 kVars.uis = game:GetService('UserInputService')
@@ -54,17 +54,87 @@ local sectionCreditsAlex = pageCredits:CreateSection("UI-Lib by : xTheAlex14")
 
 ----========== page main ==========----
 ---- Farm ----
-sectionFarm:Create("Toggle", "",function(bool)
-    kVars.bool = bool
+sectionFarm:Create("Toggle", "Click",function(bool)
+    kVars.boolClick = bool
     if bool then
-        f()
+        fClick()
     end
-end,{default = kVars.bool})
+end,{default = kVars.boolClick})
 
-function f()
+function fClick()
     spawn(function()
-        while kVars.bool do
-            wait()
+        while kVars.boolClick do
+            task.wait()
+            game:GetService("ReplicatedStorage"):FindFirstChild("events-shared/network@GlobalEvents").placeBlock:FireServer()
+            
+        end
+    end)
+end
+
+sectionFarm:Create("Toggle", "Rebirth",function(bool)
+    kVars.boolRebirth = bool
+    if bool then
+        fRebirth()
+    end
+end,{default = kVars.boolRebirth})
+
+function fRebirth()
+    spawn(function()
+        while kVars.boolRebirth do
+            wait(1)
+            local txt = kVars.lp.PlayerGui.GameUI.Menus.Rebirth.Container.Bar.Amount.Text
+            local a = string.split(txt, "/")
+            if tonumber(a[1]) >= tonumber(a[2]:match("%d+")) then
+                firesignal(kVars.lp.PlayerGui.GameUI.Menus.Rebirth.Container.Rebirth.TextButton.MouseButton1Click )
+            end
+            
+        end
+    end)
+end
+
+sectionFarm:Create("Toggle", "Gifts",function(bool)
+    kVars.boolGifts = bool
+    if bool then
+        fGifts()
+    end
+end,{default = kVars.boolGifts})
+
+function fGifts()
+    spawn(function()
+        while kVars.boolGifts do
+            wait(1)
+            for i,v in pairs(kVars.lp.PlayerGui.GameUI.Menus.Gifts.Container:GetChildren()) do
+                if v.Name == "Card" and v.Claim.Claim.Text == "CLAIM!" then
+                    firesignal(v.TextButton.MouseButton1Click)
+                    wait(3)
+                end
+            end
+            
+        end
+    end)
+end
+
+sectionFarm:Create("Toggle", "Wheel",function(bool)
+    kVars.boolWheel = bool
+    if bool then
+        fWheel()
+    end
+end,{default = kVars.boolWheel})
+
+function fWheel()
+    spawn(function()
+        while kVars.boolWheel do
+            wait(1)
+            local spinNum = kVars.lp.PlayerGui.GameUI.SpinPrompt.Timer.Label.Text
+            if not string.find(spinNum, ":") then
+                if tonumber(spinNum:match("%d+")) >= 1 then
+                    
+                    pcall(function()
+                        firesignal(kVars.lp.PlayerGui.GameUI.Menus.Spin.Wheel.Spin.TextButton.MouseButton1Click)
+                        wait(3)
+                    end)
+                end
+            end
             
         end
     end)
@@ -183,7 +253,7 @@ sectionMisc:Create("Toggle", "Player ESP",function(bool)
     else
         fEsp()
     end
-end,{default = kVars.boolEsp})
+end,{default = kVars.boolEsp or false})
 
 kVars.plrRemovingConnect = game:GetService("Players").PlayerRemoving:Connect(function(player)
     kVars.Esp[player].Drawing:Remove()

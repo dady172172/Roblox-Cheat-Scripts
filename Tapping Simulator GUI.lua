@@ -93,12 +93,14 @@ function fTap()
     spawn(function()
         while kVars.boolTap do
             wait()
-            game:GetService("ReplicatedStorage").Events.Tap:InvokeServer()
+            game:GetService("ReplicatedStorage").Events.Tap:FireServer("Main")
         end
     end)
 end
 
-local rebirthList =  {"1","5","10","20","100","500","2000","4500"}
+local RebirthBtnData = require(game:GetService("ReplicatedStorage").Data.RebirthButtonData)
+
+local rebirthList =  {"1","5","10","20","100","500","2000","4500","32000"}
 kVars.selectedRebirth = nil
 sectionRebirth:addDropdown("Rebirth Amount", rebirthList, function(txt)
     kVars.selectedRebirth = txt
@@ -339,7 +341,7 @@ kVars.ClosingConnect = game:GetService("CoreGui").ChildRemoved:Connect(function(
 	end
 end)
 
-syn.protect_gui(game:GetService("CoreGui")[kVars.WindowName])
+--syn.protect_gui(game:GetService("CoreGui")[kVars.WindowName])
 
 
 
