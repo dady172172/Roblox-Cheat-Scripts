@@ -1,11 +1,11 @@
 --[[
-Game : 
+Game : https://www.roblox.com/games/4742587533
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats : https://discord.gg/MhMB3c2CBn
 GUI Made by : xTheAlex14 : https://teppyboy.github.io/Mirrors/Documentations/Zypher_UI/zypher.wtf/docs/uilibdocs.html
 ]]--
 ---- vars ----
 kVars = {}
-kVars.WindowName = ""
+kVars.WindowName = "Cookie Simulator GUI"
 kVars.lp = game:GetService('Players').LocalPlayer
 kVars.vu = game:GetService('VirtualUser')
 kVars.uis = game:GetService('UserInputService')
@@ -37,8 +37,12 @@ local Window = library:CreateMain({
 local pageMain = Window:CreateCategory("Main")
 local sectionFarm = pageMain:CreateSection("Farm")
 
+local pageEgg = Window:CreateCategory("Eggs/Pets")
+local sectionEggs = pageEgg:CreateSection("Eggs")
+
 local pageTeleport = Window:CreateCategory("Teleport")
 local sectionTPToPlayer = pageTeleport:CreateSection("Teleport To Player")
+local sectionTpLocation = pageTeleport:CreateSection("Teleport To Location")
 
 local pageCharacter = Window:CreateCategory("Character")
 local sectionCharacter = pageCharacter:CreateSection("Options")
@@ -54,22 +58,73 @@ local sectionCreditsAlex = pageCredits:CreateSection("UI-Lib by : xTheAlex14")
 
 ----========== page main ==========----
 ---- Farm ----
-sectionFarm:Create("Toggle", "",function(bool)
-    kVars.bool = bool
+sectionFarm:Create("Toggle", "Eat",function(bool)
+    kVars.boolEat = bool
     if bool then
-        f()
+        fEat()
     end
-end,{default = kVars.bool})
+end,{default = kVars.boolEat})
 
-function f()
+function fEat()
     spawn(function()
-        while kVars.bool do
-            wait()
-            
+        while kVars.boolEat do
+            task.wait()            
+            game:GetService("Players").LocalPlayer.Character.EatingScript.RemoteEvent:FireServer(kVars.lp)
         end
     end)
 end
 
+sectionFarm:Create("Toggle", "Sell",function(bool)
+    kVars.boolSell = bool
+    if bool then
+        fSell()
+    end
+end,{default = kVars.boolSell})
+
+function fSell()
+    spawn(function()
+        while kVars.boolSell do
+            wait()
+            firetouchinterest(kVars.hrp, game:GetService("Workspace").ImportantPlaces.Sells.WinterSell.TouchPart, 0)
+            wait()
+            firetouchinterest(kVars.hrp, game:GetService("Workspace").ImportantPlaces.Sells.WinterSell.TouchPart, 1)
+        end
+    end)
+end
+
+kVars.boolScreenSpam = true
+kVars.lp.PlayerGui.Main.GuiMain.AnnouncementLabel.Visible = true
+sectionFarm:Create("Toggle", "Screen Spam",function(bool)
+    kVars.boolScreenSpam = bool
+    kVars.lp.PlayerGui.Main.GuiMain.AnnouncementLabel.Visible = bool    
+end,{default = kVars.boolScreenSpam})
+
+
+
+----========== Eggs/Pets ==========----
+---- section eggs ----
+kVars.EggsList = {"Standard Egg", "Water Egg", "Desert Egg", "Volcano Egg", "Winter Egg"}
+kVars.SelectedEgg = kVars.EggsList[1]
+sectionEggs:Create("DropDown", "Select A Egg", function(value)
+    kVars.SelectedEgg = value
+end,{options = kVars.EggsList, default = kVars.EggsList[1], search = true})
+
+sectionEggs:Create("Toggle", "Open",function(bool)
+    kVars.boolOpenEgg = bool
+    if bool then
+        fOpenEgg()
+    end
+end,{default = kVars.boolOpenEgg})
+
+function fOpenEgg()
+    spawn(function()
+        while kVars.boolOpenEgg do
+            wait()
+            game:GetService("Players").LocalPlayer.PlayerGui.Main.Scripts.ClientPetBillboardsHandler.ButtonClicked:FireServer("StandardOpening", kVars.SelectedEgg)
+
+        end
+    end)
+end
 
 ----========== page teleport ==========----
 ---- section teleport to player ----
@@ -87,6 +142,23 @@ sectionTPToPlayer:Create("Button", "Teleport To Player", function()
         end
     end
 end,{animated = true})
+
+
+---- section tp location ----
+kVars.tpLocations = {
+    {name = "Spawn", cf = CFrame.new(1525.75806, 48.2266655, 290.544952, 0.999970853, -1.54213335e-08, -0.00763810519, 1.52937574e-08, 1, -1.67608967e-08, 0.00763810519, 1.66435932e-08, 0.999970853)},
+    {name = "Atlantis", cf = CFrame.new(2506.15063, 622.84729, 1285.88904, -0.474126846, 1.00399063e-07, -0.880456567, 6.10621953e-08, 1, 8.11486203e-08, 0.880456567, -1.52878687e-08, -0.474126846)},
+    {name = "Desert", cf = CFrame.new(-2826.95215, 702.989075, 2238.08813, 0.375460356, 1.84522033e-08, 0.926838458, 4.96579773e-08, 1, -4.00251032e-08, -0.926838458, 6.10527664e-08, 0.375460356)},
+    {name = "Volcano", cf = CFrame.new(1641.04285, 779.481506, -1034.96582, -0.787788749, -2.16198242e-08, -0.615945518, -3.46673978e-08, 1, 9.2390664e-09, 0.615945518, 2.86316606e-08, -0.787788749)},
+    {name = "Winter", cf = CFrame.new(-1004.38837, 48.5266685, 563.528992, 0.224171296, -1.62119171e-08, 0.97454977, 6.93026792e-08, 1, 6.93905156e-10, -0.97454977, 6.73833611e-08, 0.224171296)}
+}
+
+for i,v in pairs(kVars.tpLocations) do
+    sectionTpLocation:Create("Button", v.name, function()
+        kVars.hrp.CFrame = v.cf
+    end,{animated = true})
+end
+
 
 
 ----========== page character ==========----
@@ -267,51 +339,3 @@ kVars.cR = game:GetService("CoreGui").ChildRemoved:Connect(function(child)
         kVars.cR:Disconnect()
     end
 end)
-
-
-
---[[
-    ---- Toggle ----
-sectionFarm:Create("Toggle", "",function(bool)
-    kVars.bool = bool
-    if bool then
-        f()
-    end
-end,{default = kVars.bool})
-
-function f()
-    spawn(function()
-        while kVars.bool do
-            wait()
-            
-        end
-    end)
-end
-    ---- Button ----
-section:Create("Button", "", function()
-
-end,{animated = true})
-    ---- DropDown ----
-section:Create("DropDown", "", function(value)
-
-end,{options = kVars., default = kVars.[1], search = true})
-    ---- Slider ----
-section:Create("Slider", "", function(value)
-
-end,{min = 0, max = 5, default = 2, precise = false, changablevalue = true})
-    ---- Textbox ----
-section:Create("TextBox", "", function(value)
-
-end,{text = "I am texty"})
-    ---- KeyBind ----
-section:Create("KeyBind", "", function()
-
-end,{default = Enum.KeyCode.k})
-    ---- ColorPicker ----
-section:Create("ColorPicker", "", function(color)
-
-end,{default = Color3.fromRGB(255,255,255)})
-    ---- Label ----
-section:Create("Textlabel","Suck It")
-
-]]

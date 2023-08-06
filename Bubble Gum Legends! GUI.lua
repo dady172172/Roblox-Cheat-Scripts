@@ -1,11 +1,11 @@
 --[[
-Game : 
+Game : https://www.roblox.com/games/13145713603
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats : https://discord.gg/MhMB3c2CBn
 GUI Made by : xTheAlex14 : https://teppyboy.github.io/Mirrors/Documentations/Zypher_UI/zypher.wtf/docs/uilibdocs.html
 ]]--
 ---- vars ----
 kVars = {}
-kVars.WindowName = ""
+kVars.WindowName = "Bubble Gum Legends! GUI"
 kVars.lp = game:GetService('Players').LocalPlayer
 kVars.vu = game:GetService('VirtualUser')
 kVars.uis = game:GetService('UserInputService')
@@ -54,18 +54,37 @@ local sectionCreditsAlex = pageCredits:CreateSection("UI-Lib by : xTheAlex14")
 
 ----========== page main ==========----
 ---- Farm ----
-sectionFarm:Create("Toggle", "",function(bool)
-    kVars.bool = bool
+sectionFarm:Create("Toggle", "Bubble",function(bool)
+    kVars.boolBubble = bool
     if bool then
-        f()
+        fBubble()
     end
-end,{default = kVars.bool})
+end,{default = kVars.boolBubble})
 
-function f()
+function fBubble()
     spawn(function()
-        while kVars.bool do
-            wait()
+        while kVars.boolBubble do
+            task.wait()
+            game:GetService("ReplicatedStorage").FireBubble:FireServer()
+
+        end
+    end)
+end
+
+sectionFarm:Create("Toggle", "Sell",function(bool)
+    kVars.boolSell = bool
+    if bool then
+        fSell()
+    end
+end,{default = kVars.boolSell})
+
+function fSell()
+    spawn(function()
+        while kVars.boolSell do
             
+            firetouchinterest(kVars.hrp, game:GetService("Workspace").SellPartModel, 0)
+            wait()
+            firetouchinterest(kVars.hrp, game:GetService("Workspace").SellPartModel, 1)
         end
     end)
 end
@@ -186,9 +205,7 @@ sectionMisc:Create("Toggle", "Player ESP",function(bool)
 end,{default = kVars.boolEsp})
 
 kVars.plrRemovingConnect = game:GetService("Players").PlayerRemoving:Connect(function(player)
-    if kVars.Esp[player] then
-        kVars.Esp[player].Drawing:Remove()
-    end
+    kVars.Esp[player].Drawing:Remove()
 end)
 
 function fEsp()

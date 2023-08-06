@@ -1,11 +1,11 @@
 --[[
-Game : 
+Game : https://www.roblox.com/games/13275270457
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats : https://discord.gg/MhMB3c2CBn
 GUI Made by : xTheAlex14 : https://teppyboy.github.io/Mirrors/Documentations/Zypher_UI/zypher.wtf/docs/uilibdocs.html
 ]]--
 ---- vars ----
 kVars = {}
-kVars.WindowName = ""
+kVars.WindowName = "Merge to Get Rich Tycoon! GUI"
 kVars.lp = game:GetService('Players').LocalPlayer
 kVars.vu = game:GetService('VirtualUser')
 kVars.uis = game:GetService('UserInputService')
@@ -54,18 +54,104 @@ local sectionCreditsAlex = pageCredits:CreateSection("UI-Lib by : xTheAlex14")
 
 ----========== page main ==========----
 ---- Farm ----
-sectionFarm:Create("Toggle", "",function(bool)
-    kVars.bool = bool
+sectionFarm:Create("Toggle", "Collect",function(bool)
+    kVars.boolCollect = bool
     if bool then
-        f()
+        fCollect()
     end
-end,{default = kVars.bool})
+end,{default = kVars.boolCollect})
 
-function f()
+function fCollect()
     spawn(function()
-        while kVars.bool do
+        while kVars.boolCollect do
             wait()
-            
+            for i,v in pairs(game.workspace.Tycoons[tostring(game:GetService("Workspace").LocalTycoon.Value)].CurrentDrops:GetChildren()) do        
+                pcall(function()
+                    if v:FindFirstChild("Bound") then
+                        firetouchinterest(kVars.hrp, v.Bound, 0)
+                        wait()
+                        firetouchinterest(kVars.hrp, v.Bound, 1)
+                    end
+                end)
+            end
+        end
+    end)
+end
+
+sectionFarm:Create("Toggle", "Deposit",function(bool)
+    kVars.boolDeposit = bool
+    if bool then
+        fDeposit()
+    end
+end,{default = kVars.boolDeposit})
+
+function fDeposit()
+    spawn(function()
+        while kVars.boolDeposit do
+            local depositBtn = game.workspace.Tycoons[tostring(game:GetService("Workspace").LocalTycoon.Value)].OtherButtons.Deposit.ActivePart
+            wait()
+            pcall(function()
+                firetouchinterest(kVars.hrp, depositBtn, 0)
+                wait()
+                firetouchinterest(kVars.hrp, depositBtn, 1)
+            end)
+        end
+    end)
+end
+
+sectionFarm:Create("Toggle", "+1 Stack",function(bool)
+    kVars.boolStack1 = bool
+    if bool then
+        fStack1()
+    end
+end,{default = kVars.boolStack1})
+
+function fStack1()
+    spawn(function()
+        while kVars.boolStack1 do
+            local stack1Btn = game.workspace.Tycoons[tostring(game:GetService("Workspace").LocalTycoon.Value)].BuyItemButtons.Item1Button.ActivePart
+            wait()
+            firetouchinterest(kVars.hrp, stack1Btn, 0)
+            wait()
+            firetouchinterest(kVars.hrp, stack1Btn, 1)
+        end
+    end)
+end
+
+sectionFarm:Create("Toggle", "Merge",function(bool)
+    kVars.boolMerge = bool
+    if bool then
+        fMerge()
+    end
+end,{default = kVars.boolMerge})
+
+function fMerge()
+    spawn(function()
+        while kVars.boolMerge do
+            local mergeBtn = game.workspace.Tycoons[tostring(game:GetService("Workspace").LocalTycoon.Value)].OtherButtons.Merge.ActivePart
+            wait()
+            firetouchinterest(kVars.hrp, mergeBtn, 0)
+            wait()
+            firetouchinterest(kVars.hrp, mergeBtn, 1)
+        end
+    end)
+end
+
+sectionFarm:Create("Toggle", "Upgrade",function(bool)
+    kVars.boolUpgrade = bool
+    if bool then
+        fUpgrade()
+    end
+end,{default = kVars.boolUpgrade})
+
+function fUpgrade()
+    spawn(function()
+        while kVars.boolUpgrade do
+            local UpgradeBtn = game.workspace.Tycoons[tostring(game:GetService("Workspace").LocalTycoon.Value)].OtherButtons.UpgradeSell.ActivePart
+            wait()
+            firetouchinterest(kVars.hrp, UpgradeBtn, 0)
+            wait()
+            firetouchinterest(kVars.hrp, UpgradeBtn, 1)
         end
     end)
 end
@@ -269,49 +355,3 @@ kVars.cR = game:GetService("CoreGui").ChildRemoved:Connect(function(child)
 end)
 
 
-
---[[
-    ---- Toggle ----
-sectionFarm:Create("Toggle", "",function(bool)
-    kVars.bool = bool
-    if bool then
-        f()
-    end
-end,{default = kVars.bool})
-
-function f()
-    spawn(function()
-        while kVars.bool do
-            wait()
-            
-        end
-    end)
-end
-    ---- Button ----
-section:Create("Button", "", function()
-
-end,{animated = true})
-    ---- DropDown ----
-section:Create("DropDown", "", function(value)
-
-end,{options = kVars., default = kVars.[1], search = true})
-    ---- Slider ----
-section:Create("Slider", "", function(value)
-
-end,{min = 0, max = 5, default = 2, precise = false, changablevalue = true})
-    ---- Textbox ----
-section:Create("TextBox", "", function(value)
-
-end,{text = "I am texty"})
-    ---- KeyBind ----
-section:Create("KeyBind", "", function()
-
-end,{default = Enum.KeyCode.k})
-    ---- ColorPicker ----
-section:Create("ColorPicker", "", function(color)
-
-end,{default = Color3.fromRGB(255,255,255)})
-    ---- Label ----
-section:Create("Textlabel","Suck It")
-
-]]
