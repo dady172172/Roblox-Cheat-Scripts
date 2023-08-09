@@ -1,146 +1,85 @@
-local g = game.PlaceId
-if g == 12074193845 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/+1%20Clicker%20Jump%20Race%20GUI.lua"))()
-elseif g == 5932564241 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Adventurer%20Simulator%20GUI.lua"))()
-elseif g == 6090639744 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Bacon%20Simulator%20GUI.lua"))()
-elseif g == 2756231960 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Balloon%20Simulator%20GUI.lua"))()
-elseif g == 6048603509 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Blademaster%20GUI.lua"))()
-elseif g == 4058282580 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Boxing%20Simulator%20GUI.lua"))()
-elseif g == 5852812686 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Candy%20Clicking%20Simulator%20GUI.lua"))()
-elseif g == 3963432370 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Candy%20Collecting%20Simulator%20GUI.lua"))()
-elseif g == 7277614831 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Candy%20Eating%20Simulator%20GUI.lua"))()
-elseif g == 1554960397 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Car%20Dealership%20Tycoon%20GUI.lua"))()
-elseif g == 6569721593 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Clapper%20Clicker%20GUI.lua"))()
-elseif g == 2726456994 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Click%20To%20Grow%20GUI.lua"))()
-elseif g == 5827736698 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Clicking%20Lords%20GUI.lua"))()
-elseif g == 6647511053 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Coin%20Collecting%20Simulator%20by%20Starlight%20Games%20GUI.lua"))()
-elseif g == 2484088625 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Coin%20Collecting%20Simulator%20GUI.lua"))()
-elseif g == 5093293793 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Coin%20Collection%20Simulator%20GUI.lua"))()
-elseif g == 6482128340 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Collecting%20Mania!%20GUI.lua"))()
-elseif g == 8689635909 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Cookie%20Simulator%202%20GUI.lua"))()
-elseif g == 6712319386 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Dig%20It%20GUI.lua"))()
-elseif g == 3072491551 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Doge%20Simulator%20GUI.lua"))()
-elseif g == 5264342538 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Endless%20Mining%20Simulator%20GUI.lua"))()
-elseif g == 12242680183 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Every%20Second%20You%20Get%20+1%20Flight%20GUI.lua"))()
-elseif g == 3329474278 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Fishing%20Simulator%20GUI.lua"))()
-elseif g == 5598577415 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Frog%20Simulator%20GUI.lua"))()
-elseif g == 4934958405 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Fruit%20Collecting%20Simulator%20GUI.lua"))()
-elseif g == 9055667368 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Fruit%20Simulator%20GUI.lua"))()
-elseif g == 4926631744 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Gem%20Simulator%20GUI.lua"))()
-elseif g == 6849418972 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Happy%20Simulator%20GUI.lua"))()
-elseif g == 2845217850 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Hat%20Simulator%20GUI.lua"))()
-elseif g == 2423809996 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/ICE%20CREAM%20SIMULATOR%20GUI.lua"))()
-elseif g == 2970570231 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Ice%20Cream%20Van%20Simulator%20GUI.lua"))()
-elseif g == 2662100821 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Jetpack%20Simulator%20GUI.lua"))()
-elseif g == 4260821538 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Jetpack%20Universe%20GUI.lua"))()
-elseif g == 5943856429 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Knight%20Heroes%20GUI.lua"))()
-elseif g == 2610716991 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Lollipop%20Simulator%20GUI.lua"))()
-elseif g == 6720959312 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/LootQuest%20GUI.lua"))()
-elseif g == 11481101550 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Magic%20Tappers%20GUI.lua"))()
-elseif g == 6507107360 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Magnet%20Masters%20GUI.lua"))()
-elseif g == 8592863835 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Magnet%20Simulator%202%20GUI.lua"))()
-elseif g == 1509515037 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Metal%20Detecting%20Simulator%20GUI.lua"))()
-elseif g == 8884334497 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Mining%20Clicker%20Simulator%20GUI.lua"))()
-elseif g == 6209775003 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Mining%20Legends%20GUI.lua"))()
-elseif g == 6628835921 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Money%20Simulator%20X%20GUI.lua"))()
-elseif g == 5114752311 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Nut%20Clicker%20GUI.lua"))()
-elseif g == 3207803206 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Om%20Nom%20Simulator%20GUI.lua"))()
-elseif g == 1113197103 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Ore%20Tycoon%202%20GUI.lua"))()
-elseif g == 8303902695 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Pet%20Posse%20GUI.lua"))()
-elseif g == 6284583030 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Pet%20Simulator%20X%20GUI.lua"))()
-elseif g == 9969599224 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Poo%20Tycoon%20GUI.lua"))()
-elseif g == 1502601752 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Rabbit%20Simulator%202%20GUI.lua"))()
-elseif g == 10919241870 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Rarity%20Factory%20Tycoon%20GUI.lua"))()
-elseif g == 8540346411 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Rebirth%20Champions%20X%20GUI.lua"))()
-elseif g == 245440965 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Shipping%20Lanes%20GUI.lua"))()
-elseif g == 6961712970 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Shoe%20Simulator%20GUI.lua"))()
-elseif g == 4572547530 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Sizzling%20Simulator%20GUI.lua"))()
-elseif g == 5951221192 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Slapping%20Frenzy%20GUI.lua"))()
-elseif g == 1097288251 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Snow%20Resort%20GUI.lua"))()
-elseif g == 2533391464 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Snowman%20Simulator%20GUI.lua"))()
-elseif g == 7535149098 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Space%20Tycoon%20GUI.lua"))()
-elseif g == 3191992205 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Speed%20World%20GUI.lua"))()
-elseif g == 11254130090 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Strongest%20Tapper%20Simulator%20GUI.lua"))()
-elseif g == 6766156863 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Strongman%20Simulator%20GUI.lua"))()
-elseif g == 6137522359 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Super%20speed%20Simulator%20GUI.lua"))()
-elseif g == 5535087806 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Tapping%20Mania%20GUI.lua"))()
-elseif g == 9498006165 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Tapping%20Simulator%20GUI.lua"))()
-elseif g == 2580982329 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Texting%20Simulator%20GUI.lua"))()
-elseif g == 6512923934 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Ultra%20Clickers%204%20GUI.lua"))()
-elseif g == 4535346003 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Wing%20Simulator%20GUI.lua"))()
-elseif g == 1373038156 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Woodchopping%20Simulator%20GUI.lua"))()
-elseif g == 7606302010 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/YoYo%20Simulator%20GUI.lua"))()
-elseif g == 5714256147 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Zombie%20Simulator%20GUI.lua"))()
-elseif g == 4972091010 then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/Zombie%20Uprising%20GUI.lua"))()
+local games = {
+    {id = 12074193845, link = "+1%20Clicker%20Jump%20Race%20GUI.lua"},
+    {id = 13230182363, link = "+1%20Money%20Every%20Click%20GUI.lua"},
+    {id = 5932564241, link = "Adventurer%20Simulator%20GUI.lua"},
+    {id = 6090639744, link = "Bacon%20Simulator%20GUI.lua"},
+    {id = 2756231960, link = "Balloon%20Simulator%20GUI.lua"},
+    {id = 6048603509, link = "Blademaster%20GUI.lua"},
+    {id = 4058282580, link = "Boxing%20Simulator%20GUI.lua"},
+    {id = 13145713603, link = "Bubble%20Gum%20Legends!%20GUI.lua"},
+    {id = 5852812686, link = "Candy%20Clicking%20Simulator%20GUI.lua"},
+    {id = 3963432370, link = "Candy%20Collecting%20Simulator%20GUI.lua"},
+    {id = 7277614831, link = "Candy%20Eating%20Simulator%20GUI.lua"},
+    {id = 1554960397, link = "Car%20Dealership%20Tycoon%20GUI.lua"},
+    {id = 6569721593, link = "Clapper%20Clicker%20GUI.lua"},
+    {id = 2726456994, link = "Click%20To%20Grow%20GUI.lua"},
+    {id = 5827736698, link = "Clicking%20Lords%20GUI.lua"},
+    {id = 6647511053, link = "Coin%20Collecting%20Simulator%20by%20Starlight%20Games%20GUI.lua"},
+    {id = 2484088625, link = "Coin%20Collecting%20Simulator%20GUI.lua"},
+    {id = 5093293793, link = "Coin%20Collection%20Simulator%20GUI.lua"},
+    {id = 6482128340, link = "Collecting%20Mania!%20GUI.lua"},
+    {id = 8689635909, link = "Cookie%20Simulator%202%20GUI.lua"},
+    {id = 4742587533, link = "Cookie%20Simulator%20GUI.lua"},
+    {id = 6712319386, link = "Dig%20It%20GUI.lua"},
+    {id = 3072491551, link = "Doge%20Simulator%20GUI.lua"},
+    {id = 5264342538, link = "Endless%20Mining%20Simulator%20GUI.lua"},
+    {id = 12242680183, link = "Every%20Second%20You%20Get%20+1%20Flight%20GUI.lua"},
+    {id = 3329474278, link = "Fishing%20Simulator%20GUI.lua"},
+    {id = 5598577415, link = "Frog%20Simulator%20GUI.lua"},
+    {id = 4934958405, link = "Fruit%20Collecting%20Simulator%20GUI.lua"},
+    {id = 9055667368, link = "Fruit%20Simulator%20GUI.lua"},
+    {id = 4926631744, link = "Gem%20Simulator%20GUI.lua"},
+    {id = 6849418972, link = "Happy%20Simulator%20GUI.lua"},
+    {id = 2845217850, link = "Hat%20Simulator%20GUI.lua"},
+    {id = 2423809996, link = "ICE%20CREAM%20SIMULATOR%20GUI.lua"},
+    {id = 2970570231, link = "Ice%20Cream%20Van%20Simulator%20GUI.lua"},
+    {id = 2662100821, link = "Jetpack%20Simulator%20GUI.lua"},
+    {id = 4260821538, link = "Jetpack%20Universe%20GUI.lua"},
+    {id = 5943856429, link = "Knight%20Heroes%20GUI.lua"},
+    {id = 2610716991, link = "Lollipop%20Simulator%20GUI.lua"},
+    {id = 6720959312, link = "LootQuest%20GUI.lua"},
+    {id = 11481101550, link = "Magic%20Tappers%20GUI.lua"},
+    {id = 6507107360, link = "Magnet%20Masters%20GUI.lua"},
+    {id = 8592863835, link = "Magnet%20Simulator%202%20GUI.lua"},
+    {id = 13275270457, link = "Merge%20to%20Get%20Rich%20Tycoon!%20GUI.lua"},
+    {id = 1509515037, link = "Metal%20Detecting%20Simulator%20GUI.lua"},
+    {id = 8884334497, link = "Mining%20Clicker%20Simulator%20GUI.lua"},
+    {id = 6209775003, link = "Mining%20Legends%20GUI.lua"},
+    {id = 12405536423, link = "Mob%20Punch%20Simulator%20GUI.lua"},
+    {id = 6628835921, link = "Money%20Simulator%20X%20GUI.lua"},
+    {id = 5114752311, link = "Nut%20Clicker%20GUI.lua"},
+    {id = 3207803206, link = "Om%20Nom%20Simulator%20GUI.lua"},
+    {id = 1113197103, link = "Ore%20Tycoon%202%20GUI.lua"},
+    {id = 8303902695, link = "Pet%20Posse%20GUI.lua"},
+    {id = 6284583030, link = "Pet%20Simulator%20X%20GUI.lua"},
+    {id = 9969599224, link = "Poo%20Tycoon%20GUI.lua"},
+    {id = 1502601752, link = "Rabbit%20Simulator%202%20GUI.lua"},
+    {id = 10919241870, link = "Rarity%20Factory%20Tycoon%20GUI.lua"},
+    {id = 8540346411, link = "Rebirth%20Champions%20X%20GUI.lua"},
+    {id = 245440965, link = "Shipping%20Lanes%20GUI.lua"},
+    {id = 6961712970, link = "Shoe%20Simulator%20GUI.lua"},
+    {id = 4572547530, link = "Sizzling%20Simulator%20GUI.lua"},
+    {id = 5951221192, link = "Slapping%20Frenzy%20GUI.lua"},
+    {id = 1097288251, link = "Snow%20Resort%20GUI.lua"},
+    {id = 2533391464, link = "Snowman%20Simulator%20GUI.lua"},
+    {id = 7535149098, link = "Space%20Tycoon%20GUI.lua"},
+    {id = 3191992205, link = "Speed%20World%20GUI.lua"},
+    {id = 10873040243, link = "Strong%20Fat%20Simulator%20GUI.lua"},
+    {id = 11254130090, link = "Strongest%20Tapper%20Simulator%20GUI.lua"},
+    {id = 6766156863, link = "Strongman%20Simulator%20GUI.lua"},
+    {id = 6137522359, link = "Super%20speed%20Simulator%20GUI.lua"},
+    {id = 5535087806, link = "Tapping%20Mania%20GUI.lua"},
+    {id = 9498006165, link = "Tapping%20Simulator%20GUI.lua"},
+    {id = 2580982329, link = "Texting%20Simulator%20GUI.lua"},
+    {id = 6512923934, link = "Ultra%20Clickers%204%20GUI.lua"},
+    {id = 4535346003, link = "Wing%20Simulator%20GUI.lua"},
+    {id = 1373038156, link = "Woodchopping%20Simulator%20GUI.lua"},
+    {id = 7606302010, link = "YoYo%20Simulator%20GUI.lua"},
+    {id = 5714256147, link = "Zombie%20Simulator%20GUI.lua"},
+    {id = 4972091010, link = "Zombie%20Uprising%20GUI.lua"}
+}
+for i,v in pairs(games) do
+    if v.id == game.PlaceId then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/dady172172/Roblox-Cheat-Scripts/master/" .. v.link))()
+    end
 end

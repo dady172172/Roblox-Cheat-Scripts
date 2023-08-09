@@ -3,6 +3,11 @@ Game : https://www.roblox.com/games/1554960397
 Coded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 Gui made by : FungBert : https://v3rmillion.net/member.php?action=profile&uid=1078854
 Go vouch release thread : https://v3rmillion.net/showthread.php?tid=1023761
+*********************************************************************************************************************
+
+keypress() on electron does not work at the moment
+
+*********************************************************************************************************************
 ]]--
 
 ---- variables ----
@@ -38,7 +43,7 @@ kVars.toggleDrive = pageFarm.AddToggle("Drive", false, function(bool)
     if bool then
         fDrive()
     else
-        keyrelease(87) 
+        keyrelease(57) 
     end
 end)
 
@@ -54,7 +59,7 @@ function fDrive()
         end
         while kVars.boolDrive do
             wait()
-            if not workspace["Keaths Platform"] then
+            if not workspace:FindFirstChild("Keaths Platform") then
                 local part = Instance.new("Part")
                 part.Position = Vector3.new(0,60,0)
                 part.Size = Vector3.new(1000,5,1000)
@@ -63,8 +68,8 @@ function fDrive()
                 part.CollisionGroupId = 5
                 part.Parent = workspace
             end
-            kVars.plrcar:SetPrimaryPartCFrame(CFrame.new(0, 65, 0))
-            keypress(87)
+            kVars.plrcar:SetPrimaryPartCFrame(CFrame.new(0, 65, 450))
+            keypress(57)
             wait(5)
         end
     end)

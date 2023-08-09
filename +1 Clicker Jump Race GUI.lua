@@ -37,6 +37,9 @@ local Window = library:CreateMain({
 local pageMain = Window:CreateCategory("Main")
 local sectionFarm = pageMain:CreateSection("Farm")
 
+local pageEggs = Window:CreateCategory("Eggs/Pets")
+local sectionEggs = pageEggs:CreateSection("Eggs")
+
 local pageTeleport = Window:CreateCategory("Teleport")
 local sectionTPToPlayer = pageTeleport:CreateSection("Teleport To Player")
 
@@ -64,7 +67,7 @@ end,{default = kVars.boolClick})
 function fClick()
     spawn(function()
         while kVars.boolClick do
-            task.wait()
+            wait()
             local args = {
                 [1] = game:GetService("Players").LocalPlayer,
                 [2] = 0
@@ -83,11 +86,15 @@ sectionFarm:Create("Toggle", "Win",function(bool)
     end
 end,{default = kVars.boolWin})
 
+kVars.Wins = tonumber(kVars.lp.leaderstats.Wins.Value)
 function fWin()
     spawn(function()
+
         while kVars.boolWin do
-            wait()
+            
             kVars.hrp.CFrame = game:GetService("Workspace").WinParts.super1.CFrame
+            wait()
+            
         end
     end)
 end
@@ -99,14 +106,107 @@ sectionFarm:Create("Toggle", "Rebirth",function(bool)
     end
 end,{default = kVars.boolRebirth})
 
+local function toNum(n)
+	if type(n) == "number" then return n end
+    n = string.gsub(n, ",", "")
+	return tonumber(n)
+end
+
 function fRebirth()
     spawn(function()
         while kVars.boolRebirth do
-            wait(1)
-            game:GetService("Players").LocalPlayer.PlayerGui.sidebuttons.RebirthFrame.Frame:FindFirstChild("1Earth").RebirthButton.LocalScript.Script.Rebirth:FireServer(game:GetService("Players").LocalPlayer)
+            wait()			
+			if toNum(kVars.lp.leaderstats.Wins.Value) >= toNum(kVars.lp.PlayerGui.sidebuttons.RebirthFrame.textframe["2amountreq"].Text) then
+				kVars.lp.PlayerGui.sidebuttons.RebirthFrame.Frame:FindFirstChild("1Earth").RebirthButton.LocalScript.Script.Rebirth:FireServer(kVars.lp)
+			end
         end
     end)
 end
+
+
+sectionFarm:Create("Toggle", "Super Rebirth",function(bool)
+    kVars.boolSuperRebirth = bool
+    if bool then
+        fSuperRebirth()
+    end
+end,{default = kVars.boolSuperRebirth})
+
+function fSuperRebirth()
+    spawn(function()
+        while kVars.boolSuperRebirth do
+            wait()
+			if toNum(kVars.lp.leaderstats.Rebirths.Value) >= 50 then
+				kVars.lp.PlayerGui.sidebuttons.SuperRebirthFrame.Frame:FindFirstChild("1Earth").RebirthButton.LocalScript.Script.SR:FireServer(kVars.lp,50,kVars.lp.leaderstats.Rebirths)
+			end
+        end
+    end)
+end
+
+
+----========== page Eggs/Pets ==========----
+---- section eggs ----
+kVars.eggsList = {}
+kVars.eggsDisplay = {}
+for i,v in pairs(game:GetService("Workspace").gameEggs:GetChildren()) do
+    local tmpA = tonumber(v.GroundPlate.SurfaceGui.EggPriceText.eggPrice.Value)
+    table.insert(kVars.eggsList, {name = v.Name, displayName = v.Name .. " - " .. tmpA, path = v, cost = tmpA})
+    table.insert(kVars.eggsDisplay, v.Name .. " - " .. tmpA)
+end
+
+table.sort(kVars.eggsList, function(a,b)
+    return a.cost< b.cost
+end)
+
+for i,v in pairs(kVars.eggsList) do
+    table.insert(kVars.eggsDisplay, v.displayName)
+end
+
+kVars.selectedEgg = kVars.eggsDisplay[1]
+
+sectionEggs:Create("DropDown", "Select an egg to open", function(value)
+    kVars.selectedEgg = value
+end,{options = kVars.eggsDisplay, default = kVars.eggsDisplay[1], search = true})
+
+sectionEggs:Create("Toggle", "Open",function(bool)
+    kVars.boolOpenEgg = bool
+    if bool then
+        fOpenEgg()
+    end
+end,{default = kVars.boolOpenEgg})
+
+function fOpenEgg()
+    spawn(function()
+        while kVars.boolOpenEgg do
+            wait()
+            for i,v in pairs(kVars.eggsList) do
+                if v.displayName == kVars.selectedEgg then
+                    if v.cost <= tonumber(kVars.lp.leaderstats.Wins.Value) and  tonumber(kVars.lp.ActionValues.CurrentInventorySpace.Value) < tonumber(kVars.lp.ActionValues.TotalInventorySpace.Value) then
+                        kVars.rs.ServerEvents.hatchEgg:FireServer(v.cost, v.path, "Single")
+                    end
+                end
+                
+            end
+            
+        end
+    end)
+end
+
+sectionEggs:Create("Toggle", "",function(bool)
+    kVars.bool = bool
+    if bool then
+        f()
+    end
+end,{default = kVars.bool})
+
+function f()
+    spawn(function()
+        while kVars.bool do
+            wait()
+            
+        end
+    end)
+end
+
 
 ----========== page teleport ==========----
 ---- section teleport to player ----
@@ -223,7 +323,9 @@ sectionMisc:Create("Toggle", "Player ESP",function(bool)
 end,{default = kVars.boolEsp})
 
 kVars.plrRemovingConnect = game:GetService("Players").PlayerRemoving:Connect(function(player)
-    kVars.Esp[player].Drawing:Remove()
+    if kVars.Esp[player] then
+        kVars.Esp[player].Drawing:Remove()
+    end
 end)
 
 function fEsp()
@@ -302,51 +404,3 @@ kVars.cR = game:GetService("CoreGui").ChildRemoved:Connect(function(child)
         kVars.cR:Disconnect()
     end
 end)
-
-
-
---[[
-    ---- Toggle ----
-sectionUpgrades:Create("Toggle", "",function(bool)
-    kVars.bool = bool
-    if bool then
-        f()
-    end
-end,{default = kVars.bool})
-
-function f()
-    spawn(function()
-        while kVars.bool do
-            wait()
-            
-        end
-    end)
-end
-    ---- Button ----
-section:Create("Button", "", function()
-
-end,{animated = true})
-    ---- DropDown ----
-section:Create("DropDown", "", function(value)
-
-end,{options = kVars., default = kVars.[1], search = true})
-    ---- Slider ----
-section:Create("Slider", "", function(value)
-
-end,{min = 0, max = 5, default = 2, precise = false, changablevalue = true})
-    ---- Textbox ----
-section:Create("TextBox", "", function(value)
-
-end,{text = "I am texty"})
-    ---- KeyBind ----
-section:Create("KeyBind", "", function()
-
-end,{default = Enum.KeyCode.k})
-    ---- ColorPicker ----
-section:Create("ColorPicker", "", function(color)
-
-end,{default = Color3.fromRGB(255,255,255)})
-    ---- Label ----
-section:Create("Textlabel","Suck It")
-
-]]
