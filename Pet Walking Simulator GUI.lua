@@ -6,7 +6,7 @@ Go vouch release thread : https://v3rmillion.net/showthread.php?tid=1040650
 ]]--
 local library = loadstring(game:HttpGet('https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/wall%20v3'))()
 kVars = {}
-kVars.windowName = "Fishing Simulator GUI" -- Window Name here
+kVars.windowName = "Pet Walking Simulator GUI" -- Window Name here
 local w = library:CreateWindow(kVars.windowName) -- Creates the window
 local b = w:CreateFolder("Farm") -- Creates the folder(U will put here your buttons,etc)
 

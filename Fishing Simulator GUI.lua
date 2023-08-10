@@ -6,12 +6,20 @@ GUI Made by : xTheAlex14 : https://teppyboy.github.io/Mirrors/Documentations/Zyp
 ---- vars ----
 kVars = {}
 kVars.WindowName = "Fishing Simulator GUI"
+kVars.placeID = 3329474278
 kVars.lp = game:GetService('Players').LocalPlayer
 kVars.vu = game:GetService('VirtualUser')
 kVars.uis = game:GetService('UserInputService')
 kVars.rs = game:GetService('ReplicatedStorage')
 kVars.humanoid = kVars.lp.Character:WaitForChild('Humanoid')
 kVars.hrp = kVars.lp.Character:WaitForChild('HumanoidRootPart')
+
+---- check for correct game ----
+if kVars.placeID ~= game.PlaceId then 
+    warn("#### - This Script is not for this game. - ####")
+    script:Destroy()
+    return 
+end
 
 ---- destroy old gui if exists ----
 if game:GetService("CoreGui"):FindFirstChild(kVars.WindowName) then
@@ -39,6 +47,7 @@ local sectionFarm = pageMain:CreateSection("Farm")
 
 local pageTeleport = Window:CreateCategory("Teleport")
 local sectionTPToPlayer = pageTeleport:CreateSection("Teleport To Player")
+local sectionTPLocation = pageTeleport:CreateSection("Location")
 
 local pageCharacter = Window:CreateCategory("Character")
 local sectionCharacter = pageCharacter:CreateSection("Options")
@@ -123,6 +132,25 @@ sectionTPToPlayer:Create("Button", "Teleport To Player", function()
     end
 end,{animated = true})
 
+---- section teleport to location ----
+kVars.Locations = {
+    {name = "Spawn", cf = CFrame.new(3.53067803, 23.0966682, -79.0282516)},
+    {name = "Sell Area", cf = CFrame.new(159, 23, -74)},
+    {name = "Rod Shop", cf = CFrame.new(59, 24, 3)},
+    {name = "Bait Shop", cf = CFrame.new(112, 24, 4)},
+    {name = "Backpack Shop", cf = CFrame.new(166, 24, 4)},
+    {name = "Fish Spot", cf = CFrame.new(4, 23, -154)},
+    {name = "Fish Spot 2", cf = CFrame.new(84, 23, -111)},
+    {name = "Fish Spot 3", cf = CFrame.new(212, 23, -196)},
+    {name = "Fish Spot 4", cf = CFrame.new(384, 23, -234)}
+}
+
+for i,v in pairs(kVars.Locations) do
+    sectionTPLocation:Create("Button", v.name, function()
+        kVars.hrp.CFrame = v.cf
+    end,{animated = true})
+end
+
 
 ----========== page character ==========----
 ---- section Character ----
@@ -160,10 +188,6 @@ end)
 
 ----========== page misc ==========----
 ---- section keybinds ----
-sectionMisc:Create("Button", "Destroy this GUI",function()
-    game:GetService("CoreGui"):FindFirstChild(kVars.WindowName):Destroy()
-end,{animated = true})
-
 kVars.OpenCloseMenuKey = Enum.KeyCode.F5
 sectionKeybinds:Create("KeyBind", "Open Close Menu", function(key)
     kVars.OpenCloseMenuKey = key
@@ -221,7 +245,9 @@ sectionMisc:Create("Toggle", "Player ESP",function(bool)
 end,{default = kVars.boolEsp})
 
 kVars.plrRemovingConnect = game:GetService("Players").PlayerRemoving:Connect(function(player)
-    kVars.Esp[player].Drawing:Remove()
+    if kVars.Esp[player] then
+        kVars.Esp[player].Drawing:Remove()
+    end
 end)
 
 function fEsp()

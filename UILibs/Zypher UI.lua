@@ -6,12 +6,20 @@ GUI Made by : xTheAlex14 : https://teppyboy.github.io/Mirrors/Documentations/Zyp
 ---- vars ----
 kVars = {}
 kVars.WindowName = ""
+kVars.placeID = 
 kVars.lp = game:GetService('Players').LocalPlayer
 kVars.vu = game:GetService('VirtualUser')
 kVars.uis = game:GetService('UserInputService')
 kVars.rs = game:GetService('ReplicatedStorage')
 kVars.humanoid = kVars.lp.Character:WaitForChild('Humanoid')
 kVars.hrp = kVars.lp.Character:WaitForChild('HumanoidRootPart')
+
+---- check for correct game ----
+if kVars.placeID ~= game.PlaceId then 
+    warn("#### - This Script is not for this game. - ####")
+    script:Destroy()
+    return 
+end
 
 ---- destroy old gui if exists ----
 if game:GetService("CoreGui"):FindFirstChild(kVars.WindowName) then
@@ -70,7 +78,6 @@ function f()
     end)
 end
 
-
 ----========== page teleport ==========----
 ---- section teleport to player ----
 kVars.SelectedTPToPlayer = kVars.lp.name
@@ -125,10 +132,6 @@ end)
 
 ----========== page misc ==========----
 ---- section keybinds ----
-sectionMisc:Create("Button", "Destroy this GUI",function()
-    game:GetService("CoreGui"):FindFirstChild(kVars.WindowName):Destroy()
-end,{animated = true})
-
 kVars.OpenCloseMenuKey = Enum.KeyCode.F5
 sectionKeybinds:Create("KeyBind", "Open Close Menu", function(key)
     kVars.OpenCloseMenuKey = key
