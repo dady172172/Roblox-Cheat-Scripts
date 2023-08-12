@@ -4,16 +4,26 @@ Coded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 Gui made by : FungBert : https://v3rmillion.net/member.php?action=profile&uid=1078854
 Go vouch release thread : https://v3rmillion.net/showthread.php?tid=1023761
 ]]--
----- antiAFK ----
-if game:GetService("Players").LocalPlayer.PlayerScripts:FindFirstChild("AFKDetector") then
-    game:GetService("Players").LocalPlayer.PlayerScripts.AFKDetector:Destroy()
-    game.ReplicatedStorage.IsAFK:FireServer(false)
-end
+
 
 kVars = {}
-kVars.WindowName = "Shoe Simulator GUI"
+kVars.WindowName = "Shoe Simulator! GUI"
+kVars.placeID = 6961712970
 kVars.lp = game:GetService("Players").LocalPlayer
 local UILibrary = loadstring(game:HttpGet("https://pastebin.com/raw/V1ca2q9s"))()
+
+---- check for correct game ----
+if kVars.placeID ~= game.PlaceId then 
+    warn("#### - This Script is not for this game. - ####")
+    script:Destroy()
+    return 
+end
+
+---- antiAFK ----
+kVars.connectAntiAfk = game:GetService('Players').LocalPlayer.Idled:connect(function()
+    kVars.vu:CaptureController()
+    kVars.vu:ClickButton2(Vector2.new())
+ end)
 
 local MainUI = UILibrary.Load(kVars.WindowName)
 local pageFarm = MainUI.AddPage("Farm")
@@ -77,10 +87,8 @@ end
 
 pageFarm.AddButton("Unlock Islands", function()
     for i,v in pairs(game:GetService("Workspace").Islands:GetChildren()) do
-        if v.Name ~= "Pirate" then
-            game:GetService("ReplicatedStorage").Remote.PlayerEvent:FireServer("UnlockIsland",workspace.Islands[v.Name].UnlockPart)
-            wait()
-        end
+        game:GetService("ReplicatedStorage").Remote.PlayerEvent:FireServer("UnlockIsland",workspace.Islands[v.Name].UnlockPart)
+        wait(.1)
     end
 end)
 

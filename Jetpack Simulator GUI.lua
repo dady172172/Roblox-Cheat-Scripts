@@ -1,90 +1,78 @@
 --[[
 Game : https://www.roblox.com/games/2662100821
-Coded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
-Gui made by : https://v3rmillion.net/member.php?action=profile&uid=244024
+Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats : https://discord.gg/MhMB3c2CBn
+GUI Made by : xTheAlex14 : https://teppyboy.github.io/Mirrors/Documentations/Zypher_UI/zypher.wtf/docs/uilibdocs.html
 ]]--
-
----- Variables ----
+---- vars ----
 kVars = {}
 kVars.WindowName = "Jetpack Simulator GUI"
-kVars.txtName = kVars.WindowName .. ".txt"
+kVars.placeID = 2662100821
 kVars.lp = game:GetService('Players').LocalPlayer
-kVars.rs = game:GetService('ReplicatedStorage')
 kVars.vu = game:GetService('VirtualUser')
-kVars.HttpService = game:GetService("HttpService")
-kVars.themes = {}
-kVars.tmp = {}
----- Load Settings ----
-if readfile and isfile and isfile(kVars.txtName) then
-    kVars.tmp = kVars.HttpService:JSONDecode(readfile(kVars.txtName))
-    for i,v in pairs(kVars.tmp) do
-        kVars.themes[i] = Color3.fromRGB(v[1], v[2], v[3])
-    end
-else
-    print("Loading defult theme. Your injector does not support readfile or isfile.")
-    kVars.themes = {
-        Background = Color3.fromRGB(24, 24, 24),
-        Glow = Color3.fromRGB(0, 0, 0),
-        Accent = Color3.fromRGB(10, 10, 10),
-        LightContrast = Color3.fromRGB(20, 20, 20),
-        DarkContrast = Color3.fromRGB(14, 14, 14),  
-        TextColor = Color3.fromRGB(255, 255, 255)
-   }
+kVars.uis = game:GetService('UserInputService')
+kVars.rs = game:GetService('ReplicatedStorage')
+kVars.humanoid = kVars.lp.Character:WaitForChild('Humanoid')
+kVars.hrp = kVars.lp.Character:WaitForChild('HumanoidRootPart')
+kVars.char = kVars.lp.Character
+
+---- check for correct game ----
+if kVars.placeID ~= game.PlaceId then 
+    warn("#### - This Script is not for this game. - ####")
+    script:Destroy()
+    return 
 end
 
----- Save Settings ----
-function saveSettings()
-    if writefile then
-        kVars.themes = {}
-        for i,v in pairs(game:GetService('CoreGui')[kVars.WindowName]:GetChildren()) do
-            if v.Name == "ColorPicker" then
-                kVars.themes[v.Title.Text] = {v.Container.Inputs.R.Textbox.text, v.Container.Inputs.G.Textbox.text, v.Container.Inputs.B.Textbox.text}
-            end
-        end
-        writefile(kVars.txtName, kVars.HttpService:JSONEncode(kVars.themes))
-    else
-        print("You do not have injector dose not support writefile.")
-    end
-end
-
----- Destroy multiple instances ----
-if game:GetService('CoreGui'):FindFirstChild(kVars.WindowName) then
-   game:GetService('CoreGui'):FindFirstChild(kVars.WindowName):Destroy()
-   wait(.2)
+---- destroy old gui if exists ----
+if game:GetService("CoreGui"):FindFirstChild(kVars.WindowName) then
+    game:GetService("CoreGui"):FindFirstChild(kVars.WindowName):Destroy()
+    wait(2)
 end
 
 ---- antiAFK ----
-kVars.AntiAfk = game:GetService('Players').LocalPlayer.Idled:connect(function()
-   kVars.vu:CaptureController()
-   kVars.vu:ClickButton2(Vector2.new())
-end)
+kVars.connectAntiAfk = game:GetService('Players').LocalPlayer.Idled:connect(function()
+    kVars.vu:CaptureController()
+    kVars.vu:ClickButton2(Vector2.new())
+ end)
 
----- Load window ----
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/zxciaz/VenyxUI/main/Reuploaded"))() --someone reuploaded it so I put it in place of the original back up so guy can get free credit.
-local Window = library.new(kVars.WindowName, 5013109572)
+---- gui build ----
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/teppyboy/RbxScripts/master/Misc/UI_Libraries/Zypher/Library.lua"))()
+local Window = library:CreateMain({
+    projName = kVars.WindowName,
+    Resizable = true,
+    MinSize = UDim2.new(0,400,0,400),
+    MaxSize = UDim2.new(0,750,0,500),
+})
 
----- pages ----
-local pageFarm = Window:addPage("Farm", 3117485989)
-local pageTeleport = Window:addPage("Teleport", 4814045731)
-local pagePlayer = Window:addPage("Player", 5012544693)
-local pageSettings = Window:addPage("Settings", 6942070576)
-local sectionAutoFarm = pageFarm:addSection("Auto Farm")
-local sectionAutoUpgrade = pageFarm:addSection("Auto Upgrade")
-local sectionTeleportAreas = pageTeleport:addSection("Areas")
-local sectionPlayerStats = pagePlayer:addSection("Stats")
-local sectionTpToPlayer = pagePlayer:addSection("Teleport To Player")
-local sectionTheme = pageSettings:addSection("Theme")
-local sectionHotkeys = pageSettings:addSection("Hotkeys")
+local pageMain = Window:CreateCategory("Main")
+local sectionFarm = pageMain:CreateSection("Farm")
+local sectionBuy = pageMain:CreateSection("Buy/Upgrade")
 
----- Auto Farm ----
-sectionAutoFarm:addToggle("Resource", false, function(bool)
+local pageTeleport = Window:CreateCategory("Teleport")
+local sectionTPToPlayer = pageTeleport:CreateSection("Teleport To Player")
+local sectionTpToLocation = pageTeleport:CreateSection("Teleport To Location")
+
+local pageCharacter = Window:CreateCategory("Character")
+local sectionCharacter = pageCharacter:CreateSection("Options")
+
+local pageMisc = Window:CreateCategory("Misc")
+local sectionKeybinds = pageMisc:CreateSection("KeyBinds")
+local sectionWorld = pageMisc:CreateSection("World Options")
+local sectionMisc = pageMisc:CreateSection("Options")
+
+local pageCredits = Window:CreateCategory("Credits")
+local sectionCreditsKeath = pageCredits:CreateSection("Coded by : Keathunsar")
+local sectionCreditsAlex = pageCredits:CreateSection("UI-Lib by : xTheAlex14")
+
+----========== page main ==========----
+---- Farm ----
+sectionFarm:Create("Toggle", "Resource",function(bool)
     kVars.boolResource = bool
-    if bool then fResource() end
-end)
+end,{default = kVars.boolResource})
 
-sectionAutoFarm:addToggle("Sell", false, function(bool)
-kVars.boolSell = bool
-end)
+
+sectionFarm:Create("Toggle", "Sell",function(bool)
+    kVars.boolSell = bool
+end,{default = kVars.boolSell})
 
 kVars.sellAreas = {
     game:GetService("Workspace").Areas.Area1.Bank.Sell,
@@ -98,72 +86,81 @@ kVars.sellAreas = {
     game:GetService("Workspace").Areas.Area17.Bank.Sell,
     game:GetService("Workspace").Areas.Area19.Bank.Sell
 }
-function fResource()
+
+
     spawn(function()
-        while kVars.boolResource do
-            wait()
-            local jp = game:GetService('ReplicatedStorage').DataFolder[game:GetService('Players').LocalPlayer.Name].JetpackData.EnergyLevel.Value
-            local target = nil
-            if jp == 1 and hrp then
-                target = game:GetService('Workspace').Areas.Area1.Coal:FindFirstChild('Coal').HitPart
-            elseif  jp == 2 and game:GetService('Workspace').Areas.Area2.Battery:FindFirstChild("Battery") then 
-                target = game:GetService('Workspace').Areas.Area1.Battery:FindFirstChild("Battery").HitPart
-            elseif  jp == 3 and game:GetService('Workspace').Areas.Area2.Solar:FindFirstChild("Solar") then
-                target = game:GetService('Workspace').Areas.Area2.Solar:FindFirstChild("Solar").HitPart
-            elseif jp == 4 and game:GetService('Workspace').Areas.Area4.Wind:FindFirstChild("Wind") then
-                target = game:GetService('Workspace').Areas.Area3.Wind:FindFirstChild("Wind").HitPart
-            elseif jp == 5 and game:GetService('Workspace').Areas.Area7.Nuclear:FindFirstChild("Nuclear") then					
-                target = game:GetService('Workspace').Areas.Area7.Nuclear:FindFirstChild("Nuclear").HitPart
-            elseif jp == 6 and game:GetService('Workspace').Areas.Area7.Plasma:FindFirstChild("Plasma") then
-                target = game:GetService('Workspace').Areas.Area7.Plasma:FindFirstChild("Plasma").HitPart
-            elseif jp == 7 and game:GetService('Workspace').Areas.Area11.Aetherium:FindFirstChild("Aetherium") then
-                target = game:GetService('Workspace').Areas.Area11.Aetherium:FindFirstChild("Aetherium").HitPart
-            elseif jp == 8 and game:GetService('Workspace').Areas.Area13.Corrodium:FindFirstChild("Corrodium") then
-                target = game:GetService('Workspace').Areas.Area13.Corrodium:FindFirstChild("Corrodium").HitPart
-            elseif jp == 9 and game:GetService('Workspace').Areas.Area13["Element 99"]:FindFirstChild("Element 99") then
-                target = game:GetService('Workspace').Areas.Area13["Element 99"]:FindFirstChild("Element 99").HitPart
-            elseif jp == 10 and game:GetService('Workspace').Areas.Area15.Galacticium:FindFirstChild("Galacticium") then
-                target = game:GetService('Workspace').Areas.Area15.Galacticium:FindFirstChild("Galacticium").HitPart
-            elseif jp == 11 and game:GetService('Workspace').Areas.Area17.Magmatium:FindFirstChild("Magmatium") then
-                target = game:GetService('Workspace').Areas.Area17.Magmatium:FindFirstChild("Magmatium").HitPart
-            elseif jp == 12 and game:GetService('Workspace').Areas.Area19["Lightning Orb"]:FindFirstChild("Lightning Orb") then
-                target = game:GetService('Workspace').Areas.Area19["Lightning Orb"]:FindFirstChild("Lightning Orb").HitPart
+        kVars.clock = os.clock() 
+        while wait() do
+            if kVars.boolResource then
+                local jp = game:GetService('ReplicatedStorage').DataFolder[kVars.lp.Name].JetpackData.EnergyLevel.Value
+                local target = nil
+                if jp == 1 and game:GetService('Workspace').Areas.Area1.Coal:FindFirstChild('Coal') then
+                    target = game:GetService('Workspace').Areas.Area1.Coal:FindFirstChild('Coal').HitPart
+                elseif  jp == 2 and game:GetService('Workspace').Areas.Area2.Battery:FindFirstChild("Battery") then 
+                    target = game:GetService('Workspace').Areas.Area1.Battery:FindFirstChild("Battery").HitPart
+                elseif  jp == 3 and game:GetService('Workspace').Areas.Area2.Solar:FindFirstChild("Solar") then
+                    target = game:GetService('Workspace').Areas.Area2.Solar:FindFirstChild("Solar").HitPart
+                elseif jp == 4 and game:GetService('Workspace').Areas.Area4.Wind:FindFirstChild("Wind") then
+                    target = game:GetService('Workspace').Areas.Area3.Wind:FindFirstChild("Wind").HitPart
+                elseif jp == 5 and game:GetService('Workspace').Areas.Area7.Nuclear:FindFirstChild("Nuclear") then					
+                    target = game:GetService('Workspace').Areas.Area7.Nuclear:FindFirstChild("Nuclear").HitPart
+                elseif jp == 6 and game:GetService('Workspace').Areas.Area7.Plasma:FindFirstChild("Plasma") then
+                    target = game:GetService('Workspace').Areas.Area7.Plasma:FindFirstChild("Plasma").HitPart
+                elseif jp == 7 and game:GetService('Workspace').Areas.Area11.Aetherium:FindFirstChild("Aetherium") then
+                    target = game:GetService('Workspace').Areas.Area11.Aetherium:FindFirstChild("Aetherium").HitPart
+                elseif jp == 8 and game:GetService('Workspace').Areas.Area13.Corrodium:FindFirstChild("Corrodium") then
+                    target = game:GetService('Workspace').Areas.Area13.Corrodium:FindFirstChild("Corrodium").HitPart
+                elseif jp == 9 and game:GetService('Workspace').Areas.Area13["Element 99"]:FindFirstChild("Element 99") then
+                    target = game:GetService('Workspace').Areas.Area13["Element 99"]:FindFirstChild("Element 99").HitPart
+                elseif jp == 10 and game:GetService('Workspace').Areas.Area15.Galacticium:FindFirstChild("Galacticium") then
+                    target = game:GetService('Workspace').Areas.Area15.Galacticium:FindFirstChild("Galacticium").HitPart
+                elseif jp == 11 and game:GetService('Workspace').Areas.Area17.Magmatium:FindFirstChild("Magmatium") then
+                    target = game:GetService('Workspace').Areas.Area17.Magmatium:FindFirstChild("Magmatium").HitPart
+                elseif jp == 12 and game:GetService('Workspace').Areas.Area19["Lightning Orb"]:FindFirstChild("Lightning Orb") then
+                    target = game:GetService('Workspace').Areas.Area19["Lightning Orb"]:FindFirstChild("Lightning Orb").HitPart
+                end
+                
+                
+                if target ~= nil and kVars.char then
+                    kVars.char:SetPrimaryPartCFrame(target.CFrame)
+                    wait()
+                end
             end
-            local hrp = game:GetService('Players').LocalPlayer.Character:FindFirstChild('HumanoidRootPart')
-            if target ~= nil and hrp then
-                hrp.CFrame = target.CFrame
-                wait()
-            end
-            if kVars.boolSell then
+
+            if kVars.boolSell then 
                 local jetpackFuel = game:GetService("ReplicatedStorage").DataFolder[kVars.lp.Name].JetpackData.FuelLevel.Value 
                 local jetpackMaxFuel = (game:GetService("ReplicatedStorage").DataFolder[kVars.lp.Name].JetpackData.MaxFuel.Value / 3) * 2
                 local closest = nil
-                if jetpackFuel >= jetpackMaxFuel then     
+                if jetpackFuel >= jetpackMaxFuel or (os.clock() - kVars.clock) > 2 then
+                    kVars.clock = os.clock()     
                     local last = math.huge
                     for i,v in pairs(kVars.sellAreas) do
                         if kVars.boolSell == false then return end
-                        if (v.Position - hrp.Position).magnitude < last then
+                        if (v.Position - kVars.char.PrimaryPart.Position).magnitude < last then
                             closest = v
-                            last = (v.Position - hrp.Position).magnitude
+                            last = (v.Position - kVars.char.PrimaryPart.Position).magnitude
                         end
                     end
                 end
-                if hrp and closest ~= nil then
+                if kVars.char and closest ~= nil then
                     local a = closest.CFrame
                     repeat
-                        hrp.CFrame = CFrame.new(a.x, a.y + 5, a.z)
+                        kVars.char:SetPrimaryPartCFrame( CFrame.new(a.x, a.y + 5, a.z))
                         wait()
                     until game:GetService("ReplicatedStorage").DataFolder[kVars.lp.Name].JetpackData.FuelLevel.Value == 0 or kVars.boolSell == false
                 end
             end
+                
         end
     end)
-end
 
-sectionAutoFarm:addToggle("Prestige", false, function(bool)
+
+sectionFarm:Create("Toggle", "Prestige",function(bool)
     kVars.boolPrestige = bool
-    if bool then fPrestige() end
-end)
+    if bool then
+        fPrestige()
+    end
+end,{default = kVars.boolPrestige})
 
 function fPrestige()
     spawn(function()
@@ -174,15 +171,22 @@ function fPrestige()
             local costToUpgrade = (10000000 * (plrPrestigeValue + 1))
             if money >= costToUpgrade then
                 game:GetService("ReplicatedStorage").ServerToClient.RequestPrestige:FireServer()
+                wait(1)
+                local a = kVars.char:WaitForChild("HumanoidRootPart")
             end
         end
     end)
 end
 
-sectionAutoUpgrade:addToggle("Jetpack", false, function(bool)
+
+---- section buy ----
+
+sectionBuy:Create("Toggle", "Jetpack",function(bool)
     kVars.boolJetpack = bool
-    if bool then fJetpack() end
-end)
+    if bool then
+        fJetpack()
+    end
+end,{default = kVars.boolJetpack})
 
 function fJetpack()
     spawn(function()
@@ -193,15 +197,18 @@ function fJetpack()
             local costToUpgrade = (math.floor(math.pow(jp, 3.85)) * 100)
             if money >= costToUpgrade then
                 game:GetService("ReplicatedStorage").ClientToServer.PurchaseJetpackUpgrade:FireServer()
+                wait(1)
             end
         end
     end)
 end
 
-sectionAutoUpgrade:addToggle("Fuel", false, function(bool)
+sectionBuy:Create("Toggle", "Fuel",function(bool)
     kVars.boolFuel = bool
-    if bool then fFuel() end
-end)
+    if bool then
+        fFuel()
+    end
+end,{default = kVars.boolFuel})
 
 function fFuel()
     spawn(function()
@@ -212,14 +219,31 @@ function fFuel()
             local costToUpgrade = (math.floor(math.pow(fuel, 1.5)))
             if money >= costToUpgrade then
                 game:GetService("ReplicatedStorage").ClientToServer.PurchaseFuelUpgrade:FireServer()
+                wait(1)
             end
         end
     end)
 end
 
+----========== page teleport ==========----
+---- section teleport to player ----
+kVars.SelectedTPToPlayer = kVars.lp.name
+sectionTPToPlayer:Create("TextBox", "Enter Users Name", function(value)
+    kVars.SelectedTPToPlayer = value
+end,{text = "Enter Users Name"})
+
+sectionTPToPlayer:Create("Button", "Teleport To Player", function()
+    for i,v in pairs(game.Players:GetPlayers()) do
+        if kVars.SelectedTPToPlayer ~= nil and kVars.SelectedTPToPlayer ~= kVars.lp.name then
+            if string.lower(v.DisplayName) == string.lower(kVars.SelectedTPToPlayer) then
+                kVars.hrp.CFrame = v.Character.HumanoidRootPart.CFrame                
+            end
+        end
+    end
+end,{animated = true})
 
 
----- Teleport page ----
+---- section teleport to location ----
 kVars.Locations = {
 	{name = "Spawn/Earth", cf = CFrame.new(116, 5, -1)},
 	{name = "Floating Island", cf = CFrame.new(34, 598, -19)},
@@ -233,103 +257,192 @@ kVars.Locations = {
 	{name = "Void Star", cf = CFrame.new(34, 12631, -19)}
 }
 for i,v in pairs(kVars.Locations) do
-    sectionTeleportAreas:addButton(v.name, function()
-        if game:GetService('Players').LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.cf
-        end
-    end)
+    sectionTpToLocation:Create("Button", v.name, function()
+        kVars.lp.Character:SetPrimaryPartCFrame(v.cf)
+    end,{animated = true})
 end
 
 
----- player stats section ----
 
-sectionPlayerStats:addSlider("Walk Speed", 16, kVars.lp.Character:WaitForChild('Humanoid').WalkSpeed, 1024, function(value)
-    if game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild('ResourceCollectVisualizer') then
-        game:GetService("Players").LocalPlayer.PlayerGui.ResourceCollectVisualizer:Destroy()
+----========== page character ==========----
+---- section Character ----
+kVars.walkSpeed = kVars.humanoid.WalkSpeed
+sectionCharacter:Create("Slider", "Walk Speed", function(value)
+    if kVars.lp.PlayerGui:FindFirstChild('ResourceCollectVisualizer') then
+        kVars.lp.PlayerGui.ResourceCollectVisualizer:Destroy()
     end
     if game:GetService("StarterGui"):FindFirstChild("ResourceCollectVisualizer") then
         game:GetService("StarterGui").ResourceCollectVisualizer:Destroy()
     end
-    kVars.lp.Character:WaitForChild('Humanoid').WalkSpeed = value
+    kVars.walkSpeed = value
+    kVars.humanoid.WalkSpeed = value
+end,{min = 16, max = 500, default = kVars.humanoid.walkSpeed, precise = false, changablevalue = true})
+
+kVars.jumpPower = kVars.humanoid.JumpPower
+sectionCharacter:Create("Slider", "Jump Power", function(value)
+    kVars.jumpPower = value
+    kVars.humanoid.JumpPower = value
+end,{min = 7.2, max = 1000, default = kVars.humanoid.jumpPower, precise = true, changablevalue = true})
+
+
+kVars.plrAdded = game.Players.LocalPlayer.CharacterAdded:Connect(function(child)
+    kVars.humanoid = kVars.lp.Character:WaitForChild('Humanoid', 999999)
+    kVars.hrp = kVars.lp.Character:WaitForChild('HumanoidRootPart', 999999)
+    task.wait(1)
+    kVars.humanoid.WalkSpeed = kVars.walkSpeed
+    kVars.humanoid.JumpPower = kVars.jumpPower
 end)
 
-sectionPlayerStats:addSlider("Jump Power", 50, kVars.lp.Character:WaitForChild('Humanoid').JumpPower, 1000, function(value)
-    kVars.lp.Character:WaitForChild('Humanoid').JumpPower = value
-end)
-
-sectionPlayerStats:addToggle("Inf Jump", false, function(bool)
+kVars.boolInfJump = false
+sectionCharacter:Create("Toggle", "Inf Jump",function(bool)
     kVars.boolInfJump = bool
-end)
+end,{default = kVars.boolInfJump})
 
-kVars.InfJumpConnect = game:GetService("UserInputService").JumpRequest:connect(function()
-	if kVars.boolInfJump and kVars.lp.Character:FindFirstChild("Humanoid") then
-		kVars.lp.Character:FindFirstChildOfClass('Humanoid'):ChangeState("Jumping")
+kVars.connectJumpRequest = game:GetService("UserInputService").JumpRequest:Connect(function()
+	if kVars.boolInfJump then
+		kVars.humanoid:ChangeState("Jumping")
 	end
 end)
 
----- tp to player section ----
-sectionTpToPlayer:addTextbox("PlayerName", "Name", function(value, focusLost)
-    if focusLost then
-        kVars.teleportToPlayer = value
-        print(value)
+----========== page misc ==========----
+---- section keybinds ----
+kVars.OpenCloseMenuKey = Enum.KeyCode.F5
+sectionKeybinds:Create("KeyBind", "Open Close Menu", function(key)
+    kVars.OpenCloseMenuKey = key
+end,{default = kVars.OpenCloseMenuKey})
+
+
+kVars.connectInputBegan = kVars.uis.InputBegan:Connect(function(key)
+    if key.UserInputType == Enum.UserInputType.Keyboard and key.KeyCode == kVars.OpenCloseMenuKey then
+        if game:GetService("CoreGui"):FindFirstChild(kVars.WindowName).Enabled then
+            game:GetService("CoreGui"):FindFirstChild(kVars.WindowName).Enabled = false
+        else
+            game:GetService("CoreGui"):FindFirstChild(kVars.WindowName).Enabled = true
+        end
     end
 end)
 
-sectionTpToPlayer:addButton("Teleport", function()
-    local cnf = true
-    if game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart") and kVars.teleportToPlayer ~= nil then
-        for i,v in pairs(game:GetService("Players"):GetChildren()) do
-            local hrp = game:GetService('Players').LocalPlayer.Character:WaitForChild('HumanoidRootPart')
-            if string.find(string.lower(v.DisplayName), string.lower(kVars.teleportToPlayer)) then
-                hrp.CFrame = v.Character.HumanoidRootPart.CFrame
-                cnf = false
-            elseif string.find(string.lower(v.Name), string.lower(kVars.teleportToPlayer)) then
-                hrp.CFrame = v.Character.HumanoidRootPart.CFrame
-                cnf = false
+---- section world ----
+if game.Lighting.FogStart < 100 then
+    kVars.boolFog = true
+else
+    kVars.boolFog = false
+end
+sectionWorld:Create("Toggle", "Fog",function(bool)
+    kVars.boolFog = bool
+    if bool then
+        game.Lighting.FogStart = 0
+    else
+        game.Lighting.FogStart = math.huge
+    end
+end,{default = kVars.boolFog})
+
+---- sections options ----
+sectionMisc:Create("Button", "Destroy this GUI",function()
+    game:GetService("CoreGui"):FindFirstChild(kVars.WindowName):Destroy()
+end,{animated = true})
+
+sectionMisc:Create("Toggle", "Purchase Prompt",function(bool)
+    game:GetService("CoreGui").PurchasePrompt.Enabled = bool
+end,{default = game:GetService("CoreGui").PurchasePrompt.Enabled})
+
+kVars.Esp = {}
+kVars.boolEsp = false
+sectionMisc:Create("Toggle", "Player ESP",function(bool)
+    kVars.boolEsp = bool
+    if not bool and next(kVars.Esp) ~= nil then
+        for i,v in pairs(game.Players:GetPlayers()) do
+            if kVars.Esp[v] then
+                kVars.Esp[v].Drawing:Remove()
             end
         end
-        if cnf == true then
-            Window:Notify("Error", "Could not find player.")
-        end
+        kVars.Esp = {}
     else
-        Window:Notify("Error", "You didn't put a valid playername in the textbox.")
+        fEsp()
+    end
+end,{default = kVars.boolEsp})
+
+kVars.plrRemovingConnect = game:GetService("Players").PlayerRemoving:Connect(function(player)
+    if kVars.Esp[player] then
+        kVars.Esp[player].Drawing:Remove()
     end
 end)
 
----- Theme ----
-for theme, color in pairs(kVars.themes) do
-    sectionTheme:addColorPicker(theme, color, function(color3)
-        Window:setTheme(theme, color3)
+function fEsp()
+    spawn(function()
+        while kVars.boolEsp do
+            task.wait()
+            pcall(function()
+                for i,v in pairs(game.Players:GetPlayers()) do
+                    if kVars.boolEsp == false then break end
+                    if kVars.lp.name ~= v.name and kVars.boolEsp then
+                        if not kVars.Esp[v] then
+                            kVars.Esp[v] = {}
+                            kVars.Esp[v].Drawing = Drawing.new("Text")
+                            kVars.Esp[v].Drawing.Visible = false
+                            kVars.Esp[v].Drawing.Size = 16
+                            kVars.Esp[v].Drawing.Color = Color3.fromRGB(0, 255, 60)
+                            kVars.Esp[v].Drawing.Transparency = 1
+                            kVars.Esp[v].Drawing.ZIndex = 1
+                            kVars.Esp[v].Drawing.Center = true
+                            kVars.Esp[v].Drawing.Font = 3
+                            kVars.Esp[v].Drawing.Outline = true
+                            kVars.Esp[v].Drawing.OutlineColor = Color3.fromRGB(0,0,0)
+                            kVars.Esp[v].Drawing.Text = v.name
+                        end
+                        if v.Character:FindFirstChild("Head") then
+                            local vector, onScreen = game.Workspace.CurrentCamera:WorldToScreenPoint(game.Players[v.name].Character.Head.Position)
+                            if onScreen then
+                                kVars.Esp[v].Drawing.Visible = true
+                                kVars.Esp[v].Drawing.Position = Vector2.new(vector.x, vector.y)
+                            else
+                                kVars.Esp[v].Drawing.Visible = false
+                            end
+                        end
+                    end
+                end
+            end)
+        end
     end)
-    --Window:setTheme(theme, color)
 end
 
-sectionTheme:addButton("Save Theme", function()
-    saveSettings()
+
+----========== page credits ==========----
+---- keaths ----
+sectionCreditsKeath:Create("Button", "https://github.com/dady172172/Roblox-Cheats", function()
+    setclipboard('https://github.com/dady172172/Roblox-Cheats')
+end,{animated = true})
+
+sectionCreditsKeath:Create("Button", "https://discord.gg/MhMB3c2CBn", function()
+    setclipboard('https://discord.gg/MhMB3c2CBn')
+end,{animated = true})
+
+---- alex ----
+sectionCreditsAlex:Create("Button", "https://teppyboy.github.io/", function()
+    setclipboard('https://teppyboy.github.io/Mirrors/Documentations/Zypher_UI/zypher.wtf/docs/main.html')
+end,{animated = true})
+
+----========== set window size after load ==========----
+game:GetService("CoreGui"):FindFirstChild(kVars.WindowName).Motherframe.Size = UDim2.new(0, 495, 0, 400)
+
+----========== delete script if re-injecting ==========----
+
+kVars.cR = game:GetService("CoreGui").ChildRemoved:Connect(function(child)
+    if child.name == kVars.WindowName then
+        for i,v in pairs(kVars) do
+            if type(v) == "boolean" then
+                kVars[i] = false
+            end
+        end
+        kVars.connectAntiAfk:Disconnect()
+        kVars.connectInputBegan:Disconnect()
+        kVars.connectJumpRequest:Disconnect()
+        kVars.plrAdded:Disconnect()
+        kVars.plrRemovingConnect:Disconnect()
+        wait(1)
+        script:Destroy()
+        kVars.cR:Disconnect()
+    end
 end)
 
-sectionHotkeys:addKeybind("Open/Close Menu", Enum.KeyCode.Backquote, function()
-    Window:toggle()
-    end, function()
-    end)
 
----- Select main page to display ----
-Window:SelectPage(Window.pages[1], true)
-
----- Closing ----
-kVars.ClosingConnect = game:GetService("CoreGui").ChildRemoved:Connect(function(child)
-	if child.Name == kVars.WindowName then
-	    kVars.InfJumpConnect:Disconnect()
-        kVars.AntiAfk:Disconnect()
-		for i,v in pairs(kVars) do
-			if type(v) == "boolean" then
-				v = false
-			end
-		end
-        wait(.1)
-		kVars.ClosingConnect:Disconnect()
-		script:Destroy()
-	end
-end)
-
-syn.protect_gui(game:GetService("CoreGui")[kVars.WindowName])
