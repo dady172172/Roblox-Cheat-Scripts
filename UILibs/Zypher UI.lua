@@ -104,6 +104,12 @@ sectionCharacter:Create("Slider", "Walk Speed", function(value)
     kVars.humanoid.WalkSpeed = value
 end,{min = 16, max = 500, default = kVars.humanoid.walkSpeed, precise = false, changablevalue = true})
 
+kVars.jumpPower = kVars.humanoid.JumpPower
+sectionCharacter:Create("Slider", "Jump Height", function(value)
+    kVars.jumpPower = value
+    kVars.humanoid.JumpPower = value
+end,{min = 7.2, max = 500, default = kVars.humanoid.jumpPower, precise = true, changablevalue = true})
+
 kVars.jumpHeight = kVars.humanoid.JumpHeight
 sectionCharacter:Create("Slider", "Jump Height", function(value)
     kVars.jumpHeight = value
@@ -117,6 +123,7 @@ kVars.plrAdded = game.Players.LocalPlayer.CharacterAdded:Connect(function(child)
     task.wait(1)
     kVars.humanoid.WalkSpeed = kVars.walkSpeed
     kVars.humanoid.JumpHeight = kVars.jumpHeight
+    kVars.humanoid.JumpPower = kVars.jumpPower
 end)
 
 kVars.boolInfJump = false
