@@ -166,6 +166,12 @@ sectionFarm:Create("Button", "Redeem all codes", function()
     end
 end,{animated = true})
 
+sectionFarm:Create("Button", "Chat all codes", function()
+    local a = require(kVars.rs.Data.CodesData)
+    for i,v in pairs(a) do
+        kVars.rs.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(tostring(i),"All")
+    end
+end,{animated = true})
 
 
 

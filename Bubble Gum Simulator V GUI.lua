@@ -1,18 +1,19 @@
 --[[
-Game : 
+Game : https://www.roblox.com/games/14206729268
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats : https://discord.gg/MhMB3c2CBn
 GUI Made by : xTheAlex14 : https://teppyboy.github.io/Mirrors/Documentations/Zypher_UI/zypher.wtf/docs/uilibdocs.html
 ]]--
 ---- vars ----
 kVars = {}
-kVars.WindowName = ""
-kVars.placeID = 
+kVars.WindowName = "Bubble Gum Simulator V"
+kVars.placeID = 14206729268
 kVars.lp = game:GetService('Players').LocalPlayer
 kVars.vu = game:GetService('VirtualUser')
 kVars.uis = game:GetService('UserInputService')
 kVars.rs = game:GetService('ReplicatedStorage')
 kVars.humanoid = kVars.lp.Character:WaitForChild('Humanoid')
 kVars.hrp = kVars.lp.Character:WaitForChild('HumanoidRootPart')
+kVars.userID = kVars.lp.UserId
 
 ---- check for correct game ----
 if kVars.placeID ~= game.PlaceId then 
@@ -47,6 +48,7 @@ local sectionFarm = pageMain:CreateSection("Farm")
 
 local pageTeleport = Window:CreateCategory("Teleport")
 local sectionTPToPlayer = pageTeleport:CreateSection("Teleport To Player")
+local sectionTpToArea = pageTeleport:CreateSection("Teleport To Area")
 
 local pageCharacter = Window:CreateCategory("Character")
 local sectionCharacter = pageCharacter:CreateSection("Options")
@@ -62,6 +64,69 @@ local sectionCreditsAlex = pageCredits:CreateSection("UI-Lib by : xTheAlex14")
 
 ----========== page main ==========----
 ---- Farm ----
+sectionFarm:Create("Toggle", "Blow Bubble",function(bool)
+    kVars.boolBlowBubble = bool
+    if bool then
+        fBlowBubble()
+    end
+end,{default = kVars.boolBlowBubble})
+
+function fBlowBubble()
+    spawn(function()
+        while kVars.boolBlowBubble do
+            wait()
+            game:GetService("ReplicatedStorage"):FindFirstChild(kVars.userID .. "Event"):FireServer("BlowBubble")
+        end
+    end)
+end
+
+sectionFarm:Create("Toggle", "Sell For Coins",function(bool)
+    kVars.boolSell = bool
+    if bool then
+        fSell()
+    end
+end,{default = kVars.boolSell})
+
+function fSell()
+    spawn(function()
+        while kVars.boolSell do
+            wait()
+            game:GetService("ReplicatedStorage"):FindFirstChild(kVars.userID .. "Event"):FireServer("SellBubble", "Sell")
+        end
+    end)
+end
+
+sectionFarm:Create("Toggle", "Sell For Gems",function(bool)
+    kVars.boolSell2 = bool
+    if bool then
+        fSell2()
+    end
+end,{default = kVars.boolSell2})
+
+function fSell2()
+    spawn(function()
+        while kVars.boolSell2 do
+            wait()
+            game:GetService("ReplicatedStorage"):FindFirstChild(kVars.userID .. "Event"):FireServer("SellBubble", "Sell3")
+        end
+    end)
+end
+
+
+sectionFarm:Create("Button", "Tp To All Chests", function()
+    local curPOS = kVars.hrp.CFrame
+    for i,v in pairs(game:GetService("Workspace").FloatingIslands.Overworld:GetChildren()) do
+        if v:FindFirstChild("Chest") then
+            for i=1,10 do
+                kVars.hrp.CFrame = v.Chest.Chest.CFrame
+                wait(.05)
+            end
+        end
+    end
+    kVars.hrp.CFrame = curPOS
+end,{animated = true})
+
+
 sectionFarm:Create("Toggle", "",function(bool)
     kVars.bool = bool
     if bool then
@@ -73,7 +138,7 @@ function f()
     spawn(function()
         while kVars.bool do
             wait()
-            
+            game:GetService("ReplicatedStorage"):FindFirstChild(kVars.userID .. "Event"):FireServer("BlowBubble")
         end
     end)
 end
@@ -95,6 +160,18 @@ sectionTPToPlayer:Create("Button", "Teleport To Player", function()
     end
 end,{animated = true})
 
+---- section tp to area ----
+sectionTpToArea:Create("Button", "Spawn", function()
+    kVars.hrp.CFrame = game:GetService("Workspace").SpawnLocation.CFrame
+end,{animated = true})
+
+for i,v in pairs(game:GetService("Workspace").FloatingIslands.Overworld:GetChildren()) do
+    if v:FindFirstChild("TeleportPoint") then
+        sectionTpToArea:Create("Button", v.Name, function()
+            kVars.hrp.CFrame = v.TeleportPoint.CFrame
+        end,{animated = true})
+    end
+end
 
 ----========== page character ==========----
 ---- section Character ----
@@ -105,7 +182,7 @@ sectionCharacter:Create("Slider", "Walk Speed", function(value)
 end,{min = 16, max = 500, default = kVars.humanoid.walkSpeed, precise = false, changablevalue = true})
 
 kVars.jumpPower = kVars.humanoid.JumpPower
-sectionCharacter:Create("Slider", "Jump Power", function(value)
+sectionCharacter:Create("Slider", "Jump Height", function(value)
     kVars.jumpPower = value
     kVars.humanoid.JumpPower = value
 end,{min = 7.2, max = 500, default = kVars.humanoid.jumpPower, precise = true, changablevalue = true})
@@ -183,101 +260,58 @@ kVars.Esp = {}
 kVars.boolEsp = false
 sectionMisc:Create("Toggle", "Player ESP",function(bool)
     kVars.boolEsp = bool
-    if not bool then
+    if not bool and next(kVars.Esp) ~= nil then
         for i,v in pairs(game.Players:GetPlayers()) do
-            if kVars.Esp[v.Name] then
-                wait()
-                kVars.Esp[v.Name].sq.Visible = false
-                kVars.Esp[v.Name].txt.Visible = false 
-
-                
+            if kVars.Esp[v] then
+                kVars.Esp[v].Drawing:Remove()
             end
         end
-        
+        kVars.Esp = {}
     else
         fEsp()
     end
 end,{default = kVars.boolEsp})
 
-kVars.plrRemovingConnect = game:GetService("Players").PlayerRemoving:Connect(function(p)
-    if kVars.Esp[p.Name] then
-        wait()
-        kVars.Esp[p.Name].sq.Visible = false
-        kVars.Esp[p.Name].txt.Visible = false
-        table.remove(kVars.Esp[p.Name])
+kVars.plrRemovingConnect = game:GetService("Players").PlayerRemoving:Connect(function(player)
+    if kVars.Esp[player] then
+        kVars.Esp[player].Drawing:Remove()
     end
 end)
-
-function mean(t)
-    local add = 0
-    for i,v in pairs(t) do
-        add = add + v
-    end
-    return add / #t
-end
 
 function fEsp()
     spawn(function()
         while kVars.boolEsp do
             task.wait()
             pcall(function()
-                for i,v in pairs(game.Players:GetChildren()) do
-                    if not kVars.boolEsp then break end
-                    task.wait()
-                    if v.Character and v.Character:FindFirstChild("Head") then
-                        local pHead = v.Character:WaitForChild("Head")
-                        local pHrp = v.Character:WaitForChild("HumanoidRootPart") 
-                        
-                        if v.Name ~= kVars.lp.Name then
-                            if not kVars.Esp[v.Name] then
-                                kVars.Esp[v.Name] = {}
-                                -- esp square
-                                kVars.Esp[v.Name].sq = Drawing.new("Square")
-                                kVars.Esp[v.Name].sq.Visible = false
-                                kVars.Esp[v.Name].sq.Thickness = 1
-                                kVars.Esp[v.Name].sq.Size = Vector2.new(10,10)
-                                kVars.Esp[v.Name].sq.Filled = false
-                                kVars.Esp[v.Name].sq.Color = Color3.fromRGB(0, 255, 60)
-                                local vector, onScreen = game.Workspace.CurrentCamera:WorldToViewportPoint(pHead.Position)
-                                kVars.Esp[v.Name].sq.Position = Vector2.new(vector.x, vector.y)
-                                -- esp text
-                                kVars.Esp[v.Name].txt = Drawing.new("Text")
-                                kVars.Esp[v.Name].txt.Visible = false
-                                kVars.Esp[v.Name].txt.Size = 16
-                                kVars.Esp[v.Name].txt.Color = Color3.fromRGB(0, 255, 60)
-                                kVars.Esp[v.Name].txt.Transparency = 1
-                                kVars.Esp[v.Name].txt.ZIndex = 1
-                                kVars.Esp[v.Name].txt.Center = true
-                                kVars.Esp[v.Name].txt.Font = 3
-                                kVars.Esp[v.Name].txt.Outline = true
-                                kVars.Esp[v.Name].txt.OutlineColor = Color3.fromRGB(0, 0, 0)
-                                kVars.Esp[v.Name].txt.Text = v.Name
-                            end
-                            local vector1, onScreen1 = game.Workspace.CurrentCamera:WorldToViewportPoint(pHead.Position)
-
-                            if onScreen1 then
-                                local distBetHeadHrp = Vector3.new(mean({pHead.Position.x, pHrp.Position.x}),mean({pHead.Position.y, pHrp.Position.y}),mean({pHead.Position.z, pHrp.Position.z}))
-                                local screenDistBetHeadHrp, onscreenDistBetHeadHrp = game.Workspace.CurrentCamera:WorldToViewportPoint(distBetHeadHrp)
-                                local screenPosHead, onscreenPosHead = game.Workspace.CurrentCamera:WorldToViewportPoint(pHead.Position)
-                                local screenPosHrp, onscreenPosHrp = game.Workspace.CurrentCamera:WorldToViewportPoint(pHrp.Position)
-                                local diffScreen = (screenPosHead - screenPosHrp).Magnitude
-                                kVars.Esp[v.Name].sq.Visible = true
-                                kVars.Esp[v.Name].sq.Position = Vector2.new((screenDistBetHeadHrp.x - diffScreen), (screenDistBetHeadHrp.y - diffScreen)) 
-                                kVars.Esp[v.Name].sq.Size = Vector2.new(diffScreen * 2, diffScreen * 3)
-                                kVars.Esp[v.Name].txt.Visible = true
-                                kVars.Esp[v.Name].txt.Position = Vector2.new((screenPosHead.x), (kVars.Esp[v.Name].sq.Position.y - diffScreen))
-            
+                for i,v in pairs(game.Players:GetPlayers()) do
+                    if kVars.boolEsp == false then break end
+                    if kVars.lp.name ~= v.name and kVars.boolEsp then
+                        if not kVars.Esp[v] then
+                            kVars.Esp[v] = {}
+                            kVars.Esp[v].Drawing = Drawing.new("Text")
+                            kVars.Esp[v].Drawing.Visible = false
+                            kVars.Esp[v].Drawing.Size = 16
+                            kVars.Esp[v].Drawing.Color = Color3.fromRGB(0, 255, 60)
+                            kVars.Esp[v].Drawing.Transparency = 1
+                            kVars.Esp[v].Drawing.ZIndex = 1
+                            kVars.Esp[v].Drawing.Center = true
+                            kVars.Esp[v].Drawing.Font = 3
+                            kVars.Esp[v].Drawing.Outline = true
+                            kVars.Esp[v].Drawing.OutlineColor = Color3.fromRGB(0,0,0)
+                            kVars.Esp[v].Drawing.Text = v.name
+                        end
+                        if v.Character:FindFirstChild("Head") then
+                            local vector, onScreen = game.Workspace.CurrentCamera:WorldToViewportPoint(game.Players[v.name].Character.Head.Position)
+                            if onScreen then
+                                kVars.Esp[v].Drawing.Visible = true
+                                kVars.Esp[v].Drawing.Position = Vector2.new(vector.x, vector.y)
                             else
-                                kVars.Esp[v.Name].sq.Visible = false
-                                kVars.Esp[v.Name].txt.Visible = false
-            
+                                kVars.Esp[v].Drawing.Visible = false
                             end
-                            
                         end
                     end
                 end
             end)
-            
         end
     end)
 end

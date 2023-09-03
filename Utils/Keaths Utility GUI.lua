@@ -5,21 +5,13 @@ GUI Made by : xTheAlex14 : https://teppyboy.github.io/Mirrors/Documentations/Zyp
 ]]--
 ---- vars ----
 kVars = {}
-kVars.WindowName = ""
-kVars.placeID = 
+kVars.WindowName = "Keaths Utility GUI"
 kVars.lp = game:GetService('Players').LocalPlayer
 kVars.vu = game:GetService('VirtualUser')
 kVars.uis = game:GetService('UserInputService')
 kVars.rs = game:GetService('ReplicatedStorage')
 kVars.humanoid = kVars.lp.Character:WaitForChild('Humanoid')
 kVars.hrp = kVars.lp.Character:WaitForChild('HumanoidRootPart')
-
----- check for correct game ----
-if kVars.placeID ~= game.PlaceId then 
-    warn("#### - This Script is not for this game. - ####")
-    script:Destroy()
-    return 
-end
 
 ---- destroy old gui if exists ----
 if game:GetService("CoreGui"):FindFirstChild(kVars.WindowName) then
@@ -43,7 +35,8 @@ local Window = library:CreateMain({
 })
 
 local pageMain = Window:CreateCategory("Main")
-local sectionFarm = pageMain:CreateSection("Farm")
+local sectionClipBoard = pageMain:CreateSection("Clipboard")
+local sectionScriptDump = pageMain:CreateSection("Script Dump")
 
 local pageTeleport = Window:CreateCategory("Teleport")
 local sectionTPToPlayer = pageTeleport:CreateSection("Teleport To Player")
@@ -61,22 +54,64 @@ local sectionCreditsKeath = pageCredits:CreateSection("Coded by : Keathunsar")
 local sectionCreditsAlex = pageCredits:CreateSection("UI-Lib by : xTheAlex14")
 
 ----========== page main ==========----
----- Farm ----
-sectionFarm:Create("Toggle", "",function(bool)
-    kVars.bool = bool
-    if bool then
-        f()
-    end
-end,{default = kVars.bool})
+---- section clipboard ----
+sectionClipBoard:Create("Button", "Player CFrame", function()
+    local t = math.floor(kVars.hrp.CFrame.X) .. ", " .. math.floor(kVars.hrp.CFrame.Y) .. ", " .. math.floor(kVars.hrp.CFrame.Z)
+    setclipboard(t)
+end,{animated = true})
 
-function f()
-    spawn(function()
-        while kVars.bool do
-            wait()
-            
+sectionClipBoard:Create("Button", "Player CFrame with new", function()
+    local t = "CFrame.new(" .. math.floor(kVars.hrp.CFrame.X) .. ", " .. math.floor(kVars.hrp.CFrame.Y) .. ", " .. math.floor(kVars.hrp.CFrame.Z) .. ")"
+    setclipboard(t)
+end,{animated = true})
+
+sectionClipBoard:Create("Button", "Player tp CFrame", function()
+    local t = "game:GetService(\"Players\").LocalPlayer.Character:WaitForChild(\"HumanoidRootPart\").CFrame = CFrame.new(" .. math.floor(kVars.hrp.CFrame.X) .. ", " .. math.floor(kVars.hrp.CFrame.Y) .. ", " .. math.floor(kVars.hrp.CFrame.Z) .. ")"
+    setclipboard(t)
+end,{animated = true})
+
+---- section scriptdump ----
+sectionScriptDump:Create("Button", "Start", function()
+    if not isfolder then 
+        warn("Your injector does not support isfolder")
+        return
+    elseif not makefolder then 
+        warn("Your injector does not support makefolder")
+        return
+    elseif not delfolder then
+        warn("Your injector does not support delfolder")
+        return
+    elseif not writefile then
+        warn("Your injector does not support writefile")
+        return
+    elseif not decompile then
+        warn("Your injector does not support decompile")
+        return
+    end
+    print("This may take a while, depending on the device your using.")
+    local startTime = os.time()
+    local gameName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+    if isfolder(gameName) then
+        delfolder(gameName)
+    end
+    makefolder(gameName)
+    for a,b in pairs(game:GetChildren()) do
+        local dir = gameName .. "/" .. b.Name
+        for i,v in pairs(b:GetDescendants()) do
+            pcall(function()
+                if v.ClassName == "LocalScript" or v.ClassName == "ModuleScript" then
+                    if not isfolder(dir) then
+                        makefolder(dir)
+                    end
+                    local a = decompile(v)
+                    writefile(dir .. "/" .. v:GetFullName() .. ".lua", a)
+                end
+            end)
         end
-    end)
-end
+    end
+    print("Done : " .. tostring(os.time() - startTime))
+    
+end,{animated = true})
 
 ----========== page teleport ==========----
 ---- section teleport to player ----

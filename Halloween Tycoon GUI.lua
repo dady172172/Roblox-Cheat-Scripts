@@ -1,12 +1,12 @@
 --[[
-Game : 
+Game : https://www.roblox.com/games/4929665715
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats : https://discord.gg/MhMB3c2CBn
 GUI Made by : xTheAlex14 : https://teppyboy.github.io/Mirrors/Documentations/Zypher_UI/zypher.wtf/docs/uilibdocs.html
 ]]--
 ---- vars ----
 kVars = {}
-kVars.WindowName = ""
-kVars.placeID = 
+kVars.WindowName = "Halloween Tycoon GUI"
+kVars.placeID = 4929665715
 kVars.lp = game:GetService('Players').LocalPlayer
 kVars.vu = game:GetService('VirtualUser')
 kVars.uis = game:GetService('UserInputService')
@@ -62,21 +62,77 @@ local sectionCreditsAlex = pageCredits:CreateSection("UI-Lib by : xTheAlex14")
 
 ----========== page main ==========----
 ---- Farm ----
-sectionFarm:Create("Toggle", "",function(bool)
-    kVars.bool = bool
-    if bool then
-        f()
-    end
-end,{default = kVars.bool})
+local function getPlrTycoon()
+    local tmp1 = [[Zednov's Tycoon Kit]]
+    return game:GetService("Workspace")[tmp1].Tycoons[tostring(kVars.lp.Team)]
+end
 
-function f()
+sectionFarm:Create("Toggle", "Collect/Create",function(bool)
+    kVars.boolCollect = bool
+    if bool then
+        fCollect()
+    end
+end,{default = kVars.boolCollect})
+
+function fCollect()
     spawn(function()
-        while kVars.bool do
+        while kVars.boolCollect do
             wait()
-            
+            firetouchinterest(kVars.hrp, getPlrTycoon().Essentials.Giver, 0)
+            wait()
+            fireclickdetector(getPlrTycoon().PurchasedObjects.Mine.Clicker.ClickDetector)
+            wait()
+            firetouchinterest(kVars.hrp, getPlrTycoon().Essentials.Giver, 1)
         end
     end)
 end
+
+sectionFarm:Create("Toggle", "Touch Buttons",function(bool)
+    kVars.boolTouchButtons = bool
+    if bool then
+        fTouchButtons()
+    end
+end,{default = kVars.boolTouchButtons})
+
+function fTouchButtons()
+    spawn(function()
+        while kVars.boolTouchButtons do
+            wait()
+            for i,v in pairs(getPlrTycoon().Buttons:GetChildren()) do
+                if v:FindFirstChild("Head") then
+                    firetouchinterest(kVars.hrp, v.Head, 0)
+                    wait()
+                    firetouchinterest(kVars.hrp, v.Head, 1)
+                end
+            end
+        end
+    end)
+end
+
+
+sectionFarm:Create("Toggle", "Tp other players in front",function(bool)
+    kVars.boolTp = bool
+    if bool then
+        fTp()
+    end
+end,{default = kVars.boolTp})
+
+function fTp()
+    spawn(function()
+        while kVars.boolTp do
+            task.wait()
+            for i,v in pairs(game.Players:GetChildren()) do
+                if v.Name ~= kVars.lp.Name then
+                    local enHrp = v.Character.HumanoidRootPart
+                    local hrp = kVars.hrp.CFrame
+                    enHrp.CFrame = CFrame.new(hrp.x + 5, hrp.y, hrp.z)
+                end
+            end
+        end
+    end)
+end
+
+
 
 ----========== page teleport ==========----
 ---- section teleport to player ----
