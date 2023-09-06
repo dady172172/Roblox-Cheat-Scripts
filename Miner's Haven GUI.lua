@@ -5,7 +5,7 @@ GUI Made by : xTheAlex14 : https://teppyboy.github.io/Mirrors/Documentations/Zyp
 ]]--
 ---- vars ----
 kVars = {}
-kVars.WindowName = "Miner's Haven GUI"
+kVars.WindowName = "Miner's Haven"
 kVars.placeID = 258258996
 kVars.players = game:GetService('Players')
 kVars.lp = kVars.players.LocalPlayer
@@ -86,12 +86,18 @@ function fBoxes()
             local lp = game:GetService("Players").LocalPlayer
             local char = lp.Character or lp.CharacterAdded:Wait()
             local hrp = char:WaitForChild("HumanoidRootPart")
+            local curCFrame = hrp.CFrame
+            local didTp = false
             for i,v in pairs(game:GetService("Workspace").Boxes:GetChildren()) do
-                v.CFrame = hrp.CFrame
-                wait()
-                firetouchinstest(hrp, v, 0)
-                wait()
-                firetouchinstest(hrp, v, 1)
+                repeat
+                    wait()
+                    hrp.CFrame = v.CFrame
+                until not v:FindFirstChild("TouchInterest") or not kVars.bool.Boxes
+                if not kVars.bool.Boxes then break end
+                didTp = true
+            end
+            if didTp then
+                hrp.CFrame = curCFrame
             end
         end
     end)
