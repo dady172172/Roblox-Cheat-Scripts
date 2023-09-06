@@ -86,18 +86,20 @@ function fBoxes()
             local lp = game:GetService("Players").LocalPlayer
             local char = lp.Character or lp.CharacterAdded:Wait()
             local hrp = char:WaitForChild("HumanoidRootPart")
-            local curCFrame = hrp.CFrame
+            local curPos = Vector3.new(hrp.CFrame.x, hrp.CFrame.y + 1, hrp.CFrame.z)
             local didTp = false
             for i,v in pairs(game:GetService("Workspace").Boxes:GetChildren()) do
                 repeat
                     wait()
-                    hrp.CFrame = v.CFrame
+                    v.Anchored = true
+                    v.CanCollide = false
+                    hrp.CFrame = CFrame.new(v.Position)
                 until not v:FindFirstChild("TouchInterest") or not kVars.bool.Boxes
                 if not kVars.bool.Boxes then break end
                 didTp = true
             end
             if didTp then
-                hrp.CFrame = curCFrame
+                hrp.CFrame = CFrame.new(curPos)
             end
         end
     end)
