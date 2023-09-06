@@ -16,6 +16,7 @@ kVars.humanoid = kVars.lp.Character:WaitForChild('Humanoid')
 kVars.hrp = kVars.lp.Character:WaitForChild('HumanoidRootPart')
 kVars.connections = {}
 
+
 ---- check for correct game ----
 if kVars.placeID ~= game.PlaceId then 
     warn("#### - This Script is not for this game. - ####")
@@ -36,36 +37,39 @@ kVars.connections.antiAFK = game:GetService('Players').LocalPlayer.Idled:connect
  end)
 
 ---- gui build ----
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/teppyboy/RbxScripts/master/Misc/UI_Libraries/Zypher/Library.lua"))()
-local Window = library:CreateMain({
+kVars.GUI = {}
+kVars.GUI.page = {}
+kVars.GUI.section = {}
+kVars.GUI.library = loadstring(game:HttpGet("https://raw.githubusercontent.com/teppyboy/RbxScripts/master/Misc/UI_Libraries/Zypher/Library.lua"))()
+kVars.GUI.window = kVars.GUI.library:CreateMain({
     projName = kVars.WindowName,
     Resizable = true,
     MinSize = UDim2.new(0,400,0,400),
     MaxSize = UDim2.new(0,750,0,500),
 })
 
-local pageMain = Window:CreateCategory("Main")
-local sectionFarm = pageMain:CreateSection("Farm")
+kVars.GUI.page.main = kVars.GUI.window:CreateCategory("Main")
+kVars.GUI.section.farm = kVars.GUI.page.main:CreateSection("Farm")
 
-local pageTeleport = Window:CreateCategory("Teleport")
-local sectionTPToPlayer = pageTeleport:CreateSection("Teleport To Player")
+kVars.GUI.page.teleport = kVars.GUI.window:CreateCategory("Teleport")
+kVars.GUI.section.TPToPlayer = kVars.GUI.page.teleport:CreateSection("Teleport To Player")
 
-local pageCharacter = Window:CreateCategory("Character")
-local sectionCharacter = pageCharacter:CreateSection("Options")
+kVars.GUI.page.character = kVars.GUI.window:CreateCategory("Character")
+kVars.GUI.section.options = kVars.GUI.page.character:CreateSection("Options")
 
-local pageMisc = Window:CreateCategory("Misc")
-local sectionKeybinds = pageMisc:CreateSection("KeyBinds")
-local sectionWorld = pageMisc:CreateSection("World Options")
-local sectionMisc = pageMisc:CreateSection("Options")
+kVars.GUI.page.misc = kVars.GUI.window:CreateCategory("Misc")
+kVars.GUI.section.keybinds = kVars.GUI.page.misc:CreateSection("KeyBinds")
+kVars.GUI.section.world = kVars.GUI.page.misc:CreateSection("World Options")
+kVars.GUI.section.misc = kVars.GUI.page.misc:CreateSection("Options")
 
-local pageCredits = Window:CreateCategory("Credits")
-local sectionCreditsKeath = pageCredits:CreateSection("Coded by : Keathunsar")
-local sectionCreditsAlex = pageCredits:CreateSection("UI-Lib by : xTheAlex14")
+kVars.GUI.page.credits = kVars.GUI.window:CreateCategory("Credits")
+kVars.GUI.section.creditsKeath = kVars.GUI.page.credits:CreateSection("Coded by : Keathunsar")
+kVars.GUI.section.creditsAlex = kVars.GUI.page.credits:CreateSection("UI-Lib by : xTheAlex14")
 
 ----========== page main ==========----
 ---- Farm ----
 
-sectionFarm:Create("Toggle", "Attack Closest",function(bool)
+kVars.GUI.section.farm:Create("Toggle", "Attack Closest",function(bool)
     kVars.boolAttack = bool
     if bool then
         fAttack()
@@ -113,7 +117,7 @@ function fAttack()
 end
 
 
-sectionFarm:Create("Toggle", "Collect Drops",function(bool)
+kVars.GUI.section.farm:Create("Toggle", "Collect Drops",function(bool)
     kVars.boolDrops = bool
     if bool then
         fDrops()
@@ -137,11 +141,11 @@ end
 ----========== page teleport ==========----
 ---- section teleport to player ----
 kVars.SelectedTPToPlayer = kVars.lp.name
-sectionTPToPlayer:Create("TextBox", "Enter Users Name", function(value)
+kVars.GUI.section.TPToPlayer:Create("TextBox", "Enter Users Name", function(value)
     kVars.SelectedTPToPlayer = value
 end,{text = "Enter Users Name"})
 
-sectionTPToPlayer:Create("Button", "Teleport To Player", function()
+kVars.GUI.section.TPToPlayer:Create("Button", "Teleport To Player", function()
     for i,v in pairs(game.Players:GetPlayers()) do
         if kVars.SelectedTPToPlayer ~= nil and kVars.SelectedTPToPlayer ~= kVars.lp.name then
             if string.lower(v.DisplayName) == string.lower(kVars.SelectedTPToPlayer) then
@@ -155,7 +159,7 @@ end,{animated = true})
 ----========== page character ==========----
 ---- section Character ----
 kVars.walkSpeed = kVars.humanoid.WalkSpeed
-sectionCharacter:Create("Slider", "Walk Speed", function(value)
+kVars.GUI.section.options:Create("Slider", "Walk Speed", function(value)
     kVars.walkSpeed = value
     kVars.humanoid.WalkSpeed = value
 end,{min = 16, max = 500, default = kVars.humanoid.walkSpeed, precise = false, changablevalue = true})
@@ -168,7 +172,7 @@ end
 fConnectWalkSpeed()
 
 kVars.jumpPower = kVars.humanoid.JumpPower
-sectionCharacter:Create("Slider", "Jump Power", function(value)
+kVars.GUI.section.options:Create("Slider", "Jump Power", function(value)
     kVars.jumpPower = value
     kVars.humanoid.JumpPower = value
 end,{min = 7.2, max = 500, default = kVars.humanoid.jumpPower, precise = true, changablevalue = true})
@@ -181,7 +185,7 @@ end
 fConnectJumpPower()
 
 kVars.jumpHeight = kVars.humanoid.JumpHeight
-sectionCharacter:Create("Slider", "Jump Height", function(value)
+kVars.GUI.section.options:Create("Slider", "Jump Height", function(value)
     kVars.jumpHeight = value
     kVars.humanoid.JumpHeight = value
 end,{min = 7.2, max = 500, default = kVars.humanoid.jumpHeight, precise = true, changablevalue = true})
@@ -209,7 +213,7 @@ kVars.connections.playerAdded = game.Players.LocalPlayer.CharacterAdded:Connect(
 end)
 
 kVars.boolInfJump = false
-sectionCharacter:Create("Toggle", "Inf Jump",function(bool)
+kVars.GUI.section.options:Create("Toggle", "Inf Jump",function(bool)
     kVars.boolInfJump = bool
 end,{default = kVars.boolInfJump})
 
@@ -222,7 +226,7 @@ end)
 ----========== page misc ==========----
 ---- section keybinds ----
 kVars.OpenCloseMenuKey = Enum.KeyCode.F5
-sectionKeybinds:Create("KeyBind", "Open Close Menu", function(key)
+kVars.GUI.section.keybinds:Create("KeyBind", "Open Close Menu", function(key)
     kVars.OpenCloseMenuKey = key
 end,{default = kVars.OpenCloseMenuKey})
 
@@ -243,7 +247,7 @@ if game.Lighting.FogStart < 100 then
 else
     kVars.boolFog = false
 end
-sectionWorld:Create("Toggle", "Fog",function(bool)
+kVars.GUI.section.world:Create("Toggle", "Fog",function(bool)
     kVars.boolFog = bool
     if bool then
         game.Lighting.FogStart = 0
@@ -253,17 +257,17 @@ sectionWorld:Create("Toggle", "Fog",function(bool)
 end,{default = kVars.boolFog})
 
 ---- sections options ----
-sectionMisc:Create("Button", "Destroy this GUI",function()
+kVars.GUI.section.misc:Create("Button", "Destroy this GUI",function()
     game:GetService("CoreGui"):FindFirstChild(kVars.WindowName):Destroy()
 end,{animated = true})
 
-sectionMisc:Create("Toggle", "Purchase Prompt",function(bool)
+kVars.GUI.section.misc:Create("Toggle", "Purchase Prompt",function(bool)
     game:GetService("CoreGui").PurchasePrompt.Enabled = bool
 end,{default = game:GetService("CoreGui").PurchasePrompt.Enabled})
 
 kVars.Esp = {}
 kVars.boolEsp = false
-sectionMisc:Create("Toggle", "Player ESP",function(bool)
+kVars.GUI.section.misc:Create("Toggle", "Player ESP",function(bool)
     kVars.boolEsp = bool
     if not bool then
         for i,v in pairs(game.Players:GetPlayers()) do
@@ -367,16 +371,16 @@ end
 
 ----========== page credits ==========----
 ---- keaths ----
-sectionCreditsKeath:Create("Button", "https://github.com/dady172172/Roblox-Cheats", function()
+kVars.GUI.section.creditsKeath:Create("Button", "https://github.com/dady172172/Roblox-Cheats", function()
     setclipboard('https://github.com/dady172172/Roblox-Cheats')
 end,{animated = true})
 
-sectionCreditsKeath:Create("Button", "https://discord.gg/MhMB3c2CBn", function()
+kVars.GUI.section.creditsKeath:Create("Button", "https://discord.gg/MhMB3c2CBn", function()
     setclipboard('https://discord.gg/MhMB3c2CBn')
 end,{animated = true})
 
 ---- alex ----
-sectionCreditsAlex:Create("Button", "https://teppyboy.github.io/", function()
+kVars.GUI.section.creditsAlex:Create("Button", "https://teppyboy.github.io/", function()
     setclipboard('https://teppyboy.github.io/Mirrors/Documentations/Zypher_UI/zypher.wtf/docs/main.html')
 end,{animated = true})
 

@@ -1,12 +1,12 @@
 --[[
-Game : 
+Game : https://www.roblox.com/games/258258996
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats : https://discord.gg/MhMB3c2CBn
 GUI Made by : xTheAlex14 : https://teppyboy.github.io/Mirrors/Documentations/Zypher_UI/zypher.wtf/docs/uilibdocs.html
 ]]--
 ---- vars ----
 kVars = {}
-kVars.WindowName = ""
-kVars.placeID = 
+kVars.WindowName = "Miner's Haven GUI"
+kVars.placeID = 258258996
 kVars.players = game:GetService('Players')
 kVars.lp = kVars.players.LocalPlayer
 kVars.vu = game:GetService('VirtualUser')
@@ -72,18 +72,27 @@ kVars.GUI.section.alex = kVars.GUI.page.credits:CreateSection("UI-Lib by : xTheA
 
 ----========== page main ==========----
 ---- Farm ----
-kVars.GUI.section.farm:Create("Toggle", "",function(bool)
-    kVars.bool. = bool
+kVars.GUI.section.farm:Create("Toggle", "Boxes",function(bool)
+    kVars.bool.Boxes = bool
     if bool then
-        f()
+        fBoxes()
     end
-end,{default = kVars.bool})
+end,{default = kVars.bool.Boxes})
 
-function f()
+function fBoxes()
     spawn(function()
-        while kVars.bool. do
+        while kVars.bool.Boxes do
             wait()
-            
+            local lp = game:GetService("Players").LocalPlayer
+            local char = lp.Character or lp.CharacterAdded:Wait()
+            local hrp = char:WaitForChild("HumanoidRootPart")
+            for i,v in pairs(game:GetService("Workspace").Boxes:GetChildren()) do
+                v.CFrame = hrp.CFrame
+                wait()
+                firetouchinstest(hrp, v, 0)
+                wait()
+                firetouchinstest(hrp, v, 1)
+            end
         end
     end)
 end
