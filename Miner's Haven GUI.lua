@@ -76,30 +76,33 @@ kVars.GUI.section.farm:Create("Toggle", "Boxes",function(bool)
     kVars.bool.Boxes = bool
     if bool then
         fBoxes()
+    else
+        kVars.hrp.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+        kVars.hrp.CFrame = CFrame.new(kVars.OriginalCFrame)
     end
 end,{default = kVars.bool.Boxes})
 
+kVars.OriginalCFrame = kVars.hrp.CFrame
 function fBoxes()
     spawn(function()
         while kVars.bool.Boxes do
             wait()
-            local lp = game:GetService("Players").LocalPlayer
-            local char = lp.Character or lp.CharacterAdded:Wait()
-            local hrp = char:WaitForChild("HumanoidRootPart")
-            local curPos = Vector3.new(hrp.CFrame.x, hrp.CFrame.y + 1, hrp.CFrame.z)
             local didTp = false
+            kVars.OriginalCFrame = kVars.hrp.Position
             for i,v in pairs(game:GetService("Workspace").Boxes:GetChildren()) do
                 repeat
                     wait()
-                    v.Anchored = true
-                    v.CanCollide = false
-                    hrp.CFrame = CFrame.new(v.Position)
+                    kVars.hrp.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+                    kVars.hrp.CFrame = CFrame.new(v.Position)
+                    didTp = true
                 until not v:FindFirstChild("TouchInterest") or not kVars.bool.Boxes
                 if not kVars.bool.Boxes then break end
-                didTp = true
             end
             if didTp then
-                hrp.CFrame = CFrame.new(curPos)
+                kVars.hrp.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
+                kVars.hrp.CFrame = CFrame.new(kVars.OriginalCFrame)
+                
+                
             end
         end
     end)
