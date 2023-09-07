@@ -72,6 +72,14 @@ kVars.GUI.section.alex = kVars.GUI.page.credits:CreateSection("UI-Lib by : xTheA
 
 ----========== page main ==========----
 ---- Farm ----
+local function playerTycoon()
+    for i,v in pairs(game:GetService("Workspace").Tycoons:GetChildren()) do
+        if v:FindFirstChild("Owner") and v.Owner.Value == kVars.lp.Name then
+            return v
+        end
+    end
+end
+
 kVars.GUI.section.farm:Create("Toggle", "Boxes",function(bool)
     kVars.bool.Boxes = bool
     if bool then
@@ -101,8 +109,6 @@ function fBoxes()
             if didTp then
                 kVars.hrp.AssemblyLinearVelocity = Vector3.new(0, 0, 0)
                 kVars.hrp.CFrame = CFrame.new(kVars.OriginalCFrame)
-                
-                
             end
         end
     end)
@@ -125,7 +131,9 @@ kVars.GUI.section.tpToPlayer:Create("Button", "Teleport To Player", function()
     end
 end,{animated = true})
 
-
+kVars.GUI.section.tpToPlayer:Create("Button", "Teleport to Tycoon", function()
+    kVars.hrp.CFrame = playerTycoon()["Spawn Beacon"].Hitbox.CFrame
+end,{animated = true})
 ----========== page character ==========----
 ---- section Character ----
 kVars.num.walkSpeed = kVars.humanoid.WalkSpeed
