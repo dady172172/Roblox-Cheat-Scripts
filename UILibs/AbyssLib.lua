@@ -77,7 +77,7 @@ local Utility = {}
 --
 getgenv().Library = Library
 getgenv().Utility = Utility
-if syn.protect_gui then
+if syn then
     syn.protect_gui(InputGUI)
 end
 -----------------------------------------------------------------
