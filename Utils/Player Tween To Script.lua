@@ -63,4 +63,4 @@ local function TweenTo(v, t)
 	hum:SetStateEnabled(Enum.HumanoidStateType.Freefall, true)
 end
 
-TweenTo(game.Workspace.TestPart)
+--TweenTo(game.Workspace.TestPart, 16)

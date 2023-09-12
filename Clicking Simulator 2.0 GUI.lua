@@ -1,12 +1,12 @@
 --[[
-Game : https://www.roblox.com/games/5490351219
+Game : https://www.roblox.com/games/4857069142
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats : https://discord.gg/MhMB3c2CBn
 GUI Made by : xTheAlex14 : https://teppyboy.github.io/Mirrors/Documentations/Zypher_UI/zypher.wtf/docs/uilibdocs.html
 ]]--
 ---- vars ----
 kVars = {}
-kVars.WindowName = "Clicker Madness GUI"
-kVars.placeID = 5490351219
+kVars.WindowName = "Clicking Simulator 2.0 GUI"
+kVars.placeID = 4857069142
 kVars.players = game:GetService('Players')
 kVars.lp = kVars.players.LocalPlayer
 kVars.vu = game:GetService('VirtualUser')
@@ -15,8 +15,6 @@ kVars.rs = game:GetService('ReplicatedStorage')
 kVars.char = kVars.lp.Character or kVars.lp.CharacterAdded:Wait()
 kVars.humanoid = kVars.char:WaitForChild('Humanoid')
 kVars.hrp = kVars.char:WaitForChild('HumanoidRootPart')
-kVars.pGui = kVars.lp:WaitForChild("PlayerGui")
-kVars.Http = game:GetService("HttpService")
 kVars.connect = {}
 kVars.bool = {}
 kVars.str = {}
@@ -55,15 +53,10 @@ kVars.GUI.window = kVars.GUI.library:CreateMain({
 
 kVars.GUI.page.main = kVars.GUI.window:CreateCategory("Main")
 kVars.GUI.section.farm = kVars.GUI.page.main:CreateSection("Farm")
-
-kVars.GUI.page.eggsPets = kVars.GUI.window:CreateCategory("Eggs/Pets")
-kVars.GUI.section.eggs = kVars.GUI.page.eggsPets:CreateSection("Eggs")
-kVars.GUI.section.pets = kVars.GUI.page.eggsPets:CreateSection("Pets")
-kVars.GUI.section.deletePets = kVars.GUI.page.eggsPets:CreateSection("Delete Pets")
+kVars.GUI.section.rebirth = kVars.GUI.page.main:CreateSection("Rebirth")
 
 kVars.GUI.page.teleport = kVars.GUI.window:CreateCategory("Teleport")
-kVars.GUI.section.tpToPlayer = kVars.GUI.page.teleport:CreateSection("Teleport To Player")
-kVars.GUI.section.tpToLocations = kVars.GUI.page.teleport:CreateSection("Teleport To Locations")
+kVars.GUI.section.tpToPlayer = kVars.GUI.page.teleport :CreateSection("Teleport To Player")
 
 kVars.GUI.page.character = kVars.GUI.window:CreateCategory("Character")
 kVars.GUI.section.character = kVars.GUI.page.character:CreateSection("Options")
@@ -81,157 +74,78 @@ kVars.GUI.section.alex = kVars.GUI.page.credits:CreateSection("UI-Lib by : xTheA
 ----========== page main ==========----
 ---- Farm ----
 kVars.GUI.section.farm:Create("Toggle", "Click",function(bool)
-    kVars.boolClick = bool
+    kVars.bool.Click = bool
     if bool then
         fClick()
     end
-end,{default = kVars.boolClick})
+end,{default = kVars.bool.Click})
 
 function fClick()
     spawn(function()
-        while kVars.boolClick do
+        while kVars.bool.Click do
             task.wait()
-            firesignal(kVars.pGui.Click.Button.MouseButton1Down)
+            game:GetService("Workspace").Events.Give:FireServer()
         end
     end)
 end
 
-kVars.GUI.section.farm:Create("Toggle", "Collect",function(bool)
-    kVars.boolCollect = bool
+kVars.GUI.section.farm:Create("Toggle", "Collect Farmers Clicks",function(bool)
+    kVars.bool.farmersClicks = bool
     if bool then
-        fCollect()
+        ffarmersClicks()
     end
-end,{default = kVars.boolCollect})
+end,{default = kVars.bool.farmersClicks})
 
-function fCollect()
+function ffarmersClicks()
     spawn(function()
-        while kVars.boolCollect do
+        while kVars.bool.farmersClicks do
             wait()
-            for i,v in pairs(game:GetService("Workspace").ScriptObjects:GetChildren()) do
-                if v:FindFirstChild("HumanoidRootPart") then
-                    firetouchinterest(kVars.hrp, v.HumanoidRootPart, 0)
-                end
-            end
-        end
-    end)
-end
-
-kVars.GUI.section.farm:Create("Button", "Unlock Auto Rebirth", function()
-    kVars.lp.Gamepasses.AutoRebirth.Value = true
-end,{animated = true})
-
-
-----========== page Eggs/Pets ==========----
----- section Eggs ----
-kVars.eggsList = {}
-for i,v in pairs(game:GetService("Workspace").EggCapsules:GetChildren()) do
-    table.insert(kVars.eggsList, tostring(v.EggID.Value))
-end
-table.sort(kVars.eggsList)
-
-kVars.selectedEgg = kVars.eggsList[1]
-kVars.GUI.section.eggs:Create("DropDown", "Select and egg to open", function(value)
-    kVars.selectedEgg = value
-end,{options = kVars.eggsList, default = kVars.eggsList[1], search = true})
-
-kVars.GUI.section.eggs:Create("Toggle", "Open",function(bool)
-    kVars.boolOpenEgg = bool
-    if bool then
-        fOpenEgg()
-    end
-end,{default = kVars.boolOpenEgg})
-
-function fOpenEgg()
-    spawn(function()
-        while kVars.boolOpenEgg do
-            wait()
-            kVars.rs.Aero.AeroRemoteServices.EggService.Purchase:FireServer(kVars.selectedEgg)
-        end
-    end)
-end
-
----- section Pets ----
-kVars.GUI.section.pets:Create("Button", "Equip Best", function()
-    local pets = HttpService:JSONDecode(game.Players.LocalPlayer.Data.Pets.Value)
-    for i,v in pairs(pets) do -- unequip all pets
-        if v.Equipped then
-            game:GetService("ReplicatedStorage").Aero.AeroRemoteServices.PetService.UnequipPet:FireServer(i)
-        end
-    end
-    
-    
-end,{animated = true})
-
-
-kVars.GUI.section.pets:Create("Toggle", "Craft",function(bool)
-    kVars.boolCraft = bool
-    if bool then
-        fCraft()
-    end
-end,{default = kVars.boolCraft})
-
-function fCraft()
-    spawn(function()
-        while kVars.boolCraft do
-            wait()
-            for i,v in pairs(kVars.lp.PlayerGui.Pets.Main.Content.Main:GetChildren()) do
-                wait()
-                if kVars.boolCraft == false then break end
-                pcall(function()
-                    if v:FindFirstChild("Craft") then
-                        firesignal(v:FindFirstChild("Craft").MouseButton1Down)
-                    end
-                end)
-            end
+            game:GetService("Workspace").Events.Collect:FireServer()
         end
     end)
 end
 
 
-
-kVars.petsList = require(game.ReplicatedStorage.Aero.Shared.List.Pets)
-kVars.petsNamesList = {}
-for i,v in pairs(kVars.petsList) do
-    if not table.find(kVars.petsList,v.DisplayName) then
-        table.insert(kVars.petsNamesList, tostring(v.DisplayName))
-    end    
+kVars.rebirthList = {
+    {name = "1", id = 2},
+    {name = "5", id = 3},
+    {name = "15", id = 4},
+    {name = "50", id = 5},
+    {name = "100", id = 7},
+    {name = "250", id = 8},
+    {name = "750", id = 9},
+    {name = "2.5k", id = 10},
+    {name = "10k", id = 11}, 
+    {name = "25k", id = 12},
+    {name = "100k", id = 13},
+    {name = "500k", id = 14}
+}
+kVars.rebirthListNames = {}
+for i,v in pairs(kVars.rebirthList) do
+    table.insert(kVars.rebirthListNames, v.name)
 end
-table.sort(kVars.petsNamesList)
-table.insert(kVars.petsNamesList, 1, "NONE")
-
-
-for i=1,5 do
-    kVars["selectedPet" .. i] = kVars.petsNamesList[1]
-    kVars.GUI.section.deletePets:Create("DropDown", "Select a pet", function(value)
-        kVars["selectedPet" .. i] = value
-    end,{options = kVars.petsNamesList, default = kVars.petsNamesList[1], search = true})
-    
-end
-
-kVars.GUI.section.deletePets:Create("Toggle", "Delete pet by name *Carful",function(bool)
-    kVars.bool.delPet = bool
-    if bool then
-        fDelPet()
+kVars.str.selectedRebirth = "1"
+kVars.GUI.section.rebirth:Create("DropDown", "Select Amount", function(value)
+    for i,v in pairs(kVars.rebirthList) do
+        if v.name == value then
+            kVars.str.selectedRebirth = tostring(v.id)
+        end
     end
-end,{default = kVars.bool.delPet})
+end,{options = kVars.rebirthListNames, default = kVars.rebirthListNames[1], search = true})
 
-function fDelPet()
+
+kVars.GUI.section.rebirth:Create("Toggle", "Rebirth",function(bool)
+    kVars.bool.rebirth = bool
+    if bool then
+        frebirth()
+    end
+end,{default = kVars.bool.rebirth})
+
+function frebirth()
     spawn(function()
-        while kVars.bool.delPet do
+        while kVars.bool.rebirth do
             wait()
-            local plrPets = game:GetService("HttpService"):JSONDecode(kVars.lp.Data.Pets.Value)
-            local delPetsList = {}
-            for a=1,5 do
-                local b = kVars["selectedPet" .. a]
-                for i,v in pairs(plrPets) do
-                    if string.find(string.lower(v.ID), string.lower(b)) then
-                        table.insert(delPetsList, i)
-                    end
-                end                
-            end
-            if delPetsList[1] then
-                kVars.rs.Aero.AeroRemoteServices.PetService.DeletePets:FireServer(delPetsList)
-            end
+            game:GetService("Workspace").Events["Give" .. kVars.str.selectedRebirth]:FireServer()
         end
     end)
 end
@@ -253,23 +167,6 @@ kVars.GUI.section.tpToPlayer:Create("Button", "Teleport To Player", function()
         end
     end
 end,{animated = true})
-
-kVars.GUI.section.tpToLocations:Create("Button", "Spawn", function()
-    local v = game:GetService("Workspace").SpawnLocation
-    kVars.char:SetPrimaryPartCFrame(CFrame.new(v.CFrame.x, (v.CFrame.y + 3), v.CFrame.z))
-end,{animated = true})
-
-kVars.WorldsOrder = {"Lava", "Desert", "Ocean", "Winter", "Toxic", "Candy", "Forest", "Storm", "Blocks", "Space", "Dominus", "Infinity", "Future", "City", "Moon", "Fire"}
-for i,v in pairs(kVars.WorldsOrder) do
-    if game:GetService("Workspace").Worlds:FindFirstChild(v) then
-        if game:GetService("Workspace").Worlds[v]:FindFirstChild("Teleport") then
-            local temp = game:GetService("Workspace").Worlds[v].Teleport
-            kVars.GUI.section.tpToLocations:Create("Button", v, function()
-                kVars.char:SetPrimaryPartCFrame(CFrame.new(temp.CFrame.x, temp.CFrame.y, temp.CFrame.z))
-            end,{animated = true})
-        end
-    end
-end
 
 
 ----========== page character ==========----
@@ -347,12 +244,6 @@ kVars.GUI.section.world:Create("Toggle", "Fog",function(bool)
 end,{default = kVars.bool.fog})
 
 ---- sections options ----
-kVars.bool.popEffect = kVars.pGui.PopupEffects.Enabled
-kVars.GUI.section.options:Create("Toggle", "Disable Popup Effects",function(bool)
-    kVars.bool.popEffect = bool
-    kVars.pGui.PopupEffects.Enabled = bool
-end,{default = kVars.bool.popEffect})
-
 kVars.GUI.section.options:Create("Button", "Destroy this GUI",function()
     game:GetService("CoreGui"):FindFirstChild(kVars.WindowName):Destroy()
 end,{animated = true})
@@ -361,7 +252,7 @@ kVars.GUI.section.options:Create("Toggle", "Purchase Prompt",function(bool)
     game:GetService("CoreGui").PurchasePrompt.Enabled = bool
 end,{default = game:GetService("CoreGui").PurchasePrompt.Enabled})
 
----- section ESP ----
+
 local sides = {Enum.NormalId.Top, Enum.NormalId.Bottom, Enum.NormalId.Left, Enum.NormalId.Right, Enum.NormalId.Front, Enum.NormalId.Back}
 
 function EspChar()
@@ -562,3 +453,61 @@ kVars.cR = game:GetService("CoreGui").ChildRemoved:Connect(function(child)
         kVars.cR:Disconnect()
     end
 end)
+
+
+
+--[[
+    ---- Toggle ----
+kVars.bool.
+kVars.GUI.section.farm:Create("Toggle", "",function(bool)
+    kVars.bool. = bool
+    if bool then
+        kVars.func.()
+    end
+end,{default = kVars.bool})
+
+function kVars.func.()
+    spawn(function()
+        while kVars.bool. do
+            wait()
+            
+        end
+    end)
+end
+
+    ---- Button ----
+kVars.GUI.section.farm:Create("Button", "", function()
+
+end,{animated = true})
+
+    ---- DropDown ----
+kVars.List = 
+kVars.GUI.section.farm:Create("DropDown", "", function(value)
+
+end,{options = kVars.List, default = kVars.List[1], search = true})
+
+    ---- Slider ----
+kVars.GUI.section.farm:Create("Slider", "", function(value)
+
+end,{min = 0, max = 5, default = 2, precise = false, changablevalue = true})
+
+    ---- Textbox ----
+kVars.str. = "default"
+kVars.GUI.section.farm:Create("TextBox", "", function(value)
+    kVars.str. = value
+end,{text = kVars.str.})
+
+    ---- KeyBind ----
+kVars.GUI.section.farm:Create("KeyBind", "", function()
+
+end,{default = Enum.KeyCode.k})
+
+    ---- ColorPicker ----
+kVars.GUI.section.farm:Create("ColorPicker", "", function(color)
+
+end,{default = Color3.fromRGB(255,255,255)})
+
+    ---- Label ----
+kVars.GUI.section.farm:Create("Textlabel", "Suck It")
+
+]]

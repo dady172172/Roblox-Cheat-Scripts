@@ -1,5 +1,5 @@
-local plr = game:GetService("Players").LocalPlayer
-local char = plr.Character or plr.CharacterAdded:Wait()
+local lp = game:GetService("Players").LocalPlayer
+local char = lp.Character or lp.CharacterAdded:Wait()
 local hrp = char:WaitForChild("HumanoidRootPart")
 local hum = char:WaitForChild("Humanoid")
 
@@ -20,5 +20,5 @@ local function followPath(destination)
     end
 end
 
-followPath(game:GetService("Workspace"):GetChildren()[138]["Meshes/the wood (2)"].Position)
-print("done")
+--followPath(game:GetService("Workspace"):GetChildren()[138]["Meshes/the wood (2)"].Position)
+--print("done")

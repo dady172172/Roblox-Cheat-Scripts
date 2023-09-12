@@ -58,4 +58,4 @@ local function followPath(destination)
 	end
 end
 
-followPath(TEST_DESTINATION)
+--followPath(TEST_DESTINATION)
