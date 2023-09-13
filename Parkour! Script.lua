@@ -2,18 +2,19 @@
 Game https://www.roblox.com/games/2329123383
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 ]]--
-
---2 parts you have to run b/c you die on 132 for some reason
---run this first
-for i=1,132 do
-    wait(.2)
-	game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace")[i].CFrame
-    i = i + 1
+if 2329123383 ~= game.PlaceId then 
+    warn("#### - This Script is not for this game. - ####")
+    script:Destroy()
+    return 
 end
--- then run this 
-for i=133,250 do
-    wait(.2)
-    game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Workspace")[i].CFrame
-    i = i + 1
-end
+local lp = game:GetService("Players").LocalPlayer
+local char = lp.Character or lp.CharacterAdded:Wait()
+local hrp = char:WaitForChild("HumanoidRootPart")
+local ws = game:GetService("Workspace")
+local stage = lp:WaitForChild("leaderstats").Stage
+repeat
+    task.wait()
+    firetouchinterest(hrp, ws[tostring(stage.Value + 1)], 0)
+until stage.Value >= 249
+hrp.CFrame = ws["250"].CFrame
 

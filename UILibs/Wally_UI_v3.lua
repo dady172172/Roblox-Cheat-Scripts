@@ -34,7 +34,7 @@ function f()
 end
 
 ---- Closing ----
-kVars.closeing = script.Parent.ChildRemoved:Connect(function(child)
+--[[kVars.closeing = game:GetService("CoreGui").ChildRemoved:Connect(function(child)
 	if child.Name == script.Name then
 		kVars.closing = true
 		wait(.1)
@@ -43,7 +43,7 @@ kVars.closeing = script.Parent.ChildRemoved:Connect(function(child)
 		kVars.closeing:Disconnect()
 		script:Destroy()
 	end
-end)
+end)]]--
 
 
 --[[
