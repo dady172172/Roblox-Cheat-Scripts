@@ -1,4 +1,6 @@
 # Roblox-Cheats
+For the time being development is slow do to roblox anticheat. There are ways to bypass it, but its not stable at the moment.
+
 If you have issues with the scripts or would like to contact me. You can join my discord at [https://discord.gg/MhMB3c2CBn](https://discord.gg/MhMB3c2CBn).\
 Scripts that have GUI in there name, mean that they have an interface in game (Buttons and Dropdowns). The scripts that do not have GUI in the name require a Global variable to be turned on and off.\
 I provide a game link at the top of every script, so there is no confusion about which game the script is for.\
@@ -11,12 +13,13 @@ Any of these Scripts are AT YOUR OWN RISK. I do not take responsability for bans
 Now with that out of the way.. Have fun and stay safe.
 
 # How To Use These Scripts
-1. Download your favorite Roblox injector. I use PC -> [Synapse X](https://x.synapse.to/)  microsoft appstore -> [Electron](https://ryos.lol/). If you don't have one Google it.
+Check back soon to see what we come up with.
+~~1. Download your favorite Roblox injector. I use PC -> [Synapse X](https://x.synapse.to/)  microsoft appstore -> [Electron](https://ryos.lol/). If you don't have one Google it.
 2. Join the game.
 3. Open the injector. The one you choose from step one.
 4. Add the text of the lua files above or load the lua file into the injector.
 5. Inject the script into the game.
-6. Profit!
+6. Profit!~~
 
 # FAQ
 -   Q:Are payed injectors better than the free ones?\
