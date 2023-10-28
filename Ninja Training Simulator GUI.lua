@@ -1,11 +1,11 @@
 --[[
-Game : https://www.roblox.com/games/9969599224
+Game : https://www.roblox.com/games/9397663086
 Codded by : Keathunsar : https://github.com/dady172172/Roblox-Cheats
 GUI Made by : xTheAlex14 : https://teppyboy.github.io/Mirrors/Documentations/Zypher_UI/zypher.wtf/docs/uilibdocs.html
 ]]--
 ---- vars ----
 kVars = {}
-kVars.WindowName = "Poo Tycoon GUI"
+kVars.WindowName = "Ninja Training Simulator GUI"
 kVars.lp = game:GetService('Players').LocalPlayer
 kVars.vu = game:GetService('VirtualUser')
 kVars.uis = game:GetService('UserInputService')
@@ -30,15 +30,17 @@ local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/teppy
 local Window = library:CreateMain({
     projName = kVars.WindowName,
     Resizable = true,
-    MinSize = UDim2.new(0,300,0,300),
-    MaxSize = UDim2.new(0,800,0,800),
+    MinSize = UDim2.new(0,400,0,400),
+    MaxSize = UDim2.new(0,750,0,500),
 })
 
 local pageMain = Window:CreateCategory("Main")
 local sectionFarm = pageMain:CreateSection("Farm")
+local sectionUpgrades = pageMain:CreateSection("Upgrades")
 
 local pageTeleport = Window:CreateCategory("Teleport")
 local sectionTPToPlayer = pageTeleport:CreateSection("Teleport To Player")
+local sectionLocations = pageTeleport:CreateSection("Locations")
 
 local pageCharacter = Window:CreateCategory("Character")
 local sectionCharacter = pageCharacter:CreateSection("Options")
@@ -54,81 +56,178 @@ local sectionCreditsAlex = pageCredits:CreateSection("UI-Lib by : xTheAlex14")
 
 ----========== page main ==========----
 ---- Farm ----
-kVars.boolMoney = false
-sectionFarm:Create("Toggle", "Collect Money",function(bool)
-    kVars.boolMoney = bool
+kVars.boolClick = false
+sectionFarm:Create("Toggle", "Click",function(bool)
+    kVars.boolClick = bool
     if bool then
-        fMoney()
+        fClick()
+        game:GetService("Players").LocalPlayer.PlayerGui.MainUI.Bottom.Auto.Enabled.Value = true
+    else
+        game:GetService("Players").LocalPlayer.PlayerGui.MainUI.Bottom.Auto.Enabled.Value = false
     end
-end,{default = kVars.boolMoney})
+end,{default = kVars.boolClick})
 
-function fMoney()
+function fClick()
     spawn(function()
-        while kVars.boolMoney do
-            firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace")["keathunsar's Tycoon"].Bank.Pad, 0)
+        while kVars.boolClick do
             wait()
-            firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, game:GetService("Workspace")["keathunsar's Tycoon"].Bank.Pad, 1)
+                game:GetService("ReplicatedStorage").Events.Click:FireServer()
         end
     end)
 end
 
-kVars.boolBuyButtons = false
-sectionFarm:Create("Toggle", "Buy all buttons",function(bool)
-    kVars.boolBuyButtons = bool
-    if bool then
-        fBuyButtons()
-    end
-end,{default = kVars.boolBuyButtons})
+sectionFarm:Create("Button", "Open Auto Rebirth", function()
+    game:GetService("Players").LocalPlayer.PlayerGui.MainUI.AutoRebirthsFrame.Visible = true
+    game:GetService("Players").LocalPlayer.PlayerGui.MainUI.AutoRebirthsFrame:TweenSize(UDim2.new(0.253, 0, 0.599), "Out", "Quad", 0.05, true)
+end,{animated = true})
 
-function fBuyButtons()
-    spawn(function()
-        while kVars.boolBuyButtons do
-            wait()
-            for i,v in pairs(game:GetService("Workspace")[game.Players.LocalPlayer.name .. "'s Tycoon"]:GetChildren()) do
-                if kVars.boolBuyButtons == false then return end
-                if v:FindFirstChild("TouchInterest") then
-                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 0)
-                    wait()
-                    firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 1)
-                end
-            end
-        end
-    end)
-end
+sectionFarm:Create("Button", "Open Teleport", function()
+    local a = game:GetService("Players").keathunsar.PlayerGui.MainUI.Boosts
+    game:GetService("Players").LocalPlayer.PlayerGui.MainUI.TeleportFrame.Visible = true
+    game:GetService("Players").LocalPlayer.PlayerGui.MainUI.TeleportFrame:TweenSize(UDim2.new(0.253, 0, 0.599), "Out", "Quad", 0.05, true)
+end,{animated = true})
 
-kVars.boolTPToBoxes = false
-sectionFarm:Create("Toggle", "TP to boxes",function(bool)
-    kVars.boolTPToBoxes = bool
-    if bool then
-        fTPToBoxes()
-    end
-end,{default = kVars.boolTPToBoxes})
-
-function fTPToBoxes()
-    spawn(function()
-        while kVars.boolTPToBoxes do
-            wait()
-            pcall(function()
-                for i,v in pairs(game:GetService("Workspace").BoxDump:GetChildren()) do
-                    if kVars.boolTPToBoxes == false then return end
-                    if (v.Position - kVars.hrp.Position).magnitude > 4 then
-                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
-                        wait(.3)
-                        fireproximityprompt(v.ProximityPrompt, 2)
-                    end
-                end
-            end)
-        end
-    end)
-end
-
-sectionFarm:Create("Button", "Collect all hidden Poo's", function()
-    for i,v in pairs(game:GetService("Workspace").FindThePoop:GetChildren()) do
-        firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 0)
-        wait()
-        firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v, 1)
+sectionFarm:Create("Button", "Walk on Woda. lol", function()
+    if game:GetService("Workspace").Woda:FindFirstChild("TouchInterest") then
+        game:GetService("Workspace").Woda.TouchInterest:Destroy()
+        game:GetService("Workspace").Woda.CanCollide = true
     end
 end,{animated = true})
+
+
+
+---- section upgrades ----
+sectionUpgrades:Create("Toggle", "Master",function(bool)
+    kVars.boolMaster = bool
+    if bool then
+        fMaster()
+    end
+end,{default = kVars.boolMaster})
+
+function fMaster()
+    spawn(function()
+        while kVars.boolMaster do
+            wait()
+            game:GetService("ReplicatedStorage").Functions.Masters:InvokeServer()
+        end
+    end)
+end
+
+kVars.boolRank = false
+sectionUpgrades:Create("Toggle", "Rank",function(bool)
+    kVars.boolRank = bool
+    if bool then
+        fRank()
+    end
+end,{default = kVars.boolRank})
+
+function fRank()
+    spawn(function()
+        while kVars.boolRank do
+            wait()
+            game:GetService("ReplicatedStorage").Functions.Rank:InvokeServer(game:GetService("Players").LocalPlayer.PlayerGui.MainUI.GameShopFrame.Ranks.Value + 1)
+        end
+    end)
+end
+
+
+kVars.boolGem = false
+sectionUpgrades:Create("Toggle", "Gem",function(bool)
+    kVars.boolGem = bool
+    if bool then
+        fGem()
+    end
+end,{default = kVars.boolGem})
+
+function fGem()
+    spawn(function()
+        while kVars.boolGem do
+            wait()
+            game:GetService("ReplicatedStorage").Functions.Upgrade:InvokeServer("Gems")
+        end
+    end)
+end
+
+kVars.boolPower = false
+sectionUpgrades:Create("Toggle", "Power",function(bool)
+    kVars.boolPower = bool
+    if bool then
+        fPower()
+    end
+end,{default = kVars.boolPower})
+
+function fPower()
+    spawn(function()
+        while kVars.boolPower do
+            wait()
+            game:GetService("ReplicatedStorage").Functions.Upgrade:InvokeServer("Power")
+        end
+    end)
+end
+
+kVars.boolPetEquip = false
+sectionUpgrades:Create("Toggle", "Pet Equip",function(bool)
+    kVars.boolPetEquip = bool
+    if bool then
+        fPetEquip()
+    end
+end,{default = kVars.boolPetEquip})
+
+function fPetEquip()
+    spawn(function()
+        while kVars.boolPetEquip do
+            wait()
+            game:GetService("ReplicatedStorage").Functions.Upgrade:InvokeServer("PetEquip")
+        end
+    end)
+end
+
+kVars.boolPetStorage = false
+sectionUpgrades:Create("Toggle", "Pet Storage",function(bool)
+    kVars.boolPetStorage = bool
+    if bool then
+        fPetStorage()
+    end
+end,{default = kVars.boolPetStorage})
+
+function fPetStorage()
+    spawn(function()
+        while kVars.boolPetStorage do
+            wait()
+            game:GetService("ReplicatedStorage").Functions.Upgrade:InvokeServer("PetStorage")
+        end
+    end)
+end
+
+kVars.boolLuck = false
+sectionUpgrades:Create("Toggle", "Luck Multiplier",function(bool)
+    kVars.boolLuck = bool
+    if bool then
+        fLuck()
+    end
+end,{default = kVars.boolLuck})
+
+function fLuck()
+    spawn(function()
+        while kVars.boolLuck do
+            wait()
+            game:GetService("ReplicatedStorage").Functions.Upgrade:InvokeServer("Luck")
+        end
+    end)
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ----========== page teleport ==========----
@@ -148,6 +247,23 @@ sectionTPToPlayer:Create("Button", "Teleport To Player", function()
     end
 end,{animated = true})
 
+---- section locations ----
+kVars.locations = {
+    [1] = "Spawn",
+    [2] = "Ocean",
+    [3] = "Volcano",
+    [4] = "Forest",
+    [5] = "Candy",
+    [6] = "Cyber",
+    [7] = "Desert"
+}
+
+for i,v in ipairs(kVars.locations) do
+    sectionLocations:Create("Button", v, function()
+        game:GetService("ReplicatedStorage").Events.Teleport:FireServer("Teleport",v)
+    end,{animated = true})
+end
+
 
 ----========== page character ==========----
 ---- section Character ----
@@ -155,13 +271,13 @@ kVars.walkSpeed = kVars.humanoid.WalkSpeed
 sectionCharacter:Create("Slider", "Walk Speed", function(value)
     kVars.walkSpeed = value
     kVars.humanoid.WalkSpeed = value
-end,{min = 16, max = 500, default = kVars.humanoid.walkSpeed, precise = false, changablevalue = true})
+end,{min = 16, max = 500, default = kVars.humanoid.WalkSpeed, precise = false, changablevalue = true})
 
-kVars.jumpHeight = kVars.humanoid.JumpHeight
-sectionCharacter:Create("Slider", "Jump Height", function(value)
-    kVars.jumpHeight = value
-    kVars.humanoid.JumpHeight = value
-end,{min = 7.2, max = 500, default = kVars.humanoid.jumpHeight, precise = true, changablevalue = true})
+kVars.jumpPower = kVars.humanoid.JumpPower
+sectionCharacter:Create("Slider", "Jump Power", function(value)
+    kVars.jumpPower = value
+    kVars.humanoid.JumpPower = value
+end,{min = 50, max = 500, default = kVars.humanoid.JumpPower, precise = false, changablevalue = true})
 
 
 kVars.plrAdded = game.Players.LocalPlayer.CharacterAdded:Connect(function(child)
@@ -169,7 +285,7 @@ kVars.plrAdded = game.Players.LocalPlayer.CharacterAdded:Connect(function(child)
     kVars.hrp = kVars.lp.Character:WaitForChild('HumanoidRootPart', 999999)
     task.wait(1)
     kVars.humanoid.WalkSpeed = kVars.walkSpeed
-    kVars.humanoid.JumpHeight = kVars.jumpHeight
+    kVars.humanoid.JumpPower = kVars.jumpPower
 end)
 
 kVars.boolInfJump = false
@@ -202,7 +318,6 @@ kVars.connectInputBegan = kVars.uis.InputBegan:Connect(function(key)
 end)
 
 ---- section world ----
-
 if game.Lighting.FogStart < 100 then
     kVars.boolFog = true
 else
@@ -259,6 +374,3 @@ kVars.cR = game:GetService("CoreGui").ChildRemoved:Connect(function(child)
         kVars.cR:Disconnect()
     end
 end)
-
-game:GetService("CoreGui")[kVars.WindowName].Motherframe.Size = UDim2.new(0,480,0,340)
-

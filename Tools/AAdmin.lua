@@ -1,1 +1,1 @@
-loadstring(game:HttpGet(('https://pastebin.com/raw/MjBzRjmT'),true))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
